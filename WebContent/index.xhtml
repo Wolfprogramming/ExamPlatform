@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+    <h:head>
+		<title>Start page</title>
+		<h:outputStylesheet library="css" name="style.css" />
+	</h:head>
+	<h:body>
+		<h:form>
+			<p:dataTable value="#{examListMB.theExams}" var="exa">
+				<f:facet name="header">
+					Exams
+				</f:facet>
+				
+				<p:column headerText="Name">
+<!-- 		             <h:commandLink action="exam" value="#{exa.idExam} or  value="#{managedBean.createCategoryModel(managedBean.selectedRecord.cellid)}""> -->
+		            	<h:outputText value="#{exa.eName}" />
+<!-- 		            </h:commandLink>  -->
+		        </p:column>
+				
+		        <p:column headerText="Start date">
+		            <h:outputText value="#{exa.eDate}" >
+		            	<f:convertDateTime pattern="MM/dd/yyyy" />
+		            </h:outputText>
+		            <h:outputText value=" #{exa.eStartHour}" />
+		        </p:column>
+		
+		        <p:column headerText="End date">
+		            <h:outputText value="#{exa.eEndHour}">
+		            	<f:convertDateTime pattern="HH:mm:ss" />
+		            </h:outputText>
+		        </p:column>
+		  
+			</p:dataTable>
+		</h:form> 
+		
+		<br/>
+		<br/>
+		
+		<h:form>
+			<p:dataTable value="#{teacherListMB.theTeachers}" var="tea">
+				<f:facet name="header">
+					Teachers
+				</f:facet>
+				
+				<p:column headerText="FirstName">
+		            	<h:outputText value="#{tea.tFirstName}" />
+		        </p:column>
+		        
+		        <p:column headerText="LastName">
+		            <h:outputText value="#{tea.tLastName}" />
+		        </p:column>
+				
+		        <p:column headerText="Email">
+		            <h:outputText value="#{tea.tEmail}" />
+		        </p:column>
+		  
+			</p:dataTable>
+		</h:form>
+		
+	</h:body>
+</html>

@@ -7,7 +7,7 @@ import java.util.Date;
 
 
 /**
- * The persistent class for the exam database table.
+ * The persistent class for the Exam database table.
  * 
  */
 @Entity
@@ -16,6 +16,7 @@ public class Exam implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idExam;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -24,7 +25,6 @@ public class Exam implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date eDate;
 
-	@Lob
 	private String eDesc;
 
 	private Time eEndHour;
@@ -44,75 +44,75 @@ public class Exam implements Serializable {
 	public Exam() {
 	}
 
-	public int getIdExam() {
+	public int getidExam() {
 		return this.idExam;
 	}
 
-	public void setIdExam(int idExam) {
+	public void setidExam(int idExam) {
 		this.idExam = idExam;
 	}
 
-	public Date getECreationDate() {
+	public Date geteCreationDate() {
 		return this.eCreationDate;
 	}
 
-	public void setECreationDate(Date eCreationDate) {
+	public void seteCreationDate(Date eCreationDate) {
 		this.eCreationDate = eCreationDate;
 	}
 
-	public Date getEDate() {
+	public Date geteDate() {
 		return this.eDate;
 	}
 
-	public void setEDate(Date eDate) {
+	public void seteDate(Date eDate) {
 		this.eDate = eDate;
 	}
 
-	public String getEDesc() {
+	public String geteDesc() {
 		return this.eDesc;
 	}
 
-	public void setEDesc(String eDesc) {
+	public void seteDesc(String eDesc) {
 		this.eDesc = eDesc;
 	}
 
-	public Time getEEndHour() {
+	public Time geteEndHour() {
 		return this.eEndHour;
 	}
 
-	public void setEEndHour(Time eEndHour) {
+	public void seteEndHour(Time eEndHour) {
 		this.eEndHour = eEndHour;
 	}
 
-	public Date getEModifyDate() {
+	public Date geteModifyDate() {
 		return this.eModifyDate;
 	}
 
-	public void setEModifyDate(Date eModifyDate) {
+	public void seteModifyDate(Date eModifyDate) {
 		this.eModifyDate = eModifyDate;
 	}
 
-	public String getEName() {
+	public String geteName() {
 		return this.eName;
 	}
 
-	public void setEName(String eName) {
+	public void seteName(String eName) {
 		this.eName = eName;
 	}
 
-	public Time getEStartHour() {
+	public Time geteStartHour() {
 		return this.eStartHour;
 	}
 
-	public void setEStartHour(Time eStartHour) {
+	public void seteStartHour(Time eStartHour) {
 		this.eStartHour = eStartHour;
 	}
 
-	public Teacher getTeacher() {
+	public Teacher getteacher() {
 		return this.teacher;
 	}
 
-	public void setTeacher(Teacher teacher) {
+	public void setteacher(Teacher teacher) {
 		this.teacher = teacher;
 	}
 

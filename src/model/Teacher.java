@@ -6,8 +6,8 @@ import java.util.List;
 
 
 /**
- * The persistent class for the teacher database table.
- * 
+ * The persistent class for the Teacher database table
+ *  
  */
 @Entity
 @NamedQuery(name="Teacher.findAll", query="SELECT t FROM Teacher t")
@@ -15,6 +15,7 @@ public class Teacher implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idTeacher;
 
 	private String tEmail;
@@ -31,44 +32,51 @@ public class Teacher implements Serializable {
 
 	public Teacher() {
 	}
+	
+	public Teacher(String firstname, String lastname, String email, String password){
+		this.tFirstName = firstname;
+		this.tLastName = lastname;
+		this.tEmail = email;
+		this.tPassword = password;
+	}
 
-	public int getIdTeacher() {
+	public int getidTeacher() {
 		return this.idTeacher;
 	}
 
-	public void setIdTeacher(int idTeacher) {
+	public void setidTeacher(int idTeacher) {
 		this.idTeacher = idTeacher;
 	}
 
-	public String getTEmail() {
+	public String gettEmail() {
 		return this.tEmail;
 	}
 
-	public void setTEmail(String tEmail) {
+	public void settEmail(String tEmail) {
 		this.tEmail = tEmail;
 	}
 
-	public String getTFirstName() {
+	public String gettFirstName() {
 		return this.tFirstName;
 	}
 
-	public void setTFirstName(String tFirstName) {
+	public void settFirstName(String tFirstName) {
 		this.tFirstName = tFirstName;
 	}
 
-	public String getTLastName() {
+	public String gettLastName() {
 		return this.tLastName;
 	}
 
-	public void setTLastName(String tLastName) {
+	public void settLastName(String tLastName) {
 		this.tLastName = tLastName;
 	}
 
-	public String getTPassword() {
+	public String gettPassword() {
 		return this.tPassword;
 	}
 
-	public void setTPassword(String tPassword) {
+	public void settPassword(String tPassword) {
 		this.tPassword = tPassword;
 	}
 
@@ -82,14 +90,14 @@ public class Teacher implements Serializable {
 
 	public Exam addExam(Exam exam) {
 		getExams().add(exam);
-		exam.setTeacher(this);
+		exam.setteacher(this);
 
 		return exam;
 	}
 
 	public Exam removeExam(Exam exam) {
 		getExams().remove(exam);
-		exam.setTeacher(null);
+		exam.setteacher(null);
 
 		return exam;
 	}
