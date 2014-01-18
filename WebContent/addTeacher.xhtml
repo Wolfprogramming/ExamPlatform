@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="fr"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>ADD a teacher</title>
+    </h:head>
+    <h:body>
+        <h:form>
+        	Teacher name:<br />
+			<p:inputText value="#{teacherAddMB.firstname}"></p:inputText><br /><br />
+			
+			Teacher lastname:<br />
+			<p:inputText value="#{teacherAddMB.lastname}"></p:inputText><br /><br />
+			
+			Teacher email:<br />
+			<p:inputText value="#{teacherAddMB.email}"></p:inputText><br /><br />
+			
+			Teacher password:<br />
+			<p:inputText value="#{teacherAddMB.password}"></p:inputText><br /><br />
+			
+			<p:commandButton value="Add teacher" action="#{teacherAddMB.saveTeacher}"></p:commandButton>
+		</h:form>
+    </h:body>
+</html>
