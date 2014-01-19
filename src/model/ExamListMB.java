@@ -23,7 +23,6 @@ public class ExamListMB implements Serializable {
 	private ExamBean theExams;
 	
 	public List<Exam> getTheExams(){
-		System.out.println("fuck all");
 		return theExams.getListOfExams();
 	}
     
