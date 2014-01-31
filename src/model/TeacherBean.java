@@ -36,8 +36,34 @@ public class TeacherBean {
     
     public Teacher getSearchTeacher(int idTeacher){
     	Teacher searchTeacher = new Teacher();
-    	searchTeacher = (Teacher)em.createQuery("SELECT t FROM Teacher t WHERE t.idTeacher=:qItTeacher").setParameter("qItTeacher", idTeacher).getSingleResult();
-    	
+    	try {
+    		searchTeacher = (Teacher)em.createQuery("SELECT t FROM Teacher t WHERE t.idTeacher=:qIdTeacher").setParameter("qIdTeacher", idTeacher).getSingleResult();
+    	} catch(Exception e){
+    		System.out.println("user does not exist");
+    		searchTeacher.setTPassword("error");
+    		searchTeacher.setTFirstName("error");
+    		searchTeacher.setTLastName("error");
+    		searchTeacher.setTEmail("error");
+    		System.out.println("set parameters to error");
+    	}
+    		
+    	return searchTeacher;
+    }
+    
+    public Teacher getSearchTeacher(String username){
+    	System.out.println("Enter function search Teacher with name");
+
+    	Teacher searchTeacher = new Teacher();
+    	try {
+    		searchTeacher = (Teacher)em.createQuery("SELECT t FROM Teacher t WHERE t.tEmail=:qUsername").setParameter("qUsername", username).getSingleResult();
+    	} catch(Exception e){
+    		System.out.println("user does not exist");
+    		searchTeacher.setTPassword("error");
+    		System.out.println("setPassword to error");
+    	}
+
+    	System.out.println("query search teacher with name done");
+
     	return searchTeacher;
     }
 
