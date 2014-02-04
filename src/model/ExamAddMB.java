@@ -18,13 +18,15 @@ public class ExamAddMB implements Serializable {
 	private String theDesc;
 	private Date theCreation = new Date(System.currentTimeMillis());
 	private Date theModify  = new Date(System.currentTimeMillis());
-	private TeacherBean theTeacher = (TeacherBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("em");
-	private Teacher teach = theTeacher.getSearchTeacher(2);
+	private Teacher teach;
 	
-	
+	public ExamAddMB(){
+    }
 	
 	@EJB
 	private ExamBean theExams;
+	@EJB
+	private TeacherBean theTeacher;
 	
 	public String getTheName() { 
 		return theName;
@@ -48,6 +50,7 @@ public class ExamAddMB implements Serializable {
 		tmp.seteDesc(theDesc);
 		tmp.seteCreationDate(theCreation);
 		tmp.seteModifyDate(theModify);
+		teach = theTeacher.getSearchTeacher(2);
 		tmp.setteacher(teach);
 		theExams.doInsert(tmp);
 		

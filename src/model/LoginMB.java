@@ -35,13 +35,13 @@ public class LoginMB implements Serializable{
     	resultTeacher = theTeacher.getSearchTeacher(username);
     	System.out.println("recuperation teacher");
 
-    	if(resultTeacher.getTPassword().equals("error")){
+    	if(resultTeacher.gettPassword().equals("error")){
     		System.out.println("Wrong username");
     		
     		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Identification failed", "Wrong username or password"));
     		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"HINT", "Your username is your e-mail"));
     	}
-    	else if(password.equals(resultTeacher.getTPassword())){
+    	else if(password.equals(resultTeacher.gettPassword())){
         	System.out.println("Identification succeed");
         	
         	ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();

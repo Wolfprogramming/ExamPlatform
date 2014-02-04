@@ -40,10 +40,10 @@ public class TeacherBean {
     		searchTeacher = (Teacher)em.createQuery("SELECT t FROM Teacher t WHERE t.idTeacher=:qIdTeacher").setParameter("qIdTeacher", idTeacher).getSingleResult();
     	} catch(Exception e){
     		System.out.println("user does not exist");
-    		searchTeacher.setTPassword("error");
-    		searchTeacher.setTFirstName("error");
-    		searchTeacher.setTLastName("error");
-    		searchTeacher.setTEmail("error");
+    		searchTeacher.settPassword("error");
+    		searchTeacher.settFirstName("error");
+    		searchTeacher.settLastName("error");
+    		searchTeacher.settEmail("error");
     		System.out.println("set parameters to error");
     	}
     		
@@ -58,7 +58,7 @@ public class TeacherBean {
     		searchTeacher = (Teacher)em.createQuery("SELECT t FROM Teacher t WHERE t.tEmail=:qUsername").setParameter("qUsername", username).getSingleResult();
     	} catch(Exception e){
     		System.out.println("user does not exist");
-    		searchTeacher.setTPassword("error");
+    		searchTeacher.settPassword("error");
     		System.out.println("setPassword to error");
     	}
 

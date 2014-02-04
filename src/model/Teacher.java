@@ -48,35 +48,35 @@ public class Teacher implements Serializable {
 		this.idTeacher = idTeacher;
 	}
 
-	public String getTEmail() {
+	public String gettEmail() {
 		return this.tEmail;
 	}
 
-	public void setTEmail(String tEmail) {
+	public void settEmail(String tEmail) {
 		this.tEmail = tEmail;
 	}
 
-	public String getTFirstName() {
+	public String gettFirstName() {
 		return this.tFirstName;
 	}
 
-	public void setTFirstName(String tFirstName) {
+	public void settFirstName(String tFirstName) {
 		this.tFirstName = tFirstName;
 	}
 
-	public String getTLastName() {
+	public String gettLastName() {
 		return this.tLastName;
 	}
 
-	public void setTLastName(String tLastName) {
+	public void settLastName(String tLastName) {
 		this.tLastName = tLastName;
 	}
 
-	public String getTPassword() {
+	public String gettPassword() {
 		return this.tPassword;
 	}
 
-	public void setTPassword(String tPassword) {
+	public void settPassword(String tPassword) {
 		this.tPassword = tPassword;
 	}
 
