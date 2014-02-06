@@ -1,14 +1,13 @@
 package managedBeans;
 
 import java.io.Serializable;
-import java.security.Principal;
 import java.util.Date;
 
 import javax.inject.Named;
-import javax.annotation.Resource;
 import javax.ejb.EJB;
-import javax.ejb.SessionContext;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 import model.Exam;
 import model.Teacher;
@@ -52,12 +51,16 @@ public class ExamAddMB implements Serializable {
 	}
 	
 	public String saveExam(){ 
+		FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = context.getExternalContext();
+		//System.out.println("User : " + ((Teacher) externalContext.getSessionMap().get("user")).gettFirstName());
+		
 		Exam tmp = new Exam(); 
 		tmp.seteName(theName); 
 		tmp.seteDesc(theDesc);
 		tmp.seteCreationDate(theCreation);
 		tmp.seteModifyDate(theModify);
-		teach = theTeacher.getCurrentTeacher();
+		teach = (Teacher) externalContext.getSessionMap().get("user");
 		
 		tmp.setTeacher(teach);
 		theExam.doInsert(tmp);

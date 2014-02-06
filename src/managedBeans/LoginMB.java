@@ -2,7 +2,6 @@ package managedBeans;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.security.Principal;
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -11,7 +10,6 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.servlet.http.HttpServletRequest;
 
 import model.Teacher;
 import beans.TeacherBean;
@@ -33,55 +31,33 @@ public class LoginMB implements Serializable{
     @EJB
 	private TeacherBean theTeacher;
     
-    public void login2(ActionEvent actionEvent) throws IOException {
+    public void login(ActionEvent actionEvent) throws IOException {
     	FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext externalContext = context.getExternalContext();
-        HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
-
-        try {
-            request.login(username, password);
-            resultTeacher = theTeacher.findTeacher(username);
-            externalContext.getSessionMap().put("user", resultTeacher);
-            externalContext.redirect(externalContext.getRequestContextPath() + "/index.xhtml");
-        } catch (Exception e) {
-            // Handle unknown username/password in request.login().
-            context.addMessage(null, new FacesMessage("Unknown login"));
-        }
-    }
-    
-    
-    public void login(ActionEvent actionEvent) throws IOException {
+        
     	resultTeacher = theTeacher.findTeacher(username);
     	
     	if(resultTeacher.gettPassword().equals("error")){
     		System.out.println("Wrong username");
     		
-    		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Identification failed", "Wrong username or password"));
-    		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"HINT", "Your username is your e-mail"));
+    		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Identification failed", "Wrong username or password"));
+    		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"HINT", "Your username is your e-mail"));
     	}
     	else if(password.equals(resultTeacher.gettPassword())){
         	System.out.println("Identification succeed");
-        	/*
-        	Principal principal = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
-            if (principal != null) {
-                resultTeacher = theTeacher.getSearchTeacher(principal.getName()); // Find User by j_username.
-                System.out.println("teacher:" + resultTeacher.gettFirstName());
-            }
-            else{
-            	System.out.println("user principal failed");
-            }*/
         	
-        	ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        	//Put user in sessionMap to know he is logged in and retrieve it later
+        	externalContext.getSessionMap().put("user", resultTeacher);
+        	
             externalContext.redirect(externalContext.getRequestContextPath() + "/index.xhtml");
         }
         else {
         	System.out.println("Wrong password");
 
-        	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Identification failed", "Wrong username or password"));
+        	context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Identification failed", "Wrong username or password"));
         }
     }
     
-
     public void logout() throws IOException {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         externalContext.invalidateSession();
@@ -103,6 +79,5 @@ public class LoginMB implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
     
 }
