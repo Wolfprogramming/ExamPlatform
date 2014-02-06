@@ -15,13 +15,13 @@
 			Teacher ID:<br/>
 			<p:inputText id="idT" value="#{teacherSearchMB.searchId}" converterMessage="It must be a number" 
 			validatorMessage="Must be superior than 0 and lower than 3">
-				<f:validateLongRange minimum="1" maximum="3" />
+				<f:validateLongRange minimum="1" maximum="5" />
 			</p:inputText>
 			<p:message for="idT"></p:message><br/>
 			<h:commandButton value="Search" action="#{teacherSearchMB.searchTeacher}"></h:commandButton><br/><br/>
-			<h:outputText value="#{teacherSearchMB.resultTeacher.TFirstName}"></h:outputText><br/>
-			<h:outputText value="#{teacherSearchMB.resultTeacher.TLastName}"></h:outputText><br/>
-			<h:outputText value="#{teacherSearchMB.resultTeacher.TEmail}"></h:outputText><br/>
+			<h:outputText value="#{teacherSearchMB.resultTeacher.tFirstName}"></h:outputText><br/>
+			<h:outputText value="#{teacherSearchMB.resultTeacher.tLastName}"></h:outputText><br/>
+			<h:outputText value="#{teacherSearchMB.resultTeacher.tEmail}"></h:outputText><br/>
 		</h:form>
 	</h:body>
 </html>

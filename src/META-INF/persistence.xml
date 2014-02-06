@@ -4,5 +4,7 @@
 		<jta-data-source>jdbc/ExamPlatformDB</jta-data-source>
 		<class>model.Exam</class>
 		<class>model.Teacher</class>
+		<class>model.PossibleAnswer</class>
+		<class>model.Question</class>
 	</persistence-unit>
 </persistence>

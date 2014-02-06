@@ -14,12 +14,12 @@
 		<h:form>
     		<p:toolbar>
     			<p:toolbarGroup align="left">  
-            		<p:commandButton type="button" value="New Exam" icon="ui-icon-document" />  
+            		<p:commandButton value="New Exam" action="addExam.xhtml" icon="ui-icon-document" />  
         		</p:toolbarGroup>
    		
         		<p:toolbarGroup align="right">          		
             		<p:inputText style="margin-right:10px"/>                    		
-            		<p:commandButton type="button" value="Logout" icon="ui-icon-extlink" />  
+            		<p:commandButton value="Logout" action="#{loginMB.logout}" icon="ui-icon-extlink" />  
         		</p:toolbarGroup>
         	</p:toolbar>
 		</h:form>
@@ -55,7 +55,7 @@
 		<br/>
 		
 		<h:form>
-			<p:dataTable value="#{teacherListMB.theTeachers}" var="tea">
+			<p:dataTable value="#{teacherListMB.allTeachers}" var="tea">
 				<f:facet name="header">
 					Teachers
 				</f:facet>
@@ -70,6 +70,38 @@
 				
 		        <p:column headerText="Email">
 		            <h:outputText value="#{tea.tEmail}" />
+		        </p:column>
+		  
+			</p:dataTable>
+		</h:form>
+		
+		<br/>
+		<br/>
+		
+		<h:form>
+			<p:dataTable value="#{questionListMB.theQuestions}" var="que">
+				<f:facet name="header">
+					Questions
+				</f:facet>
+				
+				<p:column headerText="Name">
+		            	<h:outputText value="#{que.qName}" />
+		        </p:column>
+		        
+		        <p:column headerText="Help">
+		            <h:outputText value="#{que.qHelp}" />
+		        </p:column>
+				
+		        <p:column headerText="Type">
+		            <h:outputText value="#{que.qType}" />
+		        </p:column>
+		        
+		        <p:column headerText="Position">
+		            <h:outputText value="#{que.qPosition}" />
+		        </p:column>
+		        
+		        <p:column headerText="Value">
+		            <h:outputText value="#{que.qValue} point(s)" />
 		        </p:column>
 		  
 			</p:dataTable>

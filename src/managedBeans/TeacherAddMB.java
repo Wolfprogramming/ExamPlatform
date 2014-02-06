@@ -1,10 +1,13 @@
-package model;
+package managedBeans;
 
 import java.io.Serializable;
 
 import javax.inject.Named;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+
+import beans.TeacherBean;
+import model.Teacher;
 
 
 

@@ -1,18 +1,22 @@
-package model;
+package beans;
 
 import java.util.List;
 
 import javax.ejb.LocalBean;
-import javax.ejb.Singleton;
+import javax.ejb.Stateless;
 import javax.ejb.Startup;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import model.Teacher;
+
 /**
  * Session Bean implementation class TestListExams
  */
-@Singleton
+@Stateless
 @LocalBean
 @Startup
 public class TeacherBean {
@@ -23,19 +27,34 @@ public class TeacherBean {
     public TeacherBean() {
     }
     
-    public List<Teacher> getListOfTeachers(){
+    public List<Teacher> findAllTeachers(){
     	TypedQuery<Teacher> theQuery = em.createQuery("SELECT t FROM Teacher t", Teacher.class);
-    	List<Teacher> result = theQuery.getResultList();
-    	
-    	return result;
+    	return theQuery.getResultList();
     }
     
     public void doInsert(Teacher newTeacher){
     	em.persist(newTeacher);
     }
     
-    public Teacher getSearchTeacher(int idTeacher){
-    	Teacher searchTeacher = new Teacher();
+    public void doUpdate(Teacher updtTeacher) {
+        em.merge(updtTeacher);
+    }
+    
+    public void doRemove(String email) {
+    	Teacher teacher = findTeacher(email);
+        if (teacher != null) {
+            em.remove(teacher);
+        }
+    }
+      
+    public void doRemove(Teacher teacher) {
+        if (teacher != null && teacher.gettEmail()!=null && em.contains(teacher)) {
+            em.remove(teacher);
+        }
+    }
+    
+    public Teacher findTeacher(int idTeacher){
+    	/*Teacher searchTeacher = new Teacher();
     	try {
     		searchTeacher = (Teacher)em.createQuery("SELECT t FROM Teacher t WHERE t.idTeacher=:qIdTeacher").setParameter("qIdTeacher", idTeacher).getSingleResult();
     	} catch(Exception e){
@@ -45,13 +64,13 @@ public class TeacherBean {
     		searchTeacher.settLastName("error");
     		searchTeacher.settEmail("error");
     		System.out.println("set parameters to error");
-    	}
-    		
-    	return searchTeacher;
+    	}*/
+    	    	
+    	return em.find(Teacher.class, idTeacher);
     }
     
-    public Teacher getSearchTeacher(String username){
-    	System.out.println("Enter function search Teacher with name");
+    public Teacher findTeacher(String username){
+    	System.out.println("Enter function search Teacher with email/username");
 
     	Teacher searchTeacher = new Teacher();
     	try {
@@ -66,13 +85,27 @@ public class TeacherBean {
 
     	return searchTeacher;
     }
-
-	public EntityManager getEm() {
-		return em;
-	}
-
-	public void setEm(EntityManager em) {
-		this.em = em;
-	}
+    
+    public Teacher getCurrentTeacher(){
+    	Teacher t = null;
+    	
+    	FacesContext fc = FacesContext.getCurrentInstance();
+    	ExternalContext externalContext = fc.getExternalContext();
+    	
+    	if (externalContext.getUserPrincipal() == null){
+    		System.out.println("current principal is null"); 
+    	}
+    	else{
+    		String name = externalContext.getUserPrincipal().getName();
+    		try {
+    			TeacherBean tb = null;
+    			t = tb.findTeacher(name); 
+	    	}
+	    	catch (Exception e){
+	    		System.out.println("error");
+	    	} 
+    	}
+    	return t;
+    }
     
 }

@@ -1,9 +1,12 @@
 package model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.sql.Time;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -25,6 +28,7 @@ public class Exam implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date eDate;
 
+	@Lob
 	private String eDesc;
 
 	private Time eEndHour;
@@ -38,17 +42,21 @@ public class Exam implements Serializable {
 
 	//bi-directional many-to-one association to Teacher
 	@ManyToOne
-	@JoinColumn(name="FK_idTeacher")
+	@JoinColumn(name="FK_idTeacher", nullable=false)
 	private Teacher teacher;
+
+	//bi-directional many-to-one association to Question
+	@OneToMany(mappedBy="exam")
+	private List<Question> questions;
 
 	public Exam() {
 	}
 
-	public int getidExam() {
+	public int getIdExam() {
 		return this.idExam;
 	}
 
-	public void setidExam(int idExam) {
+	public void setIdExam(int idExam) {
 		this.idExam = idExam;
 	}
 
@@ -108,12 +116,34 @@ public class Exam implements Serializable {
 		this.eStartHour = eStartHour;
 	}
 
-	public Teacher getteacher() {
+	public Teacher getTeacher() {
 		return this.teacher;
 	}
 
-	public void setteacher(Teacher teacher) {
+	public void setTeacher(Teacher teacher) {
 		this.teacher = teacher;
+	}
+
+	public List<Question> getQuestions() {
+		return this.questions;
+	}
+
+	public void setQuestions(List<Question> questions) {
+		this.questions = questions;
+	}
+
+	public Question addQuestion(Question question) {
+		getQuestions().add(question);
+		question.setExam(this);
+
+		return question;
+	}
+
+	public Question removeQuestion(Question question) {
+		getQuestions().remove(question);
+		question.setExam(null);
+
+		return question;
 	}
 
 }

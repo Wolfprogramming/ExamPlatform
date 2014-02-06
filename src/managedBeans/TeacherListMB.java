@@ -1,4 +1,4 @@
-package model;
+package managedBeans;
 
 import java.io.Serializable;
 import java.util.List;
@@ -6,6 +6,9 @@ import java.util.List;
 import javax.inject.Named;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+
+import beans.TeacherBean;
+import model.Teacher;
 
 /**
  * Session Bean implementation class TeacherListMB
@@ -24,8 +27,8 @@ public class TeacherListMB implements Serializable {
         // TODO Auto-generated constructor stub
     }
     
-    public List<Teacher> getTheTeachers(){
-		return theTeachers.getListOfTeachers();
+    public List<Teacher> getAllTeachers(){
+		return theTeachers.findAllTeachers();
 	}
 
 }

@@ -90,14 +90,14 @@ public class Teacher implements Serializable {
 
 	public Exam addExam(Exam exam) {
 		getExams().add(exam);
-		exam.setteacher(this);
+		exam.setTeacher(this);
 
 		return exam;
 	}
 
 	public Exam removeExam(Exam exam) {
 		getExams().remove(exam);
-		exam.setteacher(null);
+		exam.setTeacher(null);
 
 		return exam;
 	}

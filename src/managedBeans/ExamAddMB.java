@@ -1,12 +1,19 @@
-package model;
+package managedBeans;
 
 import java.io.Serializable;
+import java.security.Principal;
 import java.util.Date;
 
 import javax.inject.Named;
+import javax.annotation.Resource;
 import javax.ejb.EJB;
+import javax.ejb.SessionContext;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.context.FacesContext;
+
+import model.Exam;
+import model.Teacher;
+import beans.ExamBean;
+import beans.TeacherBean;
 
 
 @Named
@@ -24,7 +31,7 @@ public class ExamAddMB implements Serializable {
     }
 	
 	@EJB
-	private ExamBean theExams;
+	private ExamBean theExam;
 	@EJB
 	private TeacherBean theTeacher;
 	
@@ -50,9 +57,10 @@ public class ExamAddMB implements Serializable {
 		tmp.seteDesc(theDesc);
 		tmp.seteCreationDate(theCreation);
 		tmp.seteModifyDate(theModify);
-		teach = theTeacher.getSearchTeacher(2);
-		tmp.setteacher(teach);
-		theExams.doInsert(tmp);
+		teach = theTeacher.getCurrentTeacher();
+		
+		tmp.setTeacher(teach);
+		theExam.doInsert(tmp);
 		
 		return "index";
 	}

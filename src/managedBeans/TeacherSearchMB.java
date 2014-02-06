@@ -1,9 +1,13 @@
-package model;
+package managedBeans;
 
 import java.io.Serializable;
+
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+
+import beans.TeacherBean;
+import model.Teacher;
 
 
 @Named
@@ -39,7 +43,7 @@ public class TeacherSearchMB implements Serializable{
 	}
 	
 	public Teacher searchTeacher(){
-		resultTeacher = theTeacher.getSearchTeacher(searchId);
+		resultTeacher = theTeacher.findTeacher(searchId);
 
 		return null;
 	}
