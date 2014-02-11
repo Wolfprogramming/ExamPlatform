@@ -45,7 +45,7 @@ public class LoginMB implements Serializable{
         resultStudent = theStudent.findStudent(username);
         
         
-        if (resultTeacher.gettPassword().equals("error") || resultStudent.getSPassword().equals("error" )){
+        if (resultTeacher.gettPassword().equals("error") && resultStudent.getSPassword().equals("error" )){
         	
         	context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Identification failed", "Wrong username or password"));
     		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"HINT", "Your username is your e-mail"));
@@ -69,7 +69,7 @@ public class LoginMB implements Serializable{
         
         //Login student
         
-        if(password.equals(resultStudent.getSPassword())){
+       if(password.equals(resultStudent.getSPassword())){
         	System.out.println("Identification STUDENT succeed");
         	
         	//Put user in sessionMap to know he is logged in and retrieve it later

@@ -25,6 +25,7 @@ public class ExamListMB implements Serializable {
 	private ExamBean theExams;
 	
 	private Exam selectedExam;
+	private List<Exam> filteredExams;
 	
 	
 	@PostConstruct
@@ -40,6 +41,17 @@ public class ExamListMB implements Serializable {
 	public void setSelectedExam(Exam selectedExam) {
 		this.selectedExam = selectedExam;
 	}
+
+	
+	public List<Exam> getfilteredExams() {
+		return filteredExams;
+	}
+
+
+	public void setfilteredExams(List<Exam> filteredExams) {
+		this.filteredExams = filteredExams;
+	}
+
 
 	public int getNbPoint() {
 		int nbPoint;

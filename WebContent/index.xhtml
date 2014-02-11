@@ -17,9 +17,12 @@
     			<p:toolbarGroup align="left">
             		<p:commandButton value="New Exam" action="addExam.xhtml" icon="ui-icon-document" />
         		</p:toolbarGroup>
+        		
+        		<p:toolbarGroup align="center">
+        			<p:commandButton value="Students" action="listStudent.xhtml"></p:commandButton>
+        		</p:toolbarGroup>
    		
         		<p:toolbarGroup align="right">
-            		<p:inputText style="margin-right:10px"/>
             		<p:commandButton value="Logout" action="#{loginMB.logout}" icon="ui-icon-extlink" />
         		</p:toolbarGroup>
         	</p:toolbar>
@@ -28,11 +31,13 @@
 
 
 		<h:form>
-			<p:dataTable id="dataTable" value="#{examListMB.allExams}" var="exa">
+			<p:dataTable id="dataTable" value="#{examListMB.allExams}" var="exa" sortMode="multiple" rows="10" paginator="true" widgetVar="examTable" emptyMessage="No exams found with that criteria" filteredValue="#{examListMB.filteredExams}">
 				<f:facet name="header">
-					
-    	  			 Exams
-    				
+    	  		Exams
+    				<p:outputPanel>
+						<h:outputText value="Search:" />
+						<p:inputText id="globalFilter" onkeyup="examTable.filter()" style="width:150px" />	
+					</p:outputPanel>
 				</f:facet>
 				
 				<p:column sortBy="eName" headerText="Name">				
@@ -63,9 +68,13 @@
 		<br/>
 		
 		<h:form>
-			<p:dataTable value="#{teacherListMB.allTeachers}" var="tea">
+			<p:dataTable id="dataTable2" value="#{teacherListMB.allTeachers}" var="tea" sortMode="multiple" rows="5" paginator="true" widgetVar="teacherTable" emptyMessage="No teacher found with given criteria" filteredValue="#{teacherListMB.filteredTeachers}">
 				<f:facet name="header">
 					Teachers
+						<p:outputPanel>
+							<h:outputText value="Search:" />
+							<p:inputText id="globalFilter" onkeyup="teacherTable.filter()" style="width:150px" />	
+						</p:outputPanel>
 				</f:facet>
 				
 				<p:column sortBy="tFirstName" headerText="FirstName">

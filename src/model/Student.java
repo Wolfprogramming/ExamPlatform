@@ -17,15 +17,12 @@ public class Student implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idStudent;
-
-	private String sEmail;
-
 	private String sFirstName;
-
+	private String sEmail;
 	private String sLastName;
-
 	private String sPassword;
 
+	
 	public Student() {
 	}
 
@@ -37,7 +34,7 @@ public class Student implements Serializable {
 		this.idStudent = idStudent;
 	}
 
-	public String getSEmail() {
+	public String getsEmail() {
 		return this.sEmail;
 	}
 
@@ -45,7 +42,7 @@ public class Student implements Serializable {
 		this.sEmail = sEmail;
 	}
 
-	public String getSFirstName() {
+	public String getsFirstName() {
 		return this.sFirstName;
 	}
 
@@ -53,7 +50,7 @@ public class Student implements Serializable {
 		this.sFirstName = sFirstName;
 	}
 
-	public String getSLastName() {
+	public String getsLastName() {
 		return this.sLastName;
 	}
 
