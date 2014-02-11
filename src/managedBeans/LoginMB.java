@@ -11,7 +11,9 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
+import model.Student;
 import model.Teacher;
+import beans.StudentBean;
 import beans.TeacherBean;
 
 
@@ -24,38 +26,66 @@ public class LoginMB implements Serializable{
 	private String username;
     private String password;
     private Teacher resultTeacher;
+    private Student resultStudent;
     
     public LoginMB(){
     }
     
     @EJB
 	private TeacherBean theTeacher;
+    @EJB
+    private StudentBean theStudent;
     
     public void login(ActionEvent actionEvent) throws IOException {
     	FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext externalContext = context.getExternalContext();
         
-    	resultTeacher = theTeacher.findTeacher(username);
-    	
-    	if(resultTeacher.gettPassword().equals("error")){
-    		System.out.println("Wrong username");
-    		
-    		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Identification failed", "Wrong username or password"));
+        
+        resultTeacher = theTeacher.findTeacher(username);
+        resultStudent = theStudent.findStudent(username);
+        
+        
+        if (resultTeacher.gettPassword().equals("error") || resultStudent.getSPassword().equals("error" )){
+        	
+        	context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Identification failed", "Wrong username or password"));
     		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"HINT", "Your username is your e-mail"));
-    	}
-    	else if(password.equals(resultTeacher.gettPassword())){
-        	System.out.println("Identification succeed");
+    		
+        }//Login teacher
+        else if(password.equals(resultTeacher.gettPassword())){
+        	
+        	System.out.println("Identification TEACHER succeed");
         	
         	//Put user in sessionMap to know he is logged in and retrieve it later
         	externalContext.getSessionMap().put("user", resultTeacher);
         	
             externalContext.redirect(externalContext.getRequestContextPath() + "/index.xhtml");
+        	
         }
         else {
         	System.out.println("Wrong password");
 
         	context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Identification failed", "Wrong username or password"));
         }
+        
+        //Login student
+        
+        if(password.equals(resultStudent.getSPassword())){
+        	System.out.println("Identification STUDENT succeed");
+        	
+        	//Put user in sessionMap to know he is logged in and retrieve it later
+        	externalContext.getSessionMap().put("user", resultStudent);
+        	
+            externalContext.redirect(externalContext.getRequestContextPath() + "/indexStudent.xhtml");
+        }
+        else {
+        	System.out.println("Wrong password");
+
+        	context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Identification failed", "Wrong username or password"));
+        }
+        
+        
+       
+    	
     }
     
     public void logout() throws IOException {

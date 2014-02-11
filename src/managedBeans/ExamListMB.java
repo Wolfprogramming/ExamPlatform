@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.inject.Named;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 
@@ -18,16 +19,19 @@ public class ExamListMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+	private List <Exam> allExams;
 	
 	@EJB
 	private ExamBean theExams;
 	
 	private Exam selectedExam;
 	
-	public List<Exam> getTheExams(){
-		return theExams.findAllExams();
+	
+	@PostConstruct
+	public void init(){
+		allExams = theExams.findAllExams();
 	}
+	
 
 	public Exam getSelectedExam() {
 		return selectedExam;
@@ -45,6 +49,10 @@ public class ExamListMB implements Serializable {
 			nbPoint = 0;
 		}
 		return nbPoint;
+	}
+	
+	public List<Exam> getAllExams(){
+		return allExams;
 	}
 
     
