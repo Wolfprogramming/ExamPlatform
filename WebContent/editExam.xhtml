@@ -129,6 +129,13 @@
 					Number of points: #{examListMB.nbPoint}
 				</p:fieldset>
 				
+				<f:facet name="footer">
+        			<p:commandButton value="Edit exam" update="panel" action="#{possibleAnswerAddMB.savePA}"  icon="ui-icon-disk">
+        				<f:actionListener binding="#{questionAddMB.saveQuestion}"/>
+        				<f:actionListener binding="#{jsfBean2.actionListener}"/>
+        			</p:commandButton>
+        		</f:facet>
+				
 			</p:panel>
 		</h:form>
     </h:body>

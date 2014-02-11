@@ -11,7 +11,6 @@ import javax.faces.event.ActionEvent;
 
 import model.Exam;
 import model.Question;
-import beans.ExamBean;
 import beans.QuestionBean;
 
 
@@ -33,8 +32,6 @@ public class QuestionAddMB implements Serializable {
 	
 	@EJB
 	private QuestionBean theQuestion;
-	@EJB
-	private ExamBean theE;
 
 	public String getqHelp() {
 		return qHelp;
@@ -94,8 +91,7 @@ public class QuestionAddMB implements Serializable {
 	
 	public String saveQuestion(ActionEvent event){ 
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-		//exam = (Exam) ec.getSessionMap().get("exam");
-		exam = theE.findExam(19);
+		exam = (Exam) ec.getSessionMap().get("exam");
 		
 		System.out.println("enter saveQuestion");
 		
