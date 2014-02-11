@@ -1,6 +1,7 @@
 package managedBeans;
 
 import java.io.Serializable;
+import java.sql.Time;
 import java.util.Date;
 
 import javax.inject.Named;
@@ -20,10 +21,13 @@ import beans.TeacherBean;
 public class ExamAddMB implements Serializable {
 
 	private static final long serialVersionUID = 1L; 
-	private String theName;
-	private String theDesc;
-	private Date theCreation = new Date(System.currentTimeMillis());
-	private Date theModify  = new Date(System.currentTimeMillis());
+	private String eName;
+	private String eDesc;
+	private Date eCreation = new Date(System.currentTimeMillis());
+	private Date eModify  = new Date(System.currentTimeMillis());
+	private Date eDate;
+	private Date eEndHour;
+	private Date eStartHour;
 	private Teacher teach;
 	
 	public ExamAddMB(){
@@ -34,38 +38,72 @@ public class ExamAddMB implements Serializable {
 	@EJB
 	private TeacherBean theTeacher;
 	
-	public String getTheName() { 
-		return theName;
+	public String geteName() { 
+		return eName;
 	}
 	
-	public void setTheName(String theName) {
-		this.theName = theName; 
+	public void seteName(String theName) {
+		this.eName = theName; 
 	}
 	
-	public String getTheDesc() { 
-		return theDesc;
+	public String geteDesc() { 
+		return eDesc;
 	}
 	
-	public void setTheDesc(String theDesc) {
-		this.theDesc = theDesc; 
+	public void seteDesc(String theDesc) {
+		this.eDesc = theDesc; 
 	}
 	
+	public Date geteCreation() { 
+		return eCreation;
+	}
+	
+	public Date geteDate() {
+		return eDate;
+	}
+
+	public void seteDate(Date eDate) {
+		this.eDate = eDate;
+	}
+
+	public Date geteEndHour() {
+		return eEndHour;
+	}
+
+	public void seteEndHour(Date eEndHour) {
+		this.eEndHour = eEndHour;
+	}
+
+	public Date geteStartHour() {
+		return eStartHour;
+	}
+
+	public void seteStartHour(Date eStartHour) {
+		this.eStartHour = eStartHour;
+	}
+
 	public String saveExam(){ 
-		FacesContext context = FacesContext.getCurrentInstance();
-        ExternalContext externalContext = context.getExternalContext();
-		//System.out.println("User : " + ((Teacher) externalContext.getSessionMap().get("user")).gettFirstName());
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+		//System.out.println("User : " + ((Teacher) fc.getSessionMap().get("user")).gettFirstName());
+		teach = (Teacher) ec.getSessionMap().get("user");
+		
+		Time startHour = new Time(eStartHour.getTime());
+		Time endHour = new Time(eEndHour.getTime());
 		
 		Exam tmp = new Exam(); 
-		tmp.seteName(theName); 
-		tmp.seteDesc(theDesc);
-		tmp.seteCreationDate(theCreation);
-		tmp.seteModifyDate(theModify);
-		teach = (Teacher) externalContext.getSessionMap().get("user");
-		
+		tmp.seteName(eName); 
+		tmp.seteDesc(eDesc);
+		tmp.seteCreationDate(eCreation);
+		tmp.seteModifyDate(eModify);
+		tmp.seteDate(eDate);
+		tmp.seteStartHour(startHour);
+		tmp.seteEndHour(endHour);
 		tmp.setTeacher(teach);
 		theExam.doInsert(tmp);
 		
-		return "index";
+		ec.getSessionMap().put("exam", tmp);
+		
+		return "addQuestion";
 	}
     
 }

@@ -8,7 +8,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import model.Exam;
-import model.Teacher;
+import model.Question;
 
 
 /**
@@ -52,6 +52,15 @@ public class ExamBean {
     
     public Exam findExam(int idSearchExam){
     	return em.find(Exam.class, idSearchExam);
+    }
+    
+    public int findNbPoint(Exam exam){
+    	int pt=0;
+    	List<Question> q = em.find(Exam.class, exam.getIdExam()).getQuestions();
+    	
+    	for(int i=0; i<q.size();i++)
+    		pt+=q.get(i).getqValue();
+    	return pt;
     }
 
 }

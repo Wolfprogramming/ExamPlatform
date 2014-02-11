@@ -5,6 +5,9 @@ import java.io.Serializable;
 import javax.inject.Named;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
 import model.Exam;
 import model.Question;
@@ -19,10 +22,11 @@ public class QuestionAddMB implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String qHelp;
 	private String qName;
-	private int qPosition = 1;
+	private int qPosition;
 	private String qType;
 	private short qValue;
 	private Exam exam;
+	private String isDisplay="false";
 	
 	public QuestionAddMB(){
     }
@@ -30,7 +34,7 @@ public class QuestionAddMB implements Serializable {
 	@EJB
 	private QuestionBean theQuestion;
 	@EJB
-	private ExamBean theExam;
+	private ExamBean theE;
 
 	public String getqHelp() {
 		return qHelp;
@@ -71,24 +75,32 @@ public class QuestionAddMB implements Serializable {
 	public void setqValue(short qValue) {
 		this.qValue = qValue;
 	}
-
-
-	public ExamBean getTheExam() {
-		return theExam;
+	
+	//display the answers inputText when question contains several possible answers
+	public String getisDisplay() {
+		return isDisplay;
 	}
 
-	public void setTheExam(ExamBean theExam) {
-		this.theExam = theExam;
+	public void setisDisplay(String isDisplay) {
+		this.isDisplay = isDisplay;
 	}
-
-
-	public String saveQuestion(){ 
+	
+	public void subjectSelectionChanged(){
+		if(qType.equals("singleChoice") || qType.equals("multipleChoice"))
+			isDisplay="true";
+		else
+			isDisplay="false";
+	}
+	
+	public String saveQuestion(ActionEvent event){ 
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+		//exam = (Exam) ec.getSessionMap().get("exam");
+		exam = theE.findExam(19);
+		
+		System.out.println("enter saveQuestion");
+		
 		Question tmp = new Question();
-		
-		//search id of the exam
-		exam = theExam.findExam(1);
 		tmp.setExam(exam);
-		
 		tmp.setqHelp(qHelp);
 		tmp.setqName(qName);
 		tmp.setqPosition(qPosition);
@@ -96,6 +108,12 @@ public class QuestionAddMB implements Serializable {
 		tmp.setqValue(qValue);
 		theQuestion.doInsert(tmp);
 		
-		return null; //returns the same page
+		ec.getSessionMap().put("question", tmp);
+		
+		System.out.println("question saved");
+		
+		return null;
 	}
+	
+	
 }

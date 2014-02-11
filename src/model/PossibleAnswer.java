@@ -17,7 +17,7 @@ public class PossibleAnswer implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idPossibleAnswer;
 
-	private byte paIsCorrect;
+	private boolean paIsCorrect;
 
 	private String paName;
 
@@ -37,11 +37,11 @@ public class PossibleAnswer implements Serializable {
 		this.idPossibleAnswer = idPossibleAnswer;
 	}
 
-	public byte getPaIsCorrect() {
+	public boolean getPaIsCorrect() {
 		return this.paIsCorrect;
 	}
 
-	public void setPaIsCorrect(byte paIsCorrect) {
+	public void setPaIsCorrect(boolean paIsCorrect) {
 		this.paIsCorrect = paIsCorrect;
 	}
 

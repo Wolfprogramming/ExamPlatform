@@ -13,13 +13,13 @@
 			
 		<h:form>
     		<p:toolbar>
-    			<p:toolbarGroup align="left">  
-            		<p:commandButton value="New Exam" action="addExam.xhtml" icon="ui-icon-document" />  
+    			<p:toolbarGroup align="left">
+            		<p:commandButton value="New Exam" action="addExam.xhtml" icon="ui-icon-document" />
         		</p:toolbarGroup>
    		
-        		<p:toolbarGroup align="right">          		
-            		<p:inputText style="margin-right:10px"/>                    		
-            		<p:commandButton value="Logout" action="#{loginMB.logout}" icon="ui-icon-extlink" />  
+        		<p:toolbarGroup align="right">
+            		<p:inputText style="margin-right:10px"/>
+            		<p:commandButton value="Logout" action="#{loginMB.logout}" icon="ui-icon-extlink" />
         		</p:toolbarGroup>
         	</p:toolbar>
 		</h:form>
@@ -32,19 +32,21 @@
 				</f:facet>
 				
 				<p:column headerText="Name">
-<!-- 		             <h:commandLink action="exam" value="#{exa.idExam} or  value="#{managedBean.createCategoryModel(managedBean.selectedRecord.cellid)}""> -->
-		            	<h:outputText value="#{exa.eName}" />
-<!-- 		            </h:commandLink>  -->
+		            	<h:commandLink action="viewExam" title="View Detail" id="seeExam">
+			            	<h:outputText value="#{exa.eName}" />
+			            	<f:setPropertyActionListener value="#{exa}" target="#{examListMB.selectedExam}" />
+		            	</h:commandLink>
+		            	<p:tooltip  for="seeExam" value="View detail" showEffect="fade" hideEffect="fade" /> 
 		        </p:column>
 				
-		        <p:column headerText="Start date">
+		        <p:column headerText="Start date"  style="text-align:center">
 		            <h:outputText value="#{exa.eDate}" >
-		            	<f:convertDateTime pattern="MM/dd/yyyy" />
-		            </h:outputText>
-		            <h:outputText value=" #{exa.eStartHour}" />
+		            	<f:convertDateTime pattern="dd/MM/yyyy" />
+		            </h:outputText><p:spacer width="15"></p:spacer>
+		            <h:outputText value="#{exa.eStartHour}" />
 		        </p:column>
 		
-		        <p:column headerText="End hour">
+		        <p:column headerText="End hour" style="text-align:center">
 		            <h:outputText value="#{exa.eEndHour}" />
 		        </p:column>
 		  

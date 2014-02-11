@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="fr"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Create a question</title>
+    </h:head>
+    <h:body>
+    <f:facet name="last">
+    	<h:outputStylesheet library="css" name="style.css" />
+	</f:facet>
+    
+        <h:form prependId="false">
+        
+        	<p:panel id="panel" header="Create a question">
+        	<p:focus context="panel"/>
+	        	<p:panelGrid columns="3">
+        			<p:outputLabel for="name" value="Question title:" />
+					<p:inputText id="name" value="#{questionAddMB.qName}" size="30" required="true" 
+						requiredMessage="Question must have a name." placeholder="Question title"/>
+					<p:message for="name" />
+					
+					<h:outputLabel for="help" value="Help text:" />
+					<p:inputTextarea id="help" value="#{questionAddMB.qHelp}" rows="3" cols="33" />
+					<br/>
+					
+					<h:outputLabel for="position" value="Question position:" />
+					<p:spinner id="position" value="#{questionAddMB.qPosition}" size="30" min="0" />
+					<p:message for="position"/>
+					
+					<h:outputLabel for="value" value="Question value:" />
+					<p:spinner id="value" value="#{questionAddMB.qValue}" size="30" min="0" />
+					<p:message for="value"/>
+					
+					<p:outputLabel for="type" value="Question type:" />
+					<p:selectOneMenu id="type" value="#{questionAddMB.qType}" required="true">
+						<p:ajax event="valueChange" update="choicesSM"
+                			listener="#{questionAddMB.subjectSelectionChanged}" />
+						<f:selectItem itemLabel="Select One" itemValue="" /> 
+			            <f:selectItem itemLabel="Single choice" itemValue="singleChoice" />
+			            <f:selectItem itemLabel="Multiple choices" itemValue="multipleChoice" />
+			            <f:selectItem itemLabel="Text" itemValue="text" />
+			            <!--<f:selectItem itemLabel="From a list" itemValue="4" /> -->
+			        </p:selectOneMenu>
+			        
+			        <br/>
+			    	<p:spacer />
+					
+			        <h:panelGroup layout="block" id="choicesSM" >
+			        	<p:spacer width="4" height="10"/>
+						<p:outputLabel value="Possible answers" rendered="#{questionAddMB.isDisplay}" />
+						<p:spacer height="10" width="80" />
+		        		<p:outputLabel value="Is correct?" rendered="#{questionAddMB.isDisplay}" />
+		        		<br/>
+			        		
+				        <ui:repeat value="#{possibleAnswerAddMB.paName}" varStatus="status"
+				        	rendered="#{questionAddMB.isDisplay}">
+			                <p:inputText styleClass="choices" 
+				                value="#{possibleAnswerAddMB.paName[status.index]}" />
+							<p:spacer width="40" height="10"/>
+		                	<p:selectBooleanCheckbox value="#{possibleAnswerAddMB.paIsCorrect[status.index]}" />
+		                	<br/>
+		                	
+			            </ui:repeat>
+			        </h:panelGroup>
+
+        		</p:panelGrid>
+        		
+        		<f:facet name="footer">
+        			<p:commandButton value="Add question" update="panel" action="#{possibleAnswerAddMB.savePA}" 
+        				actionListener="#{questionAddMB.saveQuestion}" icon="ui-icon-disk">
+        			</p:commandButton>
+        		</f:facet>
+        		
+        	</p:panel>
+
+		</h:form>
+    </h:body>
+</html>

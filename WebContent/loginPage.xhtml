@@ -16,16 +16,19 @@
         	<h2>Welcome on the Exam portal!</h2>
         	
         	<p:panel id="panel" header="Login">
+        	<p:focus context="panel"/>
         		<h:outputLabel value="Enter your username and password:"/>
 				<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 	        	<h:panelGrid columns="3" style="margin-bottom:10px">
 	        	
-		        	<h:outputLabel for="un" value="Username:" />
-		            <p:inputText id="un" value="#{loginMB.username}" required="true" requiredMessage="Username is required."/>
+		        	<p:outputLabel for="un" value="Username:" />
+		            <p:inputText id="un" value="#{loginMB.username}" 
+		            	required="true" requiredMessage="Username is required."/>
 		            <p:message for="un"></p:message>
 					
-					<h:outputLabel for="pw" value="Password:" />
-					<p:inputText id="pw" value="#{loginMB.password}" required="true" requiredMessage="Password is required."/>
+					<p:outputLabel for="pw" value="Password:" />
+					<p:inputText id="pw" value="#{loginMB.password}" 
+						required="true" requiredMessage="Password is required."/>
 					<p:message for="pw"></p:message>
 					
 					<p:commandButton value="Login" actionListener="#{loginMB.login}" update="panel" />

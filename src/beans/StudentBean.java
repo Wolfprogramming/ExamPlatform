@@ -9,7 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import model.Teacher;
+import model.Student;
 
 /**
  * Session Bean implementation class TestListExams
@@ -17,41 +17,41 @@ import model.Teacher;
 @Stateless
 @LocalBean
 @Startup
-public class TeacherBean {
+public class StudentBean {
 
 	@PersistenceContext(name="ExaminationPlatform") // From persistence.xml 
 	EntityManager em;
 	
-    public TeacherBean() {
+    public StudentBean() {
     }
     
-    public List<Teacher> findAllTeachers(){
-    	TypedQuery<Teacher> theQuery = em.createQuery("SELECT t FROM Teacher t", Teacher.class);
+    public List<Student> findAllStudents(){
+    	TypedQuery<Student> theQuery = em.createQuery("SELECT s FROM Student s", Student.class);
     	return theQuery.getResultList();
     }
     
-    public void doInsert(Teacher newTeacher){
-    	em.persist(newTeacher);
+    public void doInsert(Student newStudent){
+    	em.persist(newStudent);
     }
     
-    public void doUpdate(Teacher updtTeacher) {
-        em.merge(updtTeacher);
+    public void doUpdate(Student updtStudent) {
+        em.merge(updtStudent);
     }
     
     public void doRemove(String email) {
-    	Teacher teacher = findTeacher(email);
-        if (teacher != null) {
-            em.remove(teacher);
+    	Student student = findStudent(email);
+        if (student != null) {
+            em.remove(student);
         }
     }
       
-    public void doRemove(Teacher teacher) {
-        if (teacher != null && teacher.gettEmail()!=null && em.contains(teacher)) {
-            em.remove(teacher);
+    public void doRemove(Student student) {
+        if (student != null && student.getSEmail()!=null && em.contains(student)) {
+            em.remove(student);
         }
     }
     
-    public Teacher findTeacher(int idTeacher){
+    public Student findStudent(int idStudent){
     	/*Teacher searchTeacher = new Teacher();
     	try {
     		searchTeacher = (Teacher)em.createQuery("SELECT t FROM Teacher t WHERE t.idTeacher=:qIdTeacher").setParameter("qIdTeacher", idTeacher).getSingleResult();
@@ -64,24 +64,24 @@ public class TeacherBean {
     		System.out.println("set parameters to error");
     	}*/
     	    	
-    	return em.find(Teacher.class, idTeacher);
+    	return em.find(Student.class, idStudent);
     }
     
-    public Teacher findTeacher(String username){
-    	System.out.println("Enter function search Teacher with email/username");
+    public Student findStudent(String username){
+    	System.out.println("Enter function search Student with email/username");
 
-    	Teacher searchTeacher = new Teacher();
+    	Student searchStudent = new Student();
     	try {
-    		searchTeacher = (Teacher)em.createQuery("SELECT t FROM Teacher t WHERE t.tEmail=:qUsername").setParameter("qUsername", username).getSingleResult();
+    		searchStudent = (Student)em.createQuery("SELECT s FROM Student s WHERE s.sEmail=:qUsername").setParameter("qUsername", username).getSingleResult();
     	} catch(Exception e){
     		System.out.println("user does not exist");
-    		searchTeacher.settPassword("error");
+    		searchStudent.setSPassword("error");
     		System.out.println("setPassword to error");
     	}
 
-    	System.out.println("query search teacher with name done");
+    	System.out.println("query search student with name done");
 
-    	return searchTeacher;
+    	return searchStudent;
     }
     
     

@@ -8,17 +8,57 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>ADD an exam</title>
+        <title>Create a new exam</title>
     </h:head>
     <h:body>
-        <h:form>
-        	Exam name:<br />
-			<p:inputText value="#{examAddMB.theName}"></p:inputText><br /><br />
-			
-			Exam description:<br />
-			<p:inputTextarea value="#{examAddMB.theDesc}"></p:inputTextarea><br /><br />
-			
-			<p:commandButton value="Add exam" action="#{examAddMB.saveExam}"></p:commandButton>
+    <f:facet name="last">
+    	<h:outputStylesheet library="css" name="style.css" />
+	</f:facet>
+	
+        <h:form prependId="false">
+        	<p:panel id="panel" header="Create a new exam">
+	        	
+					<p:inputText id="name" value="#{examAddMB.eName}" size="30" required="true" 
+						requiredMessage="Exam must have a name." placeholder="Enter exam name..." />
+					<p:message for="name" /><br/>
+				
+					
+					<p:inputTextarea id="desc" value="#{examAddMB.eDesc}" cols="66" 
+						placeholder="Exam description / instructions..." /><br/>
+					
+				<p:panelGrid style="width:100%">
+					<p:row>
+					    <p:column style="width:25%">
+							<p:outputLabel for="date" value="Exam date " />
+						</p:column>
+						<p:column style="width:25%">
+							<p:calendar value="#{examAddMB.eDate}" id="date" pattern="yyyy-MM-dd" mindate="0"/>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column style="width:25%">
+							<p:outputLabel for="startHour" value="Starting hour" />
+						</p:column>
+						<p:column style="width:25%">
+							<p:calendar id="startHour" value="#{examAddMB.eStartHour}" pattern="HH:mm" timeOnly="true"
+								minHour="7" maxHour="21" stepMinute="5" />
+						</p:column>
+							
+						<p:column style="width:25%">				
+							<p:outputLabel for="endHour" value="Ending hour" />
+						</p:column>
+						<p:column style="width:25%">
+							<p:calendar id="endHour" value="#{examAddMB.eEndHour}" pattern="HH:mm" timeOnly="true"
+								minHour="8" maxHour="22" stepMinute="5" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+				
+				<f:facet name="footer">
+        			<p:commandButton value="Add exam" update="panel" action="#{examAddMB.saveExam}" icon="ui-icon-disk" />
+        		</f:facet>
+
+			</p:panel>
 		</h:form>
     </h:body>
 </html>

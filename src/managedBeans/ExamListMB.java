@@ -23,8 +23,29 @@ public class ExamListMB implements Serializable {
 	@EJB
 	private ExamBean theExams;
 	
+	private Exam selectedExam;
+	
 	public List<Exam> getTheExams(){
 		return theExams.findAllExams();
 	}
+
+	public Exam getSelectedExam() {
+		return selectedExam;
+	}
+
+	public void setSelectedExam(Exam selectedExam) {
+		this.selectedExam = selectedExam;
+	}
+
+	public int getNbPoint() {
+		int nbPoint;
+		try{
+			nbPoint = theExams.findNbPoint(selectedExam);
+		}catch(Exception e){
+			nbPoint = 0;
+		}
+		return nbPoint;
+	}
+
     
 }
