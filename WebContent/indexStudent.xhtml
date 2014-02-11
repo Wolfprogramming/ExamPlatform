@@ -23,25 +23,25 @@
 		<br/>
 		
 		<h:form>
-			<p:dataTable value="#{examListMB.theExams}" var="exa">
+			<p:dataTable value="#{examListMB.allExams}" var="exa">
 				<f:facet name="header">
 					Exams
 				</f:facet>
 				
-				<p:column headerText="Name">
+				<p:column sortBy="eName" headerText="Name">
 <!-- 		             <h:commandLink action="exam" value="#{exa.idExam} or  value="#{managedBean.createCategoryModel(managedBean.selectedRecord.cellid)}""> -->
 		            	<h:outputText value="#{exa.eName}" />
 <!-- 		            </h:commandLink>  -->
 		        </p:column>
 				
-		        <p:column headerText="Start date">
+		        <p:column sortBy="eDate" headerText="Start date">
 		            <h:outputText value="#{exa.eDate}" >
 		            	<f:convertDateTime pattern="MM/dd/yyyy" />
 		            </h:outputText>
 		            <h:outputText value=" #{exa.eStartHour}" />
 		        </p:column>
 		
-		        <p:column headerText="End hour">
+		        <p:column sortBy="eEndHour" headerText="End hour">
 		            <h:outputText value="#{exa.eEndHour}" />
 		        </p:column>
 		  

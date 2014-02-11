@@ -4,7 +4,8 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:p="http://primefaces.org/ui">
+    xmlns:p="http://primefaces.org/ui"
+    >
     <h:head>
 		<title>Start page</title>
 		<h:outputStylesheet library="css" name="style.css" />
@@ -24,29 +25,34 @@
         	</p:toolbar>
 		</h:form>
 		<br/>
-		
+
+
 		<h:form>
-			<p:dataTable value="#{examListMB.theExams}" var="exa">
+			<p:dataTable id="dataTable" value="#{examListMB.allExams}" var="exa">
 				<f:facet name="header">
-					Exams
+					
+    	  			 Exams
+    				
 				</f:facet>
 				
-				<p:column headerText="Name">
+				<p:column sortBy="eName" headerText="Name">				
 		            	<h:commandLink action="viewExam" title="View Detail" id="seeExam">
 			            	<h:outputText value="#{exa.eName}" />
 			            	<f:setPropertyActionListener value="#{exa}" target="#{examListMB.selectedExam}" />
 		            	</h:commandLink>
 		            	<p:tooltip  for="seeExam" value="View detail" showEffect="fade" hideEffect="fade" /> 
 		        </p:column>
+		        
+		        
 				
-		        <p:column headerText="Start date"  style="text-align:center">
+		        <p:column sortBy="eDate" headerText="Start date"  style="text-align:center">
 		            <h:outputText value="#{exa.eDate}" >
 		            	<f:convertDateTime pattern="dd/MM/yyyy" />
 		            </h:outputText><p:spacer width="15"></p:spacer>
 		            <h:outputText value="#{exa.eStartHour}" />
 		        </p:column>
 		
-		        <p:column headerText="End hour" style="text-align:center">
+		        <p:column sortBy="eEndHour" headerText="End hour" style="text-align:center">
 		            <h:outputText value="#{exa.eEndHour}" />
 		        </p:column>
 		  
@@ -62,15 +68,15 @@
 					Teachers
 				</f:facet>
 				
-				<p:column headerText="FirstName">
+				<p:column sortBy="tFirstName" headerText="FirstName">
 		            	<h:outputText value="#{tea.tFirstName}" />
 		        </p:column>
 		        
-		        <p:column headerText="LastName">
+		        <p:column sortBy="tLastName" headerText="LastName">
 		            <h:outputText value="#{tea.tLastName}" />
 		        </p:column>
 				
-		        <p:column headerText="Email">
+		        <p:column sortBy="tEmail" headerText="Email">
 		            <h:outputText value="#{tea.tEmail}" />
 		        </p:column>
 		  

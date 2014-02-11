@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.inject.Named;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 
@@ -19,6 +20,13 @@ public class TeacherListMB implements Serializable {
 
 
 	private static final long serialVersionUID = 1L;
+	private List<Teacher> allTeachers;
+	
+	@PostConstruct
+	public void init()
+	{
+		allTeachers = theTeachers.findAllTeachers();
+	}
 	
 	@EJB
 	private TeacherBean theTeachers;
@@ -28,7 +36,7 @@ public class TeacherListMB implements Serializable {
     }
     
     public List<Teacher> getAllTeachers(){
-		return theTeachers.findAllTeachers();
+		return allTeachers;
 	}
 
 }
