@@ -14,9 +14,9 @@
 }
 
 .ui-widget-content .ui-datalist-content{
-border: none;
-background: transparent;
-background-image: none;
+	border: none;
+	background: transparent;
+	background-image: none;
 }
 
 .datalist-nospace .ui-widget-content .ui-datalist-data{
@@ -31,4 +31,10 @@ background-image: none;
 	text-decoration: none;
 	border: 0 dashed;
 	border-bottom-width: 1px;
+}
+
+.button-right{
+	float:right;
+	width:30px;
+	height:30px;
 }

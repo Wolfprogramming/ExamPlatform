@@ -6,7 +6,7 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>View exam</title>
+        <title>Edit exam</title>
     </h:head>
     <h:body>
     <f:facet name="last">
@@ -27,27 +27,22 @@
 		
         <h:form prependId="false">
         	<p:panel id="panel">
-        		<p:commandButton styleClass="button-right" action="editExam" icon="ui-icon-pencil" title="Edit exam properties">
-         			<f:setPropertyActionListener value="#{examListMB.selectedExam}"
-         				target="#{examListMB.selectedExam}" />
-            	</p:commandButton>
-				<h2><p:outputLabel id="name" value="#{examListMB.selectedExam.eName}" size="30" /></h2>
+        	<p:focus context="panel"/>
 				
-				<p:fieldset>
-					<p><p:outputLabel id="desc" value="#{examListMB.selectedExam.eDesc}" cols="66" /></p>
-				</p:fieldset>
+				<p:inputText id="name" value="#{examListMB.selectedExam.eName}" size="30" required="true" 
+					requiredMessage="Exam must have a name." />
+				<p:message for="name" />
+				<br/>
+				<p:inputTextarea id="desc" value="#{examListMB.selectedExam.eDesc}" cols="66" 
+					placeholder="Exam description / instructions..." />
 										
 				<p:panelGrid style="width:100%">
 					<p:row>
 					    <p:column style="width:20%">
 							Exam date
 						</p:column>
-						<p:column style="width:25%; text-align:center;">
-							<p:fieldset>
-								<p:outputLabel value="#{examListMB.selectedExam.eDate}" >
-									<f:convertDateTime pattern="yyyy-MM-dd" />
-								</p:outputLabel>
-							</p:fieldset>
+						<p:column style="width:25%">
+							<p:calendar value="#{examListMB.selectedExam.eDate}" id="date" pattern="yyyy-MM-dd" mindate="0"/>
 						</p:column>
 						<p:column style="width:5%"></p:column>
 					</p:row>
@@ -56,23 +51,17 @@
 					    <p:column style="width:20%">
 							Starting hour
 						</p:column>
-						<p:column style="width:25%; text-align:center;">
-							<p:fieldset>
-								<p:outputLabel value="#{examListMB.selectedExam.eStartHour}" >
-									<f:convertDateTime pattern="HH:mm" />
-								</p:outputLabel>
-							</p:fieldset>
+						<p:column style="width:25%">
+							<p:calendar id="startHour" value="#{examListMB.selectedExam.eStartHour}" pattern="HH:mm" timeOnly="true"
+								minHour="7" maxHour="21" stepMinute="5" />
 						</p:column>
 						<p:column style="width:5%"></p:column>
 						<p:column style="width:20%">
 							Ending hour
 						</p:column>
-						<p:column style="width:25%; text-align:center;">
-							<p:fieldset>
-								<p:outputLabel value="#{examListMB.selectedExam.eEndHour}" >
-									<f:convertDateTime pattern="HH:mm" />
-								</p:outputLabel>
-							</p:fieldset>
+						<p:column style="width:25%">
+							<p:calendar id="endHour" value="#{examListMB.selectedExam.eEndHour}" pattern="HH:mm" timeOnly="true"
+								minHour="8" maxHour="22" stepMinute="5" />
 						</p:column>
 						<p:column style="width:5%"></p:column>
 					</p:row>
@@ -82,30 +71,36 @@
 				
 				<p:dataList value="#{examListMB.selectedExam.questions}" var="question" type="definition">
 				    <p:fieldset>
-				    <p:commandButton styleClass="button-right" action="editQuestion" icon="ui-icon-pencil" title="Edit question">
-         				<f:setPropertyActionListener value="#{question}" target="#{questionListMB.selectedQuestion}" />
-            		</p:commandButton>
 				    <p:panelGrid style="width:100%">
 				    	<p:row>
 					    	<p:column style="width:20%">
-					    		<p:outputLabel value="Question  #{question.qPosition}" />
+					    		<p:outputLabel for="position" value="Question " />
+								<p:inputText id="position" value="#{question.qPosition}" style="width:20%"/>
 					    	</p:column>
 					    	<p:column style="width:65%">
-					    		<b><p:outputLabel value="#{question.qName}" /></b>
+					    		<p:inputText id="qName" value="#{question.qName}" required="true" 
+									requiredMessage="Question must have a name." style="width:100%"/>
+								<p:message for="qName" />
 					    	</p:column>
-					    	
 				    	</p:row>
 				    	<p:row>
 					    	<p:column style="width:20%">
 					    		<p:outputLabel value="Answers" />
 					    	</p:column>
 					    	<p:column style="width:65%">
-					    		<p:dataList value="#{question.possibleAnswers}" var="pa" styleClass="datalist-nospace"
-					    			itemType="#{question.qType=='multipleChoice' ? 'square' : 'circle'}"
+					    		<p:spacer width="4" height="10"/>
+					    		<p:outputLabel value="Possible answers" rendered="#{question.qType=='text' ? false : true}" />
+								<p:spacer height="10" width="80" />
+				        		<p:outputLabel value="Is correct?" rendered="#{question.qType=='text' ? false : true}" />
+				        		<br/>
+				        		
+						     	<p:dataList value="#{question.possibleAnswers}" var="pa" styleClass="datalist-nospace"
+					    			type="definition"
 					    			rendered="#{question.qType=='text' ? false : true}" >
-					    				<p:outputLabel value="#{pa.paName}" />
-					    				<p:spacer width="40" height="10" />
-					    				<p:graphicImage value="resources/img/icon-check.png" rendered="#{pa.paIsCorrect}" />
+					    				<p:inputText value="#{pa.paName}" />
+					    				<p:spacer width="40" height="10"/>
+					    				<p:selectBooleanCheckbox value="#{pa.paIsCorrect}" />
+					    				
 					    		</p:dataList>
 					    		<p:outputLabel value="#{question.qType=='text' ? 'Text' : ''}" />
 					    	</p:column>
@@ -116,7 +111,8 @@
 					    	<p:column style="width:65%">
 					    	</p:column>
 					    	<p:column style="width:15%;  text-align:right;">
-					    		<p:outputLabel value="#{question.qValue} point#{question.qValue>1 ? 's':''}" />
+					    		<p:inputText value="#{question.qValue}" style="width:20%;" />
+					    		<p:outputLabel value=" point#{question.qValue>1 ? 's':''}" />
 					    	</p:column>
 				    	</p:row>
 				    </p:panelGrid>
@@ -126,13 +122,19 @@
 				</p:dataList>  
 				
 				<p:separator /><br/>
-				
+
 				<p:fieldset>
 					<h3>About the exam</h3>
 					Number of questions: #{examListMB.selectedExam.questions.size()}<br/>
 					Number of points: #{examListMB.nbPoint}
 				</p:fieldset>
-
+				
+				<f:facet name="footer">
+        			<p:commandButton value="Edit exam" update="panel" action="#{possibleAnswerAddMB.savePA}" 
+        				actionListener="#{questionAddMB.saveQuestion}" icon="ui-icon-disk">
+        			</p:commandButton>
+        		</f:facet>
+				
 			</p:panel>
 		</h:form>
     </h:body>

@@ -13,7 +13,6 @@ import javax.faces.context.FacesContext;
 import model.Exam;
 import model.Teacher;
 import beans.ExamBean;
-import beans.TeacherBean;
 
 
 @Named
@@ -35,8 +34,6 @@ public class ExamAddMB implements Serializable {
 	
 	@EJB
 	private ExamBean theExam;
-	@EJB
-	private TeacherBean theTeacher;
 	
 	public String geteName() { 
 		return eName;
@@ -85,7 +82,7 @@ public class ExamAddMB implements Serializable {
 	public String saveExam(){ 
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 		//System.out.println("User : " + ((Teacher) fc.getSessionMap().get("user")).gettFirstName());
-		teach = (Teacher) ec.getSessionMap().get("user");
+		teach = (Teacher) ec.getSessionMap().get("teacher");
 		
 		Time startHour = new Time(eStartHour.getTime());
 		Time endHour = new Time(eEndHour.getTime());

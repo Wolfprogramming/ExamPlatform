@@ -30,9 +30,7 @@
 		<h:form>
 			<p:dataTable id="dataTable" value="#{examListMB.allExams}" var="exa">
 				<f:facet name="header">
-					
-    	  			 Exams
-    				
+    	  			 Exams    				
 				</f:facet>
 				
 				<p:column sortBy="eName" headerText="Name">				
@@ -40,11 +38,9 @@
 			            	<h:outputText value="#{exa.eName}" />
 			            	<f:setPropertyActionListener value="#{exa}" target="#{examListMB.selectedExam}" />
 		            	</h:commandLink>
-		            	<p:tooltip  for="seeExam" value="View detail" showEffect="fade" hideEffect="fade" /> 
+		            	<p:tooltip  for="seeExam" value="View exam details" showEffect="fade" hideEffect="fade" /> 
 		        </p:column>
-		        
-		        
-				
+		        				
 		        <p:column sortBy="eDate" headerText="Start date"  style="text-align:center">
 		            <h:outputText value="#{exa.eDate}" >
 		            	<f:convertDateTime pattern="dd/MM/yyyy" />

@@ -30,15 +30,17 @@ public class Exam implements Serializable {
 
 	@Lob
 	private String eDesc;
-
-	private Time eEndHour;
+	
+	@Temporal(TemporalType.TIME)
+	private Date eEndHour;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date eModifyDate;
 
 	private String eName;
 
-	private Time eStartHour;
+	@Temporal(TemporalType.TIME)
+	private Date eStartHour;
 
 	//bi-directional many-to-one association to Teacher
 	@ManyToOne
@@ -84,11 +86,11 @@ public class Exam implements Serializable {
 		this.eDesc = eDesc;
 	}
 
-	public Time geteEndHour() {
+	public Date geteEndHour() {
 		return this.eEndHour;
 	}
 
-	public void seteEndHour(Time eEndHour) {
+	public void seteEndHour(Date eEndHour) {
 		this.eEndHour = eEndHour;
 	}
 
@@ -108,11 +110,11 @@ public class Exam implements Serializable {
 		this.eName = eName;
 	}
 
-	public Time geteStartHour() {
+	public Date geteStartHour() {
 		return this.eStartHour;
 	}
 
-	public void seteStartHour(Time eStartHour) {
+	public void seteStartHour(Date eStartHour) {
 		this.eStartHour = eStartHour;
 	}
 

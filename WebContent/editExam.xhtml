@@ -46,7 +46,7 @@
 						</p:column>
 						<p:column style="width:5%"></p:column>
 					</p:row>
-					
+
 					<p:row>
 					    <p:column style="width:20%">
 							Starting hour
@@ -55,85 +55,22 @@
 							<p:calendar id="startHour" value="#{examListMB.selectedExam.eStartHour}" pattern="HH:mm" timeOnly="true"
 								minHour="7" maxHour="21" stepMinute="5" />
 						</p:column>
+						 
 						<p:column style="width:5%"></p:column>
 						<p:column style="width:20%">
 							Ending hour
 						</p:column>
 						<p:column style="width:25%">
-							<p:calendar id="endHour" value="#{examListMB.selectedExam.eEndHour}" pattern="HH:mm" timeOnly="true"
+							<p:calendar value="#{examListMB.selectedExam.eEndHour}" pattern="HH:mm" timeOnly="true"
 								minHour="8" maxHour="22" stepMinute="5" />
 						</p:column>
 						<p:column style="width:5%"></p:column>
 					</p:row>
 				</p:panelGrid>
 				
-				<p:separator />
-				
-				<p:dataList value="#{examListMB.selectedExam.questions}" var="question" type="definition">
-				    <p:fieldset>
-				    <p:panelGrid style="width:100%">
-				    	<p:row>
-					    	<p:column style="width:20%">
-					    		<p:outputLabel for="position" value="Question " />
-								<p:inputText id="position" value="#{question.qPosition}" style="width:20%"/>
-					    	</p:column>
-					    	<p:column style="width:65%">
-					    		<p:inputText id="qName" value="#{question.qName}" required="true" 
-									requiredMessage="Question must have a name." style="width:100%"/>
-								<p:message for="qName" />
-					    	</p:column>
-				    	</p:row>
-				    	<p:row>
-					    	<p:column style="width:20%">
-					    		<p:outputLabel value="Answers" />
-					    	</p:column>
-					    	<p:column style="width:65%">
-					    		<p:spacer width="4" height="10"/>
-					    		<p:outputLabel value="Possible answers" rendered="#{question.qType=='text' ? false : true}" />
-								<p:spacer height="10" width="80" />
-				        		<p:outputLabel value="Is correct?" rendered="#{question.qType=='text' ? false : true}" />
-				        		<br/>
-				        		
-						     	<p:dataList value="#{question.possibleAnswers}" var="pa" styleClass="datalist-nospace"
-					    			type="definition"
-					    			rendered="#{question.qType=='text' ? false : true}" >
-					    				<p:inputText value="#{pa.paName}" />
-					    				<p:spacer width="40" height="10"/>
-					    				<p:selectBooleanCheckbox value="#{pa.paIsCorrect}" />
-					    				
-					    		</p:dataList>
-					    		<p:outputLabel value="#{question.qType=='text' ? 'Text' : ''}" />
-					    	</p:column>
-				    	</p:row>
-				    	<p:row>
-					    	<p:column style="width:20%">
-					    	</p:column>
-					    	<p:column style="width:65%">
-					    	</p:column>
-					    	<p:column style="width:15%;  text-align:right;">
-					    		<p:inputText value="#{question.qValue}" style="width:20%;" />
-					    		<p:outputLabel value=" point#{question.qValue>1 ? 's':''}" />
-					    	</p:column>
-				    	</p:row>
-				    </p:panelGrid>
-				    </p:fieldset>
-				    <br/>
-
-				</p:dataList>  
-				
-				<p:separator /><br/>
-
-				<p:fieldset>
-					<h3>About the exam</h3>
-					Number of questions: #{examListMB.selectedExam.questions.size()}<br/>
-					Number of points: #{examListMB.nbPoint}
-				</p:fieldset>
 				
 				<f:facet name="footer">
-        			<p:commandButton value="Edit exam" update="panel" action="#{possibleAnswerAddMB.savePA}"  icon="ui-icon-disk">
-        				<f:actionListener binding="#{questionAddMB.saveQuestion}"/>
-        				<f:actionListener binding="#{jsfBean2.actionListener}"/>
-        			</p:commandButton>
+        			<p:commandButton value="Save modifications" update="panel" action="#{examListMB.editExam}" icon="ui-icon-disk" />
         		</f:facet>
 				
 			</p:panel>

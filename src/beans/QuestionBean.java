@@ -33,6 +33,10 @@ public class QuestionBean {
     	em.persist(newQuestion);
     }
     
+    public void doUpdate(Question updtQuestion) {
+        em.merge(updtQuestion);
+    }
+    
     public Question findQuestion(int idSearchQuestion){
     	return em.find(Question.class, idSearchQuestion);
     }
