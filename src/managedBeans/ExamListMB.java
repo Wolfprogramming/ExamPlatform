@@ -1,8 +1,10 @@
 package managedBeans;
 
 import java.io.Serializable;
-import java.sql.Time;
 import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.sql.Time;
 import java.util.List;
 
 import javax.inject.Named;
@@ -26,6 +28,8 @@ public class ExamListMB implements Serializable {
 	private List<Exam> allExams;
 	private Exam selectedExam;
 	private List<Exam> filteredExams;
+	private List<Exam> upcomingExams;
+	private List<Exam> previousExams;
 	
 	@EJB
 	private ExamBean theExams;
@@ -34,8 +38,44 @@ public class ExamListMB implements Serializable {
 	@PostConstruct
 	public void init(){
 		allExams = theExams.findAllExams();
+	
+
+		
+		setUpPastExams();
+		
+		
 	}
 
+	
+	//Trying to add all the exams to the lists previousexams or upcoming exams
+	public void setUpPastExams(){
+		
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        dateFormat.format(date);
+		
+		
+		for (int i = 0; i< allExams.size(); i++){
+			
+			if (allExams.get(i).geteDate().after(date)){
+				
+				upcomingExams.add(i, allExams.get(i));				
+			}
+			else if (allExams.get(i).geteDate().equals(date)){
+				upcomingExams.add(i, allExams.get(i));
+			}
+			else {
+				previousExams.add(i, allExams.get(i));
+			}
+			
+		}
+	}
+	
+	
+	
+	
+	
+	
 	public Exam getSelectedExam() {
 		return selectedExam;
 	}
@@ -64,6 +104,22 @@ public class ExamListMB implements Serializable {
 		return nbPoint;
 	}
 	
+	public List<Exam> getupcomingExams() {
+		return upcomingExams;
+	}
+
+	public void setupcomingExams(List<Exam> upcomingExams) {
+		this.upcomingExams = upcomingExams;
+	}
+
+	public List<Exam> getpreviousExams() {
+		return previousExams;
+	}
+
+	public void setpreviousExams(List<Exam> previousExams) {
+		this.previousExams = previousExams;
+	}
+
 	public List<Exam> getAllExams(){
 		return allExams;
 	}

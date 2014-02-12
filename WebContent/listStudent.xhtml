@@ -25,7 +25,7 @@
 		<h:form>
 			<p:dataTable id="dataTable" var="stu" value="#{listStudentsMB.allStudents}" sortMode="multiple" rows="25" paginator="true" widgetVar="studentTable" emptyMessage="No students found with given criteria" filteredValue="#{listStudentsMB.filteredStudents}">
 				<f:facet name="header">
-				Exams
+				Students
 					<p:outputPanel>
 						<h:outputText value="Search all fields:" />
 						<p:inputText id="globalFilter" onkeyup="studentTable.filter()" style="width:150px" />	
@@ -36,11 +36,11 @@
 		            	<h:outputText value="#{stu.sFirstName}" />
 		        </p:column>
 				
-		        <p:column sortBy="sLastName" headerText="Last Name">
+		        <p:column sortBy="sLastName" headerText="Last Name" id="lastNameColumns" filterBy="sLastName" filterMatchMode="contains">
 		            	<h:outputText value="#{stu.sLastName}" />
 		        </p:column>
 		
-		        <p:column sortBy="sEmail" headerText="Email">
+		        <p:column sortBy="sEmail" headerText="Email" id="sEmail" filterBy="sEmail" filterMatchMode="contains">
 		            <h:outputText value="#{stu.sEmail}" />
 		        </p:column>
 		  
