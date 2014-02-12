@@ -108,6 +108,12 @@ public class QuestionAddMB implements Serializable {
 		
 		System.out.println("question saved");
 		
+		setqHelp(null);
+		setqName(null);
+		setqPosition(0);
+		setqType(null);
+		setqValue((short)0);
+		
 		return null;
 	}
 	

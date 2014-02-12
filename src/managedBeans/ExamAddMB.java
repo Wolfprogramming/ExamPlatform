@@ -22,8 +22,8 @@ public class ExamAddMB implements Serializable {
 	private static final long serialVersionUID = 1L; 
 	private String eName;
 	private String eDesc;
-	private Date eCreation = new Date(System.currentTimeMillis());
-	private Date eModify  = new Date(System.currentTimeMillis());
+	private Date eCreation;
+	private Date eModify;
 	private Date eDate;
 	private Date eEndHour;
 	private Date eStartHour;
@@ -81,8 +81,11 @@ public class ExamAddMB implements Serializable {
 
 	public String saveExam(){ 
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-		//System.out.println("User : " + ((Teacher) fc.getSessionMap().get("user")).gettFirstName());
+		
 		teach = (Teacher) ec.getSessionMap().get("teacher");
+		
+		eCreation = new Date(System.currentTimeMillis());
+		eModify  = new Date(System.currentTimeMillis());
 		
 		Time startHour = new Time(eStartHour.getTime());
 		Time endHour = new Time(eEndHour.getTime());
@@ -99,6 +102,12 @@ public class ExamAddMB implements Serializable {
 		theExam.doInsert(tmp);
 		
 		ec.getSessionMap().put("exam", tmp);
+		
+		seteName(null);
+		seteDesc(null);
+		seteDate(null);
+		seteStartHour(null);
+		seteEndHour(null);
 		
 		return "addQuestion";
 	}

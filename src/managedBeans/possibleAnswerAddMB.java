@@ -84,9 +84,45 @@ public class possibleAnswerAddMB implements Serializable {
 					thePA.doInsert(tmp);
 					
 					System.out.println("value saved: " + i + " - " + paName.get(i));
+					
+					//Clear variable after adding
+					paName.set(i, "");
+					paIsCorrect.set(i, false);
 				}
 			}
 		}
 		return "addQuestion";
 	}
+	
+	public String savePA(Question editQuestion){ 
+		
+		System.out.println("enter savePA 2");
+
+		if(!(editQuestion.getqType().equals("text")) && !(paName.equals(""))){
+			
+			System.out.println("enter first IF");
+			System.out.println("paName 1: " + paName.get(0));
+			for(int i=0; i<paName.size(); i++)
+			{
+				if(paName.get(i)==null)
+				{
+					System.out.println("NULL VALUE");
+				}
+				else{
+					PossibleAnswer tmp = new PossibleAnswer();
+					tmp.setPaIsCorrect(paIsCorrect.get(i));
+					tmp.setPaName(paName.get(i));
+					tmp.setQuestion(editQuestion);
+					thePA.doInsert(tmp);
+					
+					System.out.println("value saved: " + i + " - " + paName.get(i));
+					
+					paName.set(i, "");
+					paIsCorrect.set(i, false);
+				}
+			}
+		}
+		return "viewExam";
+	}
+	
 }

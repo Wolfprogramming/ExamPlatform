@@ -28,7 +28,7 @@
 
 
 		<h:form>						<!-- The value should be examListMB.upcomingExams -->
-			<p:dataTable id="dataTable" value="#{examListMB.allExams}" var="exa" sortMode="multiple" rows="10" paginator="true" widgetVar="examTable" emptyMessage="No exams found with that criteria" filteredValue="#{examListMB.filteredExams}">
+			<p:dataTable id="dataTableUpComing" value="#{examListMB.upcomingExams}" var="exa" sortMode="multiple" rows="10" paginator="true" widgetVar="examTable" emptyMessage="No exams found with that criteria" filteredValue="#{examListMB.filteredExams}">
 				<f:facet name="header">
     	  			 UPCOMING EXAMS
     				<p:outputPanel>
@@ -64,7 +64,7 @@
 		</h:form> 
 		
 		<h:form>					<!-- The value should be examListMB.previousExams -->
-			<p:dataTable id="dataTable" value="#{examListMB.allExams}" var="exa" sortMode="multiple" rows="10" paginator="true" widgetVar="examTable" emptyMessage="No exams found with that criteria" filteredValue="#{examListMB.filteredExams}">
+			<p:dataTable id="dataTablePrevious" value="#{examListMB.previousExams}" var="exa" sortMode="multiple" rows="10" paginator="true" widgetVar="examTable" emptyMessage="No exams found with that criteria" filteredValue="#{examListMB.filteredExams}">
 				<f:facet name="header">
     	  			 PREVIOUS EXAMS
     				<p:outputPanel>

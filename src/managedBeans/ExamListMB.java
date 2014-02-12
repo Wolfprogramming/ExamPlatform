@@ -38,10 +38,9 @@ public class ExamListMB implements Serializable {
 	@PostConstruct
 	public void init(){
 		allExams = theExams.findAllExams();
-	
-
+		upcomingExams = theExams.findAllExams();
 		
-		setUpPastExams();
+		//setUpPastExams();
 		
 		
 	}
@@ -104,19 +103,21 @@ public class ExamListMB implements Serializable {
 		return nbPoint;
 	}
 	
-	public List<Exam> getupcomingExams() {
+	public List<Exam> getUpcomingExams() {
+		
 		return upcomingExams;
 	}
 
-	public void setupcomingExams(List<Exam> upcomingExams) {
+	public void setUpcomingExams(List<Exam> upcomingExams) {
 		this.upcomingExams = upcomingExams;
 	}
 
-	public List<Exam> getpreviousExams() {
+	public List<Exam> getPreviousExams() {
+		
 		return previousExams;
 	}
 
-	public void setpreviousExams(List<Exam> previousExams) {
+	public void setPreviousExams(List<Exam> previousExams) {
 		this.previousExams = previousExams;
 	}
 
@@ -124,15 +125,13 @@ public class ExamListMB implements Serializable {
 		return allExams;
 	}
 	
-	public String editExam(){ 
-		//ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-		//teach = (Teacher) ec.getSessionMap().get("user");
+	public String editExam(){
 		System.out.println("enter editExam");
+		
 		Time startHour = new Time(selectedExam.geteStartHour().getTime());
 		Time endHour = new Time(selectedExam.geteEndHour().getTime());
 		Date eModify  = new Date(System.currentTimeMillis());
 		
-		//Exam tmp = new Exam(); 
 		selectedExam.seteName(selectedExam.geteName());
 		selectedExam.seteDesc(selectedExam.geteDesc());
 		selectedExam.seteModifyDate(eModify);
