@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    >
+    <h:head>
+		<title>Start page</title>
+		<h:outputStylesheet library="css" name="style.css" />
+	</h:head>
+	<h:body>
+			
+		<h:form>
+    		<p:toolbar>
+    			<p:toolbarGroup align="left">
+            		<p:commandButton value="New Exam" action="addExam.xhtml" icon="ui-icon-document" />
+        		</p:toolbarGroup>
+        		
+        		<p:toolbarGroup align="center">
+        			<p:commandButton value="Students" action="listStudent.xhtml"></p:commandButton>
+        		</p:toolbarGroup>
+   		
+        		<p:toolbarGroup align="right">
+            		<p:commandButton value="Logout" action="#{loginMB.logout}" icon="ui-icon-extlink" />
+        		</p:toolbarGroup>
+        	</p:toolbar>
+		</h:form>
+		<br/>
+
+
+		<h:form>
+			<p:dataTable id="dataTable" value="#{examListMB.allExams}" var="exa" sortMode="multiple" rows="10" paginator="true" widgetVar="examTable" emptyMessage="No exams found with that criteria" filteredValue="#{examListMB.filteredExams}">
+				<f:facet name="header">
+    	  			 Exams
+    				<p:outputPanel>
+						<h:outputText value="Search:" />
+						<p:inputText id="globalFilter" onkeyup="examTable.filter()" style="width:150px" />	
+					</p:outputPanel>
+				</f:facet>
+				
+				<p:column sortBy="eName" headerText="Name">				
+		            	<h:commandLink action="viewExam" title="View Detail" id="seeExam">
+			            	<h:outputText value="#{exa.eName}" />
+			            	<f:setPropertyActionListener value="#{exa}" target="#{examListMB.selectedExam}" />
+		            	</h:commandLink>
+		            	<p:tooltip  for="seeExam" value="View exam details" showEffect="fade" hideEffect="fade" /> 
+		        </p:column>
+		        				
+		        <p:column sortBy="eDate" headerText="Start date"  style="text-align:center">
+		            <h:outputText value="#{exa.eDate}" >
+		            	<f:convertDateTime pattern="dd/MM/yyyy" />
+		            </h:outputText><p:spacer width="15"></p:spacer>
+		            <h:outputText value="#{exa.eStartHour}">
+		            	<f:convertDateTime pattern="HH:mm" />
+		            </h:outputText>
+		        </p:column>
+		
+		        <p:column sortBy="eEndHour" headerText="End hour" style="text-align:center">
+		            <h:outputText value="#{exa.eEndHour}">
+		            	<f:convertDateTime pattern="HH:mm" />
+		            </h:outputText>
+		        </p:column>
+		  
+			</p:dataTable>
+		</h:form> 
+		
+		<br/>
+		<br/>
+		
+		<h:form>
+			<p:dataTable id="dataTable2" value="#{teacherListMB.allTeachers}" var="tea" sortMode="multiple" rows="5" paginator="true" widgetVar="teacherTable" emptyMessage="No teacher found with given criteria" filteredValue="#{teacherListMB.filteredTeachers}">
+				<f:facet name="header">
+					Teachers
+						<p:outputPanel>
+							<h:outputText value="Search:" />
+							<p:inputText id="globalFilter" onkeyup="teacherTable.filter()" style="width:150px" />	
+						</p:outputPanel>
+				</f:facet>
+				
+				<p:column sortBy="tFirstName" headerText="FirstName">
+		            	<h:outputText value="#{tea.tFirstName}" />
+		        </p:column>
+		        
+		        <p:column sortBy="tLastName" headerText="LastName">
+		            <h:outputText value="#{tea.tLastName}" />
+		        </p:column>
+				
+		        <p:column sortBy="tEmail" headerText="Email">
+		            <h:outputText value="#{tea.tEmail}" />
+		        </p:column>
+		  
+			</p:dataTable>
+		</h:form>
+		
+		<br/>
+		<br/>
+		
+		<h:form>
+			<p:dataTable value="#{questionListMB.theQuestions}" var="que">
+				<f:facet name="header">
+					Questions
+				</f:facet>
+				
+				<p:column headerText="Name">
+		            	<h:outputText value="#{que.qName}" />
+		        </p:column>
+		        
+		        <p:column headerText="Help">
+		            <h:outputText value="#{que.qHelp}" />
+		        </p:column>
+				
+		        <p:column headerText="Type">
+		            <h:outputText value="#{que.qType}" />
+		        </p:column>
+		        
+		        <p:column headerText="Position">
+		            <h:outputText value="#{que.qPosition}" />
+		        </p:column>
+		        
+		        <p:column headerText="Value">
+		            <h:outputText value="#{que.qValue} point(s)" />
+		        </p:column>
+		  
+			</p:dataTable>
+		</h:form>
+		
+	</h:body>
+</html>
