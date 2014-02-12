@@ -46,7 +46,7 @@ public class StudentBean {
     }
       
     public void doRemove(Student student) {
-        if (student != null && student.getSEmail()!=null && em.contains(student)) {
+        if (student != null && student.getsEmail()!=null && em.contains(student)) {
             em.remove(student);
         }
     }

@@ -21,6 +21,7 @@ public class TeacherListMB implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private List<Teacher> allTeachers;
+	private List<Teacher> filteredTeachers;
 	
 	@PostConstruct
 	public void init()
@@ -31,6 +32,7 @@ public class TeacherListMB implements Serializable {
 	@EJB
 	private TeacherBean theTeachers;
 	
+	
     public TeacherListMB() {
         // TODO Auto-generated constructor stub
     }
@@ -38,5 +40,14 @@ public class TeacherListMB implements Serializable {
     public List<Teacher> getAllTeachers(){
 		return allTeachers;
 	}
+
+	public List<Teacher> getfilteredTeachers() {
+		return filteredTeachers;
+	}
+
+	public void setfilteredTeachers(List<Teacher> filteredTeachers) {
+		this.filteredTeachers = filteredTeachers;
+	}
+    
 
 }

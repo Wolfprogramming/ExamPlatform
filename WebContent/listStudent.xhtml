@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+    <h:head>
+		<title>Students List page</title>
+		<h:outputStylesheet library="css" name="style.css" />
+	</h:head>
+	<h:body>
+			
+		<h:form>
+    		<p:toolbar>
+   		
+        		<p:toolbarGroup align="right">          		                 		
+            		<p:commandButton value="Home" action="index.html" />  
+        		</p:toolbarGroup>
+        	</p:toolbar>
+		</h:form>
+		<br/>
+		
+		
+		<h:form>
+			<p:dataTable id="dataTable" var="stu" value="#{listStudentsMB.allStudents}" sortMode="multiple" rows="25" paginator="true" widgetVar="studentTable" emptyMessage="No students found with given criteria" filteredValue="#{listStudentsMB.filteredStudents}">
+				<f:facet name="header">
+				Exams
+					<p:outputPanel>
+						<h:outputText value="Search all fields:" />
+						<p:inputText id="globalFilter" onkeyup="studentTable.filter()" style="width:150px" />	
+					</p:outputPanel>
+				</f:facet>
+				<!-- I did a filter for Name just for trying, maybe is useful in other place but here with the global search is okey i think -->
+				<p:column sortBy="sFirstName" headerText="Name" id="nameColumn" filterBy="sFirstName" filterMatchMode="contains">
+		            	<h:outputText value="#{stu.sFirstName}" />
+		        </p:column>
+				
+		        <p:column sortBy="sLastName" headerText="Last Name">
+		            	<h:outputText value="#{stu.sLastName}" />
+		        </p:column>
+		
+		        <p:column sortBy="sEmail" headerText="Email">
+		            <h:outputText value="#{stu.sEmail}" />
+		        </p:column>
+		  
+			</p:dataTable>
+		</h:form> 
+		
+		
+		
+		
+		
+	</h:body>
+</html>
