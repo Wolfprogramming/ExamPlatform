@@ -19,6 +19,8 @@ public class QuestionListMB implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private Question selectedQuestion;
+	private String isDisplay="false";
+	private String typePrec;
 	
 	@EJB
 	private QuestionBean theQuestions;
@@ -29,10 +31,30 @@ public class QuestionListMB implements Serializable {
 
 	public void setSelectedQuestion(Question selectedQuestion) {
 		this.selectedQuestion = selectedQuestion;
+		this.typePrec=selectedQuestion.getqType();
 	}
 
 	public List<Question> getTheQuestions(){
 		return theQuestions.findAllQuestions();
+	}
+	
+	public String getisDisplay() {
+		return isDisplay;
+	}
+
+	public void setisDisplay(String isDisplay) {
+		this.isDisplay = isDisplay;
+	}
+	
+	public String gettypePrec() {
+		return typePrec;
+	}
+	
+	public void subjectSelectionChanged(){
+		if(selectedQuestion.getqType().equals("singleChoice") || selectedQuestion.getqType().equals("multipleChoice"))
+			isDisplay="true";
+		else
+			isDisplay="false";
 	}
 	
 	public String editQuestion(){

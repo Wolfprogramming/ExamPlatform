@@ -61,7 +61,6 @@ public class LoginMB implements Serializable{
         else if(password.equals(resultStudent.getSPassword())){
         	System.out.println("Identification STUDENT succeed");
         	
-        	//Put user in sessionMap to know he is logged in and retrieve it later
         	externalContext.getSessionMap().put("student", resultStudent);
         	
             externalContext.redirect(externalContext.getRequestContextPath() + "/indexStudent.xhtml");

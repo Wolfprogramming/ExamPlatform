@@ -47,21 +47,64 @@
 					    		<p:outputLabel value="Answers" />
 					    	</p:column>
 					    	<p:column style="width:65%">
-					    		<p:spacer width="4" height="10"/>
-					    		<p:outputLabel value="Possible answers" rendered="#{questionListMB.selectedQuestion.qType=='text' ? false : true}" />
-								<p:spacer height="10" width="80" />
-				        		<p:outputLabel value="Is correct?" rendered="#{questionListMB.selectedQuestion.qType=='text' ? false : true}" />
-				        		<br/>
 				        		
-						     	<p:dataList value="#{questionListMB.selectedQuestion.possibleAnswers}" var="pa" styleClass="datalist-nospace"
+				        		
+				        		
+				        		
+				    <p:selectOneMenu id="type" value="#{questionListMB.selectedQuestion.qType}" required="true">
+						<p:ajax event="valueChange" update="choicesSM"
+                			listener="#{questionListMB.subjectSelectionChanged}" />
+						<f:selectItem itemLabel="Select One" itemValue="" /> 
+			            <f:selectItem itemLabel="Single choice" itemValue="singleChoice" />
+			            <f:selectItem itemLabel="Multiple choices" itemValue="multipleChoice" />
+			            <f:selectItem itemLabel="Text" itemValue="text" />
+			            <!--<f:selectItem itemLabel="From a list" itemValue="4" /> -->
+			        </p:selectOneMenu>
+			        
+			        <br/>
+			    	<p:spacer />
+					
+			        <h:panelGroup layout="block" id="choicesSM" >
+        				<p:spacer width="4" height="10"/>
+			    		<p:outputLabel value="Possible answers" rendered="#{questionListMB.selectedQuestion.qType=='text' ? false : true}" />
+						<p:spacer height="10" width="80" />
+		        		<p:outputLabel value="Is correct?" rendered="#{questionListMB.selectedQuestion.qType=='text' ? false : true}" />
+		        		<br/>
+			        		
+				      
+			            <p:dataList value="#{questionListMB.selectedQuestion.possibleAnswers}" var="pa" styleClass="datalist-nospace"
 					    			type="definition"
-					    			rendered="#{questionListMB.selectedQuestion.qType=='text' ? false : true}" >
+					    			rendered="#{(questionListMB.isDisplay=='true' && questionListMB.typePrec!='text') ? true : false}" >
 					    				<p:inputText value="#{pa.paName}" />
 					    				<p:spacer width="40" height="10"/>
 					    				<p:selectBooleanCheckbox value="#{pa.paIsCorrect}" />
 					    				
-					    		</p:dataList>
+					    </p:dataList>
+					    
+					    <ui:repeat value="#{possibleAnswerAddMB.paName}" varStatus="status"
+				        	rendered="#{questionListMB.typePrec=='text' ? true : false}">
+			                <p:inputText styleClass="choices" 
+				                value="#{possibleAnswerAddMB.paName[status.index]}" />
+							<p:spacer width="40" height="10"/>
+		                	<p:selectBooleanCheckbox value="#{possibleAnswerAddMB.paIsCorrect[status.index]}" />
+		                	<br/>
+		                	
+			            </ui:repeat>
+			            
+			            
+			        </h:panelGroup>
+				        		
+				        		
+				        		
+				        		
+						     	
 					    		<p:outputLabel value="#{questionListMB.selectedQuestion.qType=='text' ? 'Text' : ''}" />
+					    		
+					    		
+					
+					    		
+					    		
+					    		
 					    	</p:column>
 				    	</p:row>
 				    	<p:row>
