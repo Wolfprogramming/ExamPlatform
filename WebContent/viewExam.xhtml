@@ -42,7 +42,6 @@
         		<p:commandButton styleClass="button-right" action="editExam" icon="ui-icon-pencil" title="Edit exam properties">
          			<f:setPropertyActionListener value="#{examListMB.selectedExam}" target="#{examListMB.selectedExam}" />
             	</p:commandButton>
-            	
 			    
 				<h2><p:outputLabel id="name" value="#{examListMB.selectedExam.eName}" size="30" /></h2>
 				
@@ -100,23 +99,6 @@
 				    </f:facet>
 				    
 				    <p:fieldset>
-				    
-				    <p:commandButton icon="ui-icon-close" action="#{questionListMB.deleteQuestion}" 
-				    		update=":form:panel datalistQuestion messageDeleteQuestion" 
-				    		styleClass="button-right" title="Delete question">
-				        <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
-				        <f:setPropertyActionListener value="#{question}" target="#{questionListMB.selectedQuestion}" />
-				        
-				    </p:commandButton>
-				  
-				    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-				        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
-				        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
-				    </p:confirmDialog>
-				    
-				    <p:commandButton styleClass="button-right" action="editQuestion" icon="ui-icon-pencil" title="Edit question">
-         				<f:setPropertyActionListener value="#{question}" target="#{questionListMB.selectedQuestion}" />
-            		</p:commandButton>
             		
 				    <p:panelGrid style="width:100%">
 				    	<p:row>
@@ -125,6 +107,23 @@
 					    	</p:column>
 					    	<p:column style="width:65%">
 					    		<b><p:outputLabel value="#{question.qName}" /></b>
+					    	</p:column>
+					    	<p:column style="width:15%">
+					    		<p:commandButton icon="ui-icon-close" action="#{questionListMB.deleteQuestion}" 
+							    		update=":form:panel datalistQuestion messageDeleteQuestion" 
+							    		styleClass="button-right" title="Delete question">
+							        <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+							        <f:setPropertyActionListener value="#{question}" target="#{questionListMB.selectedQuestion}" />
+							    </p:commandButton>
+							  
+							    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+							        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+							        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+							    </p:confirmDialog>
+							    
+							    <p:commandButton styleClass="button-right" action="editQuestion" icon="ui-icon-pencil" title="Edit question">
+			         				<f:setPropertyActionListener value="#{question}" target="#{questionListMB.selectedQuestion}" />
+			            		</p:commandButton>
 					    	</p:column>
 					    	
 				    	</p:row>
@@ -154,7 +153,6 @@
 				    	</p:row>
 				    </p:panelGrid>
 				    </p:fieldset>
-				    <br/>
 				    
 				</p:dataList>
 				

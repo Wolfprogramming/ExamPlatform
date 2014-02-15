@@ -87,8 +87,10 @@ public class ExamListMB implements Serializable {
 
 	public void setSelectedExam(Exam selectedExam) {
 		this.selectedExam = selectedExam;
-		if(selectedExam!=null)
+		if(selectedExam!=null){
+			theExams.doUpdate(selectedExam);
 			setQuestions(selectedExam.getQuestions());
+		}
 	}
 
 	
@@ -128,7 +130,6 @@ public class ExamListMB implements Serializable {
 	}
 
 	public List<Exam> getAllExams(){
-		//allExams = theExams.findAllExams();
 		return allExams;
 	}
 	
@@ -137,18 +138,19 @@ public class ExamListMB implements Serializable {
 	}
 
 	public List<Question> getQuestions() {
+		this.nbPoint=0;
+		for(int i=0; i<questions.size();i++){
+			this.nbPoint += questions.get(i).getqValue();
+		}
 		return questions;
 	}
 
 	public void setQuestions(List<Question> questions) {
 		this.questions = questions;
-		this.nbPoint=0;
-		for(int i=0; i<questions.size();i++){
-			this.nbPoint += questions.get(i).getqValue();
-		}
 	}
 	
 	public void clear(){
+		theExams.doUpdate(selectedExam);
 		this.allExams.clear();
 		this.allExams = theExams.findAllExams();
 		setSelectedExam(null);

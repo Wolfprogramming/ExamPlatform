@@ -65,11 +65,11 @@
 							    <p:selectOneMenu id="type" value="#{questionListMB.selectedQuestion.qType}" required="true">
 									<p:ajax event="valueChange" update="choicesSM"
 			                			listener="#{questionListMB.subjectSelectionChanged}" />
-									<f:selectItem itemLabel="Select One" itemValue="" /> 
-						            <f:selectItem itemLabel="Single choice" itemValue="singleChoice" />
+									<f:selectItem itemLabel="Select One" itemValue="" />
 						            <f:selectItem itemLabel="Multiple choices" itemValue="multipleChoice" />
+						            <f:selectItem itemLabel="Single choice" itemValue="singleChoice" />
+						            <f:selectItem itemLabel="Choose from a list" itemValue="list" />
 						            <f:selectItem itemLabel="Text" itemValue="text" />
-						            <f:selectItem itemLabel="From a list" itemValue="list" />
 						        </p:selectOneMenu>
 						        
 						        <br/>

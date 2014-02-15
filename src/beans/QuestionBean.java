@@ -56,8 +56,8 @@ public class QuestionBean {
     
     public List<Question> findQuestionsOfExams(Exam exam){
     	@SuppressWarnings("unchecked")
-		TypedQuery<Question> theQuery = (TypedQuery<Question>)em.createQuery("SELECT q FROM Question q WHERE q.FK_idExam=:qIdExam")
-    			.setParameter("qIdExam", exam.getIdExam());
+		TypedQuery<Question> theQuery = (TypedQuery<Question>)em.createQuery("SELECT q FROM Question q WHERE q.exam=:qExam ORDER BY q.qPosition")
+    			.setParameter("qExam", exam);
     	return theQuery.getResultList();
     }
 

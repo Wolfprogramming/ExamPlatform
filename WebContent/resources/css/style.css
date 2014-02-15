@@ -1,9 +1,30 @@
-.ui-selectonemenu{
+body{
+	width:80%;
+	margin:10px auto;
+}
+.ui-widget{
+	font-family: Optima, Arial, sans-serif;
+}
+#panel{
+	border:0;
+}
+
+#datalistQuestion dt.ui-datalist-item{
+	margin-bottom:20px;
+}
+
+.ui-toolbar {
+	background: white;
+	border:0;
+}
+.ui-button-text{
+	background:white;
+}
+
+
+.ui-selectonemenu, .ui-selectonemenu-label{
      width: 100% !important;
 }
-.ui-selectonemenu-label{
-     width: 100% !important;
-} 
 .choices{
 	margin-bottom:5px;
 	margin-right: 5px;
@@ -12,7 +33,6 @@
 .ui-widget-content tr, .ui-widget-content td{
     border: none !important;
 }
-
 .ui-widget-content .ui-datalist-content{
 	border: none;
 	background: transparent;
@@ -22,7 +42,6 @@
 .datalist-nospace .ui-widget-content .ui-datalist-data{
 	margin:0;
 }
-
 .datalist-nospace .ui-widget-content .ui-datalist-data .ui-datalist-item{
 	margin-bottom:5px;
 }
@@ -42,6 +61,12 @@
 
 #datalistQuestion .ui-datalist-header {
 	visibility:hidden;
+}
+
+.toolbarGroupCenter{
+	text-align:center;
+	width:50%;
+	line-height:41px;
 }
 
 .ui-icon.ui-icon-circle-plus, .ui-icon.ui-icon-check{

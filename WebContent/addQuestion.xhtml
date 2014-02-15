@@ -56,10 +56,10 @@
 						<p:ajax event="valueChange" update="choicesSM"
                 			listener="#{questionAddMB.subjectSelectionChanged}" />
 						<f:selectItem itemLabel="Select One" itemValue="" /> 
-			            <f:selectItem itemLabel="Single choice" itemValue="singleChoice" />
 			            <f:selectItem itemLabel="Multiple choices" itemValue="multipleChoice" />
+			            <f:selectItem itemLabel="Single choice" itemValue="singleChoice" />
+			            <f:selectItem itemLabel="Choose from a list" itemValue="list" />
 			            <f:selectItem itemLabel="Text" itemValue="text" />
-			            <f:selectItem itemLabel="From a list" itemValue="list" />
 			        </p:selectOneMenu>
 			        
 			        <br/>
@@ -86,7 +86,7 @@
         		</p:panelGrid>
         		
         		<f:facet name="footer">
-        			<p:commandButton value="Save / see exam" update="panel" action="#{possibleAnswerAddMB.savePA}" 
+        			<p:commandButton value="Save" update="panel" action="#{possibleAnswerAddMB.savePA}" 
         					actionListener="#{questionAddMB.saveQuestion}" icon="ui-icon-disk" >
         				<f:setPropertyActionListener value="#{questionAddMB.selectedExam}" target="#{examListMB.selectedExam}" />
         				<f:param name="returnPage" value="viewExam" />

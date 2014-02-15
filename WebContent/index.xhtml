@@ -15,12 +15,12 @@
 		<h:form>
     		<p:toolbar>
     			<p:toolbarGroup align="left">
-    				<p:commandButton action="index" icon="ui-icon-home" actionListener="#{examListMB.clear}" />
             		<p:commandButton value="New Exam" action="addExam.xhtml" icon="ui-icon-document" />
-            		<p:commandButton value="Students" action="listStudent.xhtml" /><p:spacer width="4" />
-            		<p:outputLabel value="Hello #{loginMB.resultTeacher.tFirstName}, welcome back!" />
+            		<p:commandButton value="Students" action="listStudent.xhtml" />
         		</p:toolbarGroup>
-   				
+        		<p:toolbarGroup styleClass="toolbarGroupCenter">
+        			<p:outputLabel value="Hello #{loginMB.resultTeacher.tFirstName}, welcome back!" />
+        		</p:toolbarGroup>
         		<p:toolbarGroup align="right">
             		<p:commandButton value="Logout" action="#{loginMB.logout}" icon="ui-icon-extlink" />
         		</p:toolbarGroup>
@@ -149,36 +149,7 @@
 		</h:form>
 		
 		<br/>
-		<br/>
-		
-		<h:form>
-			<p:dataTable value="#{questionListMB.theQuestions}" var="que">
-				<f:facet name="header">
-					Questions
-				</f:facet>
-				
-				<p:column headerText="Name">
-		            	<h:outputText value="#{que.qName}" />
-		        </p:column>
-		        
-		        <p:column headerText="Help">
-		            <h:outputText value="#{que.qHelp}" />
-		        </p:column>
-				
-		        <p:column headerText="Type">
-		            <h:outputText value="#{que.qType}" />
-		        </p:column>
-		        
-		        <p:column headerText="Position">
-		            <h:outputText value="#{que.qPosition}" />
-		        </p:column>
-		        
-		        <p:column headerText="Value">
-		            <h:outputText value="#{que.qValue} point(s)" />
-		        </p:column>
-		  
-			</p:dataTable>
-		</h:form>
+
 		
 	</h:body>
 </html>

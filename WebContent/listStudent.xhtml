@@ -23,7 +23,9 @@
 		
 		
 		<h:form>
-			<p:dataTable id="dataTable" var="stu" value="#{listStudentsMB.allStudents}" sortMode="multiple" rows="25" paginator="true" widgetVar="studentTable" emptyMessage="No students found with given criteria" filteredValue="#{listStudentsMB.filteredStudents}">
+			<p:dataTable id="dataTable" var="stu" value="#{listStudentsMB.allStudents}" sortMode="multiple" 
+					rows="25" paginator="true" widgetVar="studentTable" emptyMessage="No students found with given criteria" 
+					filteredValue="#{listStudentsMB.filteredStudents}">
 				<f:facet name="header">
 				Students
 					<p:outputPanel>
@@ -31,13 +33,14 @@
 						<p:inputText id="globalFilter" onkeyup="studentTable.filter()" style="width:150px" />	
 					</p:outputPanel>
 				</f:facet>
-				<!-- I did a filter for Name just for trying, maybe is useful in other place but here with the global search is okey i think -->
-				<p:column sortBy="sFirstName" headerText="Name" id="nameColumn" filterBy="sFirstName" filterMatchMode="contains">
+				
+	<!-- I did a filter for Name just for trying, maybe is useful in other place but here with the global search is okey i think -->
+				<p:column sortBy="sFirstName" headerText="Fisrt name" id="nameColumn" filterBy="sFirstName" filterMatchMode="contains">
 		            	<h:outputText value="#{stu.sFirstName}" />
 		        </p:column>
 				
 		        <p:column sortBy="sLastName" headerText="Last Name" id="lastNameColumns" filterBy="sLastName" filterMatchMode="contains">
-		            	<h:outputText value="#{stu.sLastName}" />
+		            <h:outputText value="#{stu.sLastName}" />
 		        </p:column>
 		
 		        <p:column sortBy="sEmail" headerText="Email" id="sEmail" filterBy="sEmail" filterMatchMode="contains">
@@ -46,9 +49,6 @@
 		  
 			</p:dataTable>
 		</h:form> 
-		
-		
-		
 		
 		
 	</h:body>

@@ -29,17 +29,23 @@
         <h:form prependId="false">
         	<p:panel id="panel">
         	<p:focus context="panel"/>
-        	
         		<p:commandButton icon="ui-icon-close" action="#{examListMB.deleteExam}" 
         				styleClass="button-right" title="Delete exam">
 			        <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
 			        <f:setPropertyActionListener value="#{examListMB.selectedExam}" target="#{examListMB.selectedExam}" />
-			    </p:commandButton>
+			    </p:commandButton>			    
 			  
 			    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
 			        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
 			        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
 			    </p:confirmDialog>
+			    
+			    <p:panel style="float:right; height:25px; font-style:italic; font-size:12px; border:0; padding:0; margin:0;">
+			    	<p:outputLabel value="Last modified date: " />
+			    	<p:outputLabel value="#{examListMB.selectedExam.eModifyDate}">
+				    	<f:convertDateTime pattern="dd/ MM/ yyyy HH:mm" />
+				    </p:outputLabel>
+				</p:panel>			    
 				
 				<p:inputText id="name" value="#{examListMB.selectedExam.eName}" size="30" required="true" 
 					requiredMessage="Exam must have a name." />
