@@ -6,6 +6,8 @@ import java.util.List;
 import javax.inject.Named;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import beans.PossibleAnswerBean;
@@ -106,7 +108,32 @@ public class QuestionListMB implements Serializable {
 			}
 		}
 		
+		return "viewExam";
+	}
+	
+	public String deleteQuestion(){
+		System.out.println("Enter delete question");
+		
+		if(!(selectedQuestion.getqType().equals("text"))){
+			System.out.println("type != text");
+			
+			for(int i=0; i<selectedQuestion.getPossibleAnswers().size(); i++)
+			{
+				thePA.doRemove(selectedQuestion.getPossibleAnswers().get(i).getIdPossibleAnswer());
+				System.out.println("value deleted: " + i);
+				
+			}
+		}
+		System.out.println("question : " + selectedQuestion.getqName());
+		
+		selectedQuestion.getExam().removeQuestion(selectedQuestion);
+		theQuestions.doRemove(selectedQuestion.getIdQuestion());
+		
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Question deleted",  "Question deleted with success!");  		
+		FacesContext.getCurrentInstance().addMessage(null, message);
 		
 		return "viewExam";
 	}
+	
+	
 }

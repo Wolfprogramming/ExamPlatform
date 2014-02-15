@@ -25,7 +25,9 @@ public class QuestionAddMB implements Serializable {
 	private String qType;
 	private short qValue;
 	private Exam exam;
+	private Exam selectedExam;
 	private String isDisplay="false";
+	private String examState; //to know if it's a new or existing exam
 	
 	public QuestionAddMB(){
     }
@@ -83,17 +85,49 @@ public class QuestionAddMB implements Serializable {
 	}
 	
 	public void subjectSelectionChanged(){
-		if(qType.equals("singleChoice") || qType.equals("multipleChoice"))
+		if(!(qType.equals("text")))
 			isDisplay="true";
 		else
 			isDisplay="false";
 	}
 	
+	public Exam getExam() {
+		return exam;
+	}
+
+	public void setExam(Exam exam) {
+		this.exam = exam;
+	}
+
+	public Exam getSelectedExam() {
+		return selectedExam;
+	}
+
+	public void setSelectedExam(Exam selectedExam) {
+		this.selectedExam = selectedExam;
+	}
+
+	public String getExamState() {
+		return examState;
+	}
+
+	public void setExamState(String examState) {
+		this.examState = examState;
+	}
+
 	public String saveQuestion(ActionEvent event){ 
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-		exam = (Exam) ec.getSessionMap().get("exam");
 		
 		System.out.println("enter saveQuestion");
+		
+		if(examState.equals("old")){
+	    	exam = selectedExam;
+	    	System.out.println("existing exam: " + exam.geteName());
+	    }else if(examState.equals("new")){
+	    	exam = (Exam) ec.getSessionMap().get("exam");
+	    	setSelectedExam(exam);
+	    	System.out.println("new exam: " + exam.geteName());
+	    }
 		
 		Question tmp = new Question();
 		tmp.setExam(exam);
@@ -105,6 +139,7 @@ public class QuestionAddMB implements Serializable {
 		theQuestion.doInsert(tmp);
 		
 		ec.getSessionMap().put("question", tmp);
+		exam.getQuestions().add(tmp);
 		
 		System.out.println("question saved");
 		
@@ -113,6 +148,8 @@ public class QuestionAddMB implements Serializable {
 		setqPosition(0);
 		setqType(null);
 		setqValue((short)0);
+		setisDisplay("false");
+		setExamState("old");
 		
 		return null;
 	}

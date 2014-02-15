@@ -25,6 +25,7 @@ public class possibleAnswerAddMB implements Serializable {
 	private List<String> paName = new ArrayList<String>(3);
 	private Question question;
 	
+	
 	@PostConstruct
     public void initList() {
 		paName.add("");
@@ -83,6 +84,7 @@ public class possibleAnswerAddMB implements Serializable {
 					tmp.setQuestion(question);
 					thePA.doInsert(tmp);
 					
+					question.getPossibleAnswers().add(tmp);
 					System.out.println("value saved: " + i + " - " + paName.get(i));
 					
 					//Clear variable after adding
@@ -91,20 +93,19 @@ public class possibleAnswerAddMB implements Serializable {
 				}
 			}
 		}
-		return "addQuestion";
+		
+		return ec.getRequestParameterMap().get("returnPage");
 	}
 	
 	public String savePA(Question editQuestion){ 
 		
 		System.out.println("enter savePA 2");
 
-		if(!(editQuestion.getqType().equals("text")) && !(paName.equals(""))){
+		if(!(editQuestion.getqType().equals("text")) && !(paName.get(0).equals(""))){
 			
-			System.out.println("enter first IF");
-			System.out.println("paName 1: " + paName.get(0));
 			for(int i=0; i<paName.size(); i++)
 			{
-				if(paName.get(i)==null)
+				if(paName.get(i)==null || paName.get(i).equals(""))
 				{
 					System.out.println("NULL VALUE");
 				}
@@ -115,6 +116,7 @@ public class possibleAnswerAddMB implements Serializable {
 					tmp.setQuestion(editQuestion);
 					thePA.doInsert(tmp);
 					
+					editQuestion.getPossibleAnswers().add(tmp);
 					System.out.println("value saved: " + i + " - " + paName.get(i));
 					
 					paName.set(i, "");

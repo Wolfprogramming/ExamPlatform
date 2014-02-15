@@ -15,7 +15,8 @@
 		<h:form>
     		<p:toolbar>
     			<p:toolbarGroup align="left">  
-            		<p:commandButton value="Home" action="index" icon="ui-icon-home" />
+            		<p:commandButton value="Home" action="index" icon="ui-icon-home" 
+            			actionListener="#{examListMB.clear}" />
         		</p:toolbarGroup>
    				
         		<p:toolbarGroup align="right">
@@ -30,7 +31,6 @@
         	<p:focus context="panel"/>
 				
 				    <p:panelGrid style="width:100%">
-					
 				    	<p:row>
 					    	<p:column style="width:20%">
 					    		<p:outputLabel for="position" value="Question " />
@@ -40,6 +40,19 @@
 					    		<p:inputText id="qName" value="#{questionListMB.selectedQuestion.qName}" required="true" 
 									requiredMessage="Question must have a name." style="width:100%"/>
 								<p:message for="qName" />
+					    	</p:column>
+					    	<p:column style="width:15%">
+					    		<p:commandButton icon="ui-icon-close" action="#{questionListMB.deleteQuestion}" 
+							    		 styleClass="button-right" title="Delete question">
+							        <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+							        <f:setPropertyActionListener value="#{questionListMB.selectedQuestion}" 
+							        	target="#{questionListMB.selectedQuestion}" />
+							    </p:commandButton>
+							  
+							    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+							        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+							        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+							    </p:confirmDialog>
 					    	</p:column>
 				    	</p:row>
 				    	
@@ -56,7 +69,7 @@
 						            <f:selectItem itemLabel="Single choice" itemValue="singleChoice" />
 						            <f:selectItem itemLabel="Multiple choices" itemValue="multipleChoice" />
 						            <f:selectItem itemLabel="Text" itemValue="text" />
-						            <!--<f:selectItem itemLabel="From a list" itemValue="4" /> -->
+						            <f:selectItem itemLabel="From a list" itemValue="list" />
 						        </p:selectOneMenu>
 						        
 						        <br/>

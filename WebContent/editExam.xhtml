@@ -15,7 +15,8 @@
 		<h:form>
     		<p:toolbar>
     			<p:toolbarGroup align="left">  
-            		<p:commandButton value="Home" action="index" icon="ui-icon-home" />
+            		<p:commandButton value="Home" action="index" icon="ui-icon-home" 
+            			actionListener="#{examListMB.clear}" />
         		</p:toolbarGroup>
    				
         		<p:toolbarGroup align="right">
@@ -28,6 +29,17 @@
         <h:form prependId="false">
         	<p:panel id="panel">
         	<p:focus context="panel"/>
+        	
+        		<p:commandButton icon="ui-icon-close" action="#{examListMB.deleteExam}" 
+        				styleClass="button-right" title="Delete exam">
+			        <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+			        <f:setPropertyActionListener value="#{examListMB.selectedExam}" target="#{examListMB.selectedExam}" />
+			    </p:commandButton>
+			  
+			    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+			        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+			        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+			    </p:confirmDialog>
 				
 				<p:inputText id="name" value="#{examListMB.selectedExam.eName}" size="30" required="true" 
 					requiredMessage="Exam must have a name." />

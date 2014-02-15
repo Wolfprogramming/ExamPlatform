@@ -37,6 +37,19 @@ public class QuestionBean {
         em.merge(updtQuestion);
     }
     
+    public void doRemove(int idQuestion) {
+    	Question q = findQuestion(idQuestion);
+        if (q != null) {
+            em.remove(q);
+        }
+    }
+      
+    public void doRemove(Question q) {
+        if (q != null && q.getqName()!=null && em.contains(q)) {
+            em.remove(q);
+        }
+    }
+    
     public Question findQuestion(int idSearchQuestion){
     	return em.find(Question.class, idSearchQuestion);
     }

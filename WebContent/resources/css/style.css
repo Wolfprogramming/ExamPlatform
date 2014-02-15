@@ -35,6 +35,21 @@
 
 .button-right{
 	float:right;
-	width:30px;
-	height:30px;
+	width:25px;
+	height:25px;
+	margin-left:5px;
 }
+
+#datalistQuestion .ui-datalist-header {
+	visibility:hidden;
+}
+
+.ui-icon.ui-icon-circle-plus, .ui-icon.ui-icon-check{
+	background-image: url("../resources/img/ui-icons_82b440_256x240.png");
+}
+.ui-icon.ui-icon-close,.ui-icon.ui-icon-close-thick, .ui-icon.ui-icon-alert{
+	background-image: url("../resources/img/ui-icons_ff4a43_256x240.png");
+}
+.ui-icon.ui-icon-pencil{
+	background-image: url("../resources/img/ui-icons_0077cc_256x240.png");
+}  

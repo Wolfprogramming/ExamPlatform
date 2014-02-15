@@ -15,10 +15,12 @@
 		<h:form>
     		<p:toolbar>
     			<p:toolbarGroup align="left">
+    				<p:commandButton action="index" icon="ui-icon-home" actionListener="#{examListMB.clear}" />
             		<p:commandButton value="New Exam" action="addExam.xhtml" icon="ui-icon-document" />
-            		<p:commandButton value="Students" action="listStudent.xhtml"></p:commandButton>
+            		<p:commandButton value="Students" action="listStudent.xhtml" /><p:spacer width="4" />
+            		<p:outputLabel value="Hello #{loginMB.resultTeacher.tFirstName}, welcome back!" />
         		</p:toolbarGroup>
-   		
+   				
         		<p:toolbarGroup align="right">
             		<p:commandButton value="Logout" action="#{loginMB.logout}" icon="ui-icon-extlink" />
         		</p:toolbarGroup>
@@ -28,13 +30,15 @@
 
 
 		<h:form>						<!-- The value should be examListMB.upcomingExams -->
-			<p:dataTable id="dataTableUpComing" value="#{examListMB.upcomingExams}" var="exa" sortMode="multiple" rows="10" paginator="true" widgetVar="examTable" emptyMessage="No exams found with that criteria" filteredValue="#{examListMB.filteredExams}">
+			
+			<p:dataTable id="dataTableUpComing" value="#{examListMB.allExams}" var="exa" sortMode="multiple" rows="10" paginator="true" widgetVar="examTable" emptyMessage="No exams found with that criteria" filteredValue="#{examListMB.filteredExams}">
 				<f:facet name="header">
     	  			 UPCOMING EXAMS
     				<p:outputPanel>
 						<h:outputText value="Search:" />
 						<p:inputText id="globalFilter" onkeyup="examTable.filter()" style="width:150px" />	
 					</p:outputPanel>
+					<p:growl id="messageDeleteExam" showDetail="true" />
 				</f:facet>
 				
 				<p:column sortBy="eName" headerText="Name">				
@@ -59,12 +63,29 @@
 		            	<f:convertDateTime pattern="HH:mm" />
 		            </h:outputText>
 		        </p:column>
+		        
+		        <p:column>
+		        	<p:commandButton icon="ui-icon-close" action="#{examListMB.deleteExam}" 
+	        				update="dataTableUpComing messageDeleteExam" styleClass="button-right" title="Delete exam">
+				        <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+				        <f:setPropertyActionListener value="#{exa}" target="#{examListMB.selectedExam}" />
+				    </p:commandButton>
+				  
+				    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+				        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+				    </p:confirmDialog>
+				    
+				    <p:commandButton styleClass="button-right" action="editExam" icon="ui-icon-pencil" title="Edit exam properties">
+	         			<f:setPropertyActionListener value="#{exa}" target="#{examListMB.selectedExam}" />
+	            	</p:commandButton>
+		        </p:column>
 		  
 			</p:dataTable>
 		</h:form> 
 		
 		<h:form>					<!-- The value should be examListMB.previousExams -->
-			<p:dataTable id="dataTablePrevious" value="#{examListMB.previousExams}" var="exa" sortMode="multiple" rows="10" paginator="true" widgetVar="examTable" emptyMessage="No exams found with that criteria" filteredValue="#{examListMB.filteredExams}">
+			<p:dataTable id="dataTablePrevious" value="#{examListMB.allExams}" var="exa" sortMode="multiple" rows="10" paginator="true" widgetVar="examTable" emptyMessage="No exams found with that criteria" filteredValue="#{examListMB.filteredExams}">
 				<f:facet name="header">
     	  			 PREVIOUS EXAMS
     				<p:outputPanel>

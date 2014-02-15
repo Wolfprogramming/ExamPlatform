@@ -100,14 +100,17 @@ public class ExamAddMB implements Serializable {
 		tmp.seteEndHour(endHour);
 		tmp.setTeacher(teach);
 		theExam.doInsert(tmp);
-		
+	
 		ec.getSessionMap().put("exam", tmp);
+		
+		System.out.println("exam saved");
 		
 		seteName(null);
 		seteDesc(null);
 		seteDate(null);
 		seteStartHour(null);
 		seteEndHour(null);
+		
 		
 		return "addQuestion";
 	}

@@ -94,5 +94,23 @@ public class LoginMB implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public Teacher getResultTeacher() {
+		return resultTeacher;
+	}
+
+	public void setResultTeacher(Teacher resultTeacher) {
+		this.resultTeacher = resultTeacher;
+	}
+
+	public Student getResultStudent() {
+		return resultStudent;
+	}
+
+	public void setResultStudent(Student resultStudent) {
+		this.resultStudent = resultStudent;
+	}
+	
+	
     
 }

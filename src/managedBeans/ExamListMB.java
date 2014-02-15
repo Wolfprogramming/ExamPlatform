@@ -14,8 +14,12 @@ import javax.enterprise.context.SessionScoped;
 //import javax.faces.context.ExternalContext;
 //import javax.faces.context.FacesContext;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+
 import beans.ExamBean;
 import model.Exam;
+import model.Question;
 
 @Named
 @SessionScoped
@@ -30,6 +34,9 @@ public class ExamListMB implements Serializable {
 	private List<Exam> filteredExams;
 	private List<Exam> upcomingExams;
 	private List<Exam> previousExams;
+	private int nbPoint;
+	private List<Question> questions;
+
 	
 	@EJB
 	private ExamBean theExams;
@@ -38,6 +45,8 @@ public class ExamListMB implements Serializable {
 	@PostConstruct
 	public void init(){
 		allExams = theExams.findAllExams();
+		
+		
 		upcomingExams = theExams.findAllExams();
 		
 		//setUpPastExams();
@@ -46,7 +55,7 @@ public class ExamListMB implements Serializable {
 	}
 
 	
-	//Trying to add all the exams to the lists previousexams or upcoming exams
+	//Trying to add all the exams to the lists previous exams or upcoming exams
 	public void setUpPastExams(){
 		
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -72,15 +81,14 @@ public class ExamListMB implements Serializable {
 	
 	
 	
-	
-	
-	
 	public Exam getSelectedExam() {
 		return selectedExam;
 	}
 
 	public void setSelectedExam(Exam selectedExam) {
 		this.selectedExam = selectedExam;
+		if(selectedExam!=null)
+			setQuestions(selectedExam.getQuestions());
 	}
 
 	
@@ -94,17 +102,15 @@ public class ExamListMB implements Serializable {
 
 
 	public int getNbPoint() {
-		int nbPoint;
-		try{
-			nbPoint = theExams.findNbPoint(selectedExam);
-		}catch(Exception e){
-			nbPoint = 0;
-		}
 		return nbPoint;
 	}
 	
+	public void setNbPoint(int pt){
+		this.nbPoint = pt;
+	}
+
+
 	public List<Exam> getUpcomingExams() {
-		
 		return upcomingExams;
 	}
 
@@ -122,7 +128,31 @@ public class ExamListMB implements Serializable {
 	}
 
 	public List<Exam> getAllExams(){
+		//allExams = theExams.findAllExams();
 		return allExams;
+	}
+	
+	public void setAllExams(List<Exam> allExams){
+		this.allExams = allExams;
+	}
+
+	public List<Question> getQuestions() {
+		return questions;
+	}
+
+	public void setQuestions(List<Question> questions) {
+		this.questions = questions;
+		this.nbPoint=0;
+		for(int i=0; i<questions.size();i++){
+			this.nbPoint += questions.get(i).getqValue();
+		}
+	}
+	
+	public void clear(){
+		this.allExams.clear();
+		this.allExams = theExams.findAllExams();
+		setSelectedExam(null);
+		setNbPoint(0);
 	}
 	
 	public String editExam(){
@@ -144,6 +174,22 @@ public class ExamListMB implements Serializable {
 		
 		return "viewExam";
 	}
+	
+	public String deleteExam(){
+		System.out.println("Enter delete exam: " + selectedExam.geteName());
+		
+		allExams.remove(getSelectedExam());
+		theExams.doRemove(selectedExam.getIdExam());
+		
+		System.out.println("Exam deleted");
+		
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exam deleted",  "Exam deleted with success!");  
+		FacesContext.getCurrentInstance().addMessage(null, message);
+		
+		return "index";
+	}
+
+
 
     
 }
