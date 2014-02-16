@@ -26,7 +26,7 @@
 		
 		<h:form>
 			
-			<p:dataTable value="#{examListMB2.upcomingExams}" var="exa">
+			<p:dataTable value="#{examListMB.upcomingExams}" var="exa">
 				<f:facet name="header">
 					Upcoming exams
 				</f:facet>
@@ -57,15 +57,13 @@
 			<br/>
 			<br/>
 			
-			<p:dataTable value="#{examListMB2.previousExams}" var="exa">
+			<p:dataTable value="#{examListMB.previousExams}" var="exa">
 				<f:facet name="header">
 					Previous exams
 				</f:facet>
 				
 				<p:column sortBy="eName" headerText="Name">
-<!-- 		             <h:commandLink action="exam" value="#{exa.idExam} or  value="#{managedBean.createCategoryModel(managedBean.selectedRecord.cellid)}""> -->
 		            	<h:outputText value="#{exa.eName}" />
-<!-- 		            </h:commandLink>  -->
 		        </p:column>
 				
 		        <p:column sortBy="eDate" headerText="Start date">

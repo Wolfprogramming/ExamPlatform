@@ -184,7 +184,7 @@ public class ExamListMB implements Serializable {
 	public String deleteExam(){
 		System.out.println("Enter delete exam: " + selectedExam.geteName());
 		
-		allExams.remove(getSelectedExam());
+		upcomingExams.remove(getSelectedExam());
 		theExams.doRemove(selectedExam.getIdExam());
 		
 		System.out.println("Exam deleted");

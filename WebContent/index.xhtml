@@ -46,7 +46,7 @@
 					<p:growl id="messageDeleteExam" showDetail="true" />
 				</f:facet>
 				
-				<p:column sortBy="eName" headerText="Name" filterBy="eName" filterMatchMode="contains">				
+				<p:column style="width:25%;" sortBy="eName" headerText="Name" filterBy="eName" filterMatchMode="contains">				
 		            	<h:commandLink action="viewExam" title="View Detail" id="seeExam">
 			            	<h:outputText value="#{UpExa.eName}" />
 			            	<f:setPropertyActionListener value="#{UpExa}" target="#{examListMB.selectedExam}" />
@@ -54,7 +54,7 @@
 		            	<p:tooltip  for="seeExam" value="View exam details" showEffect="fade" hideEffect="fade" /> 
 		        </p:column>
 		        				
-		        <p:column sortBy="eDate" headerText="Start date" style="text-align:center">
+		        <p:column sortBy="eDate" headerText="Start date" style="text-align:center; width:25%;">
 		            <h:outputText value="#{UpExa.eDate}" >
 		            	<f:convertDateTime pattern="dd/MM/yyyy" />
 		            </h:outputText><p:spacer width="15"></p:spacer>
@@ -63,13 +63,13 @@
 		            </h:outputText>
 		        </p:column>
 		
-		        <p:column sortBy="eEndHour" headerText="End hour" style="text-align:center">
+		        <p:column sortBy="eEndHour" headerText="End hour" style="text-align:center; width:25%;">
 		            <h:outputText value="#{UpExa.eEndHour}">
 		            	<f:convertDateTime pattern="HH:mm" />
 		            </h:outputText>
 		        </p:column>
 		        
-		        <p:column>
+		        <p:column style="width:25%;">
 		        	<p:commandButton icon="ui-icon-close" action="#{examListMB.deleteExam}" 
 	        				update="datatableUpcoming messageDeleteExam" styleClass="button-right" title="Delete exam">
 				        <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
