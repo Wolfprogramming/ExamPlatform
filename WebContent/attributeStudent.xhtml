@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+    <h:head>
+		<title>Attribute students to an exam</title>
+		<h:outputStylesheet library="css" name="style.css" />
+	</h:head>
+	<h:body>
+			
+		<h:form>
+    		<p:toolbar>
+        		<p:toolbarGroup align="left">
+            		<p:commandButton value="Home" action="index" icon="ui-icon-home" actionListener="#{examListMB.clear}"/>
+        		</p:toolbarGroup>
+        	</p:toolbar>
+		</h:form>
+		<br/>
+		
+		
+		<h:form id="form">
+		<p:panel header="Attribute students to exam">
+		<h2><p:outputLabel value="Exam: #{examListMB.selectedExam.eName}" /></h2>
+		
+		</p:panel>
+		
+			<p:dataTable id="multiStudents" var="stu" value="#{studentListMB.studentsModel}" sortMode="multiple" 
+					rows="25" paginator="true" widgetVar="studentTable" emptyMessage="No students found with given criteria" 
+					filteredValue="#{studentListMB.filteredStudents}" selection="#{studentListMB.selectedStudents}">
+				<f:facet name="header">
+				List of all students
+					<p:outputPanel>
+						<h:outputText value="Search in all fields: " />
+						<p:inputText id="globalFilter" onkeyup="studentTable.filter()" style="width:150px" />	
+					</p:outputPanel>
+				</f:facet>
+				
+				<p:column selectionMode="multiple" style="width:2%" />
+				
+				<p:column sortBy="sFirstName" headerText="Fisrt name" id="nameColumn" filterBy="sFirstName" filterMatchMode="contains">
+		            	<h:outputText value="#{stu.sFirstName}" />
+		        </p:column>
+				
+		        <p:column sortBy="sLastName" headerText="Last Name" id="lastNameColumns" filterBy="sLastName" filterMatchMode="contains">
+		            <h:outputText value="#{stu.sLastName}" />
+		        </p:column>
+		
+		        <p:column sortBy="sEmail" headerText="Email" id="sEmail" filterBy="sEmail" filterMatchMode="contains">
+		            <h:outputText value="#{stu.sEmail}" />
+		        </p:column>
+		  
+		  <f:facet name="footer">
+            <p:commandButton id="multiViewButton" value="Add students to exam" icon="ui-icon-search"
+            	update=":form:displayMulti" oncomplete="PF('multiCarDialog').show()"/>
+        </f:facet>
+		  
+		  
+			</p:dataTable>
+			
+			<p:dialog id="multiDialog" header="Students chosen" widgetVar="multiCarDialog"
+		              height="300" showEffect="fade" hideEffect="explode">
+		  	
+		        <p:dataList id="displayMulti" value="#{studentListMB.selectedStudents}" var="selectedStudent">
+		            Fiestname: #{selectedStudent.sFirstName}, Lastname: #{selectedStudent.sLastName}
+		        </p:dataList>
+		  	
+		    </p:dialog>
+			
+			
+		</h:form> 
+		
+		
+	</h:body>
+</html>

@@ -11,6 +11,8 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
+import org.primefaces.context.RequestContext;
+
 import model.Student;
 import model.Teacher;
 import beans.StudentBean;
@@ -74,9 +76,17 @@ public class LoginMB implements Serializable{
     }
     
     public void logout() throws IOException {
+    	setUsername("");
+    	setPassword("");
+    	setResultTeacher(null);
+    	setResultStudent(null);
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         externalContext.invalidateSession();
         externalContext.redirect(externalContext.getRequestContextPath() + "/loginPage.xhtml");
+    }
+    
+    public void reset(){
+    	RequestContext.getCurrentInstance().reset("form:panel"); 
     }
 
 	public String getUsername() {

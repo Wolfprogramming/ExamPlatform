@@ -29,46 +29,51 @@
 		<br/>
 
 
-		<h:form>						<!-- The value should be examListMB.upcomingExams -->
+		<h:form>
+		
+			<p:panelGrid style="width:100%;" styleClass="gridWithoutBorder">
+				<p:row>
+					<p:column style="width:30%;"><p:separator /></p:column>
+					<p:column style="width:40%; text-align:center;"><h2>Upcoming Exams</h2></p:column>
+					<p:column style="width:30%"><p:separator /></p:column>
+				</p:row>
+			</p:panelGrid>
 			
-			<p:dataTable id="dataTableUpComing" value="#{examListMB.allExams}" var="exa" sortMode="multiple" rows="10" paginator="true" widgetVar="examTable" emptyMessage="No exams found with that criteria" filteredValue="#{examListMB.filteredExams}">
+			<p:dataTable styleClass="datatableHidden" id="datatableUpcoming" value="#{examListMB.upcomingExams}" var="UpExa" 
+					sortMode="multiple" rows="10" paginator="true" widgetVar="upcomingExamTable" 
+					emptyMessage="No exams found with that criteria" filteredValue="#{examListMB.filteredExams}">
 				<f:facet name="header">
-    	  			 UPCOMING EXAMS
-    				<p:outputPanel>
-						<h:outputText value="Search:" />
-						<p:inputText id="globalFilter" onkeyup="examTable.filter()" style="width:150px" />	
-					</p:outputPanel>
 					<p:growl id="messageDeleteExam" showDetail="true" />
 				</f:facet>
 				
-				<p:column sortBy="eName" headerText="Name">				
+				<p:column sortBy="eName" headerText="Name" filterBy="eName" filterMatchMode="contains">				
 		            	<h:commandLink action="viewExam" title="View Detail" id="seeExam">
-			            	<h:outputText value="#{exa.eName}" />
-			            	<f:setPropertyActionListener value="#{exa}" target="#{examListMB.selectedExam}" />
+			            	<h:outputText value="#{UpExa.eName}" />
+			            	<f:setPropertyActionListener value="#{UpExa}" target="#{examListMB.selectedExam}" />
 		            	</h:commandLink>
 		            	<p:tooltip  for="seeExam" value="View exam details" showEffect="fade" hideEffect="fade" /> 
 		        </p:column>
 		        				
-		        <p:column sortBy="eDate" headerText="Start date"  style="text-align:center">
-		            <h:outputText value="#{exa.eDate}" >
+		        <p:column sortBy="eDate" headerText="Start date" style="text-align:center">
+		            <h:outputText value="#{UpExa.eDate}" >
 		            	<f:convertDateTime pattern="dd/MM/yyyy" />
 		            </h:outputText><p:spacer width="15"></p:spacer>
-		            <h:outputText value="#{exa.eStartHour}">
+		            <h:outputText value="#{UpExa.eStartHour}">
 		            	<f:convertDateTime pattern="HH:mm" />
 		            </h:outputText>
 		        </p:column>
 		
 		        <p:column sortBy="eEndHour" headerText="End hour" style="text-align:center">
-		            <h:outputText value="#{exa.eEndHour}">
+		            <h:outputText value="#{UpExa.eEndHour}">
 		            	<f:convertDateTime pattern="HH:mm" />
 		            </h:outputText>
 		        </p:column>
 		        
 		        <p:column>
 		        	<p:commandButton icon="ui-icon-close" action="#{examListMB.deleteExam}" 
-	        				update="dataTableUpComing messageDeleteExam" styleClass="button-right" title="Delete exam">
+	        				update="datatableUpcoming messageDeleteExam" styleClass="button-right" title="Delete exam">
 				        <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
-				        <f:setPropertyActionListener value="#{exa}" target="#{examListMB.selectedExam}" />
+				        <f:setPropertyActionListener value="#{UpExa}" target="#{examListMB.selectedExam}" />
 				    </p:commandButton>
 				  
 				    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
@@ -77,44 +82,12 @@
 				    </p:confirmDialog>
 				    
 				    <p:commandButton styleClass="button-right" action="editExam" icon="ui-icon-pencil" title="Edit exam properties">
-	         			<f:setPropertyActionListener value="#{exa}" target="#{examListMB.selectedExam}" />
+	         			<f:setPropertyActionListener value="#{UpExa}" target="#{examListMB.selectedExam}" />
 	            	</p:commandButton>
-		        </p:column>
-		  
-			</p:dataTable>
-		</h:form> 
-		
-		<h:form>					<!-- The value should be examListMB.previousExams -->
-			<p:dataTable id="dataTablePrevious" value="#{examListMB.allExams}" var="exa" sortMode="multiple" rows="10" paginator="true" widgetVar="examTable" emptyMessage="No exams found with that criteria" filteredValue="#{examListMB.filteredExams}">
-				<f:facet name="header">
-    	  			 PREVIOUS EXAMS
-    				<p:outputPanel>
-						<h:outputText value="Search:" />
-						<p:inputText id="globalFilter" onkeyup="examTable.filter()" style="width:150px" />	
-					</p:outputPanel>
-				</f:facet>
-				
-				<p:column sortBy="eName" headerText="Name">				
-		            	<h:commandLink action="viewExam" title="View Detail" id="seeExam">
-			            	<h:outputText value="#{exa.eName}" />
-			            	<f:setPropertyActionListener value="#{exa}" target="#{examListMB.selectedExam}" />
-		            	</h:commandLink>
-		            	<p:tooltip  for="seeExam" value="View exam details" showEffect="fade" hideEffect="fade" /> 
-		        </p:column>
-		        				
-		        <p:column sortBy="eDate" headerText="Start date"  style="text-align:center">
-		            <h:outputText value="#{exa.eDate}" >
-		            	<f:convertDateTime pattern="dd/MM/yyyy" />
-		            </h:outputText><p:spacer width="15"></p:spacer>
-		            <h:outputText value="#{exa.eStartHour}">
-		            	<f:convertDateTime pattern="HH:mm" />
-		            </h:outputText>
-		        </p:column>
-		
-		        <p:column sortBy="eEndHour" headerText="End hour" style="text-align:center">
-		            <h:outputText value="#{exa.eEndHour}">
-		            	<f:convertDateTime pattern="HH:mm" />
-		            </h:outputText>
+	            	
+	            	<p:commandButton styleClass="button-right" action="attributeStudent" icon="ui-icon-person" title="Attribute students to exam">
+	         			<f:setPropertyActionListener value="#{UpExa}" target="#{examListMB.selectedExam}" />
+	            	</p:commandButton>
 		        </p:column>
 		  
 			</p:dataTable>
@@ -124,32 +97,46 @@
 		<br/>
 		
 		<h:form>
-			<p:dataTable id="dataTable2" value="#{teacherListMB.allTeachers}" var="tea" sortMode="multiple" rows="5" paginator="true" widgetVar="teacherTable" emptyMessage="No teacher found with given criteria" filteredValue="#{teacherListMB.filteredTeachers}">
-				<f:facet name="header">
-					Teachers
-						<p:outputPanel>
-							<h:outputText value="Search:" />
-							<p:inputText id="globalFilter" onkeyup="teacherTable.filter()" style="width:150px" />	
-						</p:outputPanel>
-				</f:facet>
+		
+			<p:panelGrid style="width:100%;" styleClass="gridWithoutBorder">
+				<p:row>
+					<p:column style="width:30%;"><p:separator /></p:column>
+					<p:column style="width:40%; text-align:center;"><h2>Previous Exams</h2></p:column>
+					<p:column style="width:30%"><p:separator /></p:column>
+				</p:row>
+			</p:panelGrid>
+
+			<p:dataTable id="datatablePrevious" value="#{examListMB.previousExams}" var="prevExa" 
+					sortMode="multiple" rows="10" paginator="true" widgetVar="previousExamTable" 
+					emptyMessage="No exams found with that criteria" filteredValue="#{examListMB.filteredExams}">
 				
-				<p:column sortBy="tFirstName" headerText="FirstName">
-		            	<h:outputText value="#{tea.tFirstName}" />
+				<p:column sortBy="eName" headerText="Name" filterBy="eName" filterMatchMode="contains">				
+		            	<h:commandLink action="viewExam" title="View Detail" id="seeExam">
+			            	<h:outputText value="#{prevExa.eName}" />
+			            	<f:setPropertyActionListener value="#{prevExa}" target="#{examListMB.selectedExam}" />
+		            	</h:commandLink>
+		            	<p:tooltip  for="seeExam" value="View exam details" showEffect="fade" hideEffect="fade" /> 
 		        </p:column>
-		        
-		        <p:column sortBy="tLastName" headerText="LastName">
-		            <h:outputText value="#{tea.tLastName}" />
+		        				
+		        <p:column sortBy="eDate" headerText="Start date"  style="text-align:center">
+		            <h:outputText value="#{prevExa.eDate}" >
+		            	<f:convertDateTime pattern="dd/MM/yyyy" />
+		            </h:outputText><p:spacer width="15"></p:spacer>
+		            <h:outputText value="#{prevExa.eStartHour}">
+		            	<f:convertDateTime pattern="HH:mm" />
+		            </h:outputText>
 		        </p:column>
-				
-		        <p:column sortBy="tEmail" headerText="Email">
-		            <h:outputText value="#{tea.tEmail}" />
+		
+		        <p:column sortBy="eEndHour" headerText="End hour" style="text-align:center">
+		            <h:outputText value="#{prevExa.eEndHour}">
+		            	<f:convertDateTime pattern="HH:mm" />
+		            </h:outputText>
 		        </p:column>
 		  
 			</p:dataTable>
 		</h:form>
 		
 		<br/>
-
 		
 	</h:body>
 </html>

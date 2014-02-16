@@ -2,8 +2,6 @@ package managedBeans;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.sql.Time;
 import java.util.List;
 
@@ -11,15 +9,16 @@ import javax.inject.Named;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-//import javax.faces.context.ExternalContext;
-//import javax.faces.context.FacesContext;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import beans.ExamBean;
 import model.Exam;
 import model.Question;
+import model.Student;
+import model.Teacher;
 
 @Named
 @SessionScoped
@@ -44,41 +43,26 @@ public class ExamListMB implements Serializable {
 		
 	@PostConstruct
 	public void init(){
-		allExams = theExams.findAllExams();
-		
-		
-		upcomingExams = theExams.findAllExams();
-		
-		//setUpPastExams();
-		
-		
-	}
-
-	
-	//Trying to add all the exams to the lists previous exams or upcoming exams
-	public void setUpPastExams(){
-		
-		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = context.getExternalContext();
+        
         Date date = new Date();
-        dateFormat.format(date);
-		
-		
-		for (int i = 0; i< allExams.size(); i++){
-			
-			if (allExams.get(i).geteDate().after(date)){
-				
-				upcomingExams.add(i, allExams.get(i));				
-			}
-			else if (allExams.get(i).geteDate().equals(date)){
-				upcomingExams.add(i, allExams.get(i));
-			}
-			else {
-				previousExams.add(i, allExams.get(i));
-			}
-			
-		}
+        
+        if(externalContext.getSessionMap().get("teacher") != null){
+        	System.out.println("Retrieve teacher's exams");
+        	Teacher t = (Teacher) externalContext.getSessionMap().get("teacher");
+        	
+        	previousExams = theExams.findAllExamsBefore(t, date);
+        	upcomingExams = theExams.findAllExamsAfter(t, date);
+        }
+        else if(externalContext.getSessionMap().get("student") != null){
+        	System.out.println("Retrieve student's exams");
+        	Student s = (Student) externalContext.getSessionMap().get("student");
+        	
+        	previousExams = theExams.findAllExamsBefore(s, date);
+        	upcomingExams = theExams.findAllExamsAfter(s, date);
+        }
 	}
-	
 	
 	
 	public Exam getSelectedExam() {
@@ -150,9 +134,29 @@ public class ExamListMB implements Serializable {
 	}
 	
 	public void clear(){
+		FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = context.getExternalContext();
+        Date date = new Date();
+        
 		theExams.doUpdate(selectedExam);
-		this.allExams.clear();
-		this.allExams = theExams.findAllExams();
+		this.previousExams.clear();
+		this.upcomingExams.clear();
+		
+		if(externalContext.getSessionMap().get("teacher") != null){
+        	System.out.println("Retrieve teacher's exams");
+        	Teacher t = (Teacher) externalContext.getSessionMap().get("teacher");
+        	
+        	previousExams = theExams.findAllExamsBefore(t, date);
+        	upcomingExams = theExams.findAllExamsAfter(t, date);
+        }
+        else if(externalContext.getSessionMap().get("student") != null){
+        	System.out.println("Retrieve student's exams");
+        	Student s = (Student) externalContext.getSessionMap().get("student");
+        	
+        	previousExams = theExams.findAllExamsBefore(s, date);
+        	upcomingExams = theExams.findAllExamsAfter(s, date);
+        }
+		
 		setSelectedExam(null);
 		setNbPoint(0);
 	}

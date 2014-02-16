@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -22,7 +23,10 @@ public class Student implements Serializable {
 	private String sLastName;
 	private String sPassword;
 
-	
+	//bi-directional many-to-one association to LT_StudentExam
+	@OneToMany(mappedBy="student")
+	private List<LT_StudentExam> ltStudentExams;
+
 	public Student() {
 	}
 
@@ -64,6 +68,28 @@ public class Student implements Serializable {
 
 	public void setSPassword(String sPassword) {
 		this.sPassword = sPassword;
+	}
+
+	public List<LT_StudentExam> getLtStudentExams() {
+		return this.ltStudentExams;
+	}
+
+	public void setLtStudentExams(List<LT_StudentExam> ltStudentExams) {
+		this.ltStudentExams = ltStudentExams;
+	}
+
+	public LT_StudentExam addLtStudentExam(LT_StudentExam ltStudentExam) {
+		getLtStudentExams().add(ltStudentExam);
+		ltStudentExam.setStudent(this);
+
+		return ltStudentExam;
+	}
+
+	public LT_StudentExam removeLtStudentExam(LT_StudentExam ltStudentExam) {
+		getLtStudentExams().remove(ltStudentExam);
+		ltStudentExam.setStudent(null);
+
+		return ltStudentExam;
 	}
 
 }

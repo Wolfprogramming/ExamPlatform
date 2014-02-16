@@ -9,9 +9,6 @@ body{
 	border:0;
 }
 
-#datalistQuestion dt.ui-datalist-item{
-	margin-bottom:20px;
-}
 
 .ui-toolbar {
 	background: white;
@@ -59,9 +56,18 @@ body{
 	margin-left:5px;
 }
 
-#datalistQuestion .ui-datalist-header {
+#datalistQuestion .ui-datalist-header{
 	visibility:hidden;
 }
+
+#datalistQuestion dt.ui-datalist-item{
+	margin-bottom:20px;
+}
+
+.ui-datatable.datatableHidden div.ui-datatable-header{
+	visibility: hidden;
+}
+
 
 .toolbarGroupCenter{
 	text-align:center;
@@ -78,3 +84,10 @@ body{
 .ui-icon.ui-icon-pencil{
 	background-image: url("../resources/img/ui-icons_0077cc_256x240.png");
 }  
+
+.gridWithoutBorder tr.ui-widget-content.ui-panelgrid-even{
+	border:0;
+}
+.gridWithoutBorder h2{
+	margin:0;
+}

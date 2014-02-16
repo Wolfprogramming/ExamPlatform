@@ -23,9 +23,9 @@
 		
 		
 		<h:form>
-			<p:dataTable id="dataTable" var="stu" value="#{listStudentsMB.allStudents}" sortMode="multiple" 
+			<p:dataTable id="dataTable" var="stu" value="#{studentListMB.allStudents}" sortMode="multiple" 
 					rows="25" paginator="true" widgetVar="studentTable" emptyMessage="No students found with given criteria" 
-					filteredValue="#{listStudentsMB.filteredStudents}">
+					filteredValue="#{studentListMB.filteredStudents}">
 				<f:facet name="header">
 				Students
 					<p:outputPanel>

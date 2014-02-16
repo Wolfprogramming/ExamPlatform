@@ -6,5 +6,7 @@
 		<class>model.Teacher</class>
 		<class>model.PossibleAnswer</class>
 		<class>model.Question</class>
+		<class>model.LT_StudentExam</class>
+		<class>model.Student</class>
 	</persistence-unit>
 </persistence>

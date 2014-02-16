@@ -1,5 +1,6 @@
 package beans;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -9,6 +10,8 @@ import javax.persistence.TypedQuery;
 
 import model.Exam;
 import model.Question;
+import model.Student;
+import model.Teacher;
 
 
 /**
@@ -25,6 +28,58 @@ public class ExamBean {
     
     public List<Exam> findAllExams(){
     	TypedQuery<Exam> theQuery = em.createQuery("SELECT e FROM Exam e", Exam.class);
+    	
+    	return theQuery.getResultList();
+    }
+    
+    public List<Exam> findAllExams(Student student){
+    	@SuppressWarnings("unchecked")
+		TypedQuery<Exam> theQuery = (TypedQuery<Exam>) em.createQuery("SELECT e FROM Exam e, LT_StudentExam l WHERE e=l.exam AND l.student=:qStudent")
+    			.setParameter("qStudent", student);
+    	
+    	return theQuery.getResultList();
+    }
+    
+    public List<Exam> findAllExams(Teacher teacher){
+    	@SuppressWarnings("unchecked")
+		TypedQuery<Exam> theQuery = (TypedQuery<Exam>) em.createQuery("SELECT e FROM Exam e WHERE e.teacher=:qTeacher")
+    			.setParameter("qTeacher", teacher);
+    	
+    	return theQuery.getResultList();
+    }
+    
+    public List<Exam> findAllExamsBefore(Student student, Date date){
+    	@SuppressWarnings("unchecked")
+		TypedQuery<Exam> theQuery = (TypedQuery<Exam>) em.createQuery("SELECT e FROM Exam e, LT_StudentExam l WHERE e=l.exam AND l.student=:qStudent AND e.eDate<:qDate")
+    			.setParameter("qStudent", student)
+    			.setParameter("qDate", date);
+    	
+    	return theQuery.getResultList();
+    }
+    
+    public List<Exam> findAllExamsBefore(Teacher teacher, Date date){
+    	@SuppressWarnings("unchecked")
+		TypedQuery<Exam> theQuery = (TypedQuery<Exam>) em.createQuery("SELECT e FROM Exam e WHERE e.teacher=:qTeacher AND e.eDate<:qDate")
+    			.setParameter("qTeacher", teacher)
+    			.setParameter("qDate", date);
+    	
+    	return theQuery.getResultList();
+    }
+    
+    public List<Exam> findAllExamsAfter(Student student, Date date){
+    	@SuppressWarnings("unchecked")
+		TypedQuery<Exam> theQuery = (TypedQuery<Exam>) em.createQuery("SELECT e FROM Exam e, LT_StudentExam l WHERE e=l.exam AND l.student=:qStudent AND e.eDate>=:qDate")
+    			.setParameter("qStudent", student)
+    			.setParameter("qDate", date);
+    	
+    	return theQuery.getResultList();
+    }
+    
+    public List<Exam> findAllExamsAfter(Teacher teacher, Date date){
+    	@SuppressWarnings("unchecked")
+		TypedQuery<Exam> theQuery = (TypedQuery<Exam>) em.createQuery("SELECT e FROM Exam e WHERE e.teacher=:qTeacher AND e.eDate>=:qDate")
+    			.setParameter("qTeacher", teacher)
+    			.setParameter("qDate", date);
     	
     	return theQuery.getResultList();
     }

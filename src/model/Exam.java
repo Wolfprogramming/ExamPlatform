@@ -40,6 +40,8 @@ public class Exam implements Serializable {
 
 	@Temporal(TemporalType.TIME)
 	private Date eStartHour;
+	
+	private boolean eIsCorrected;
 
 	//bi-directional many-to-one association to Teacher
 	@ManyToOne
@@ -49,6 +51,10 @@ public class Exam implements Serializable {
 	//bi-directional many-to-one association to Question
 	@OneToMany(mappedBy="exam")
 	private List<Question> questions;
+	
+	//bi-directional many-to-one association to LT_StudentExam
+	@OneToMany(mappedBy="exam")
+	private List<LT_StudentExam> ltStudentExams;
 
 	public Exam() {
 	}
@@ -145,6 +151,36 @@ public class Exam implements Serializable {
 		question.setExam(null);
 
 		return question;
+	}
+
+	public List<LT_StudentExam> getLtStudentExams() {
+		return this.ltStudentExams;
+	}
+
+	public void setLtStudentExams(List<LT_StudentExam> ltStudentExams) {
+		this.ltStudentExams = ltStudentExams;
+	}
+
+	public LT_StudentExam addLtStudentExam(LT_StudentExam ltStudentExam) {
+		getLtStudentExams().add(ltStudentExam);
+		ltStudentExam.setExam(this);
+
+		return ltStudentExam;
+	}
+
+	public LT_StudentExam removeLtStudentExam(LT_StudentExam ltStudentExam) {
+		getLtStudentExams().remove(ltStudentExam);
+		ltStudentExam.setExam(null);
+
+		return ltStudentExam;
+	}
+
+	public boolean iseIsCorrected() {
+		return eIsCorrected;
+	}
+
+	public void seteIsCorrected(boolean eIsCorrected) {
+		this.eIsCorrected = eIsCorrected;
 	}
 
 }

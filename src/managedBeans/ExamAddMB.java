@@ -27,6 +27,7 @@ public class ExamAddMB implements Serializable {
 	private Date eDate;
 	private Date eEndHour;
 	private Date eStartHour;
+	private boolean eIsCorrected;
 	private Teacher teach;
 	
 	public ExamAddMB(){
@@ -78,6 +79,15 @@ public class ExamAddMB implements Serializable {
 	public void seteStartHour(Date eStartHour) {
 		this.eStartHour = eStartHour;
 	}
+	
+
+	public boolean iseIsCorrected() {
+		return eIsCorrected;
+	}
+
+	public void seteIsCorrected(boolean eIsCorrected) {
+		this.eIsCorrected = eIsCorrected;
+	}
 
 	public String saveExam(){ 
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
@@ -98,6 +108,7 @@ public class ExamAddMB implements Serializable {
 		tmp.seteDate(eDate);
 		tmp.seteStartHour(startHour);
 		tmp.seteEndHour(endHour);
+		tmp.seteIsCorrected(false);
 		tmp.setTeacher(teach);
 		theExam.doInsert(tmp);
 	

@@ -13,7 +13,9 @@
 			
 		<h:form>
     		<p:toolbar>
-   		
+   				<p:toolbarGroup styleClass="toolbarGroupCenter">
+        			<p:outputLabel value="Hello #{loginMB.resultStudent.sFirstName}, welcome back!" />
+        		</p:toolbarGroup>
         		<p:toolbarGroup align="right">          		
             		<p:inputText style="margin-right:10px"/>                    		
             		<p:commandButton value="Logout" action="#{loginMB.logout}" icon="ui-icon-extlink" />  
@@ -23,9 +25,10 @@
 		<br/>
 		
 		<h:form>
-			<p:dataTable value="#{examListMB.allExams}" var="exa">
+			
+			<p:dataTable value="#{examListMB2.upcomingExams}" var="exa">
 				<f:facet name="header">
-					Exams
+					Upcoming exams
 				</f:facet>
 				
 				<p:column sortBy="eName" headerText="Name">
@@ -36,16 +39,52 @@
 				
 		        <p:column sortBy="eDate" headerText="Start date">
 		            <h:outputText value="#{exa.eDate}" >
-		            	<f:convertDateTime pattern="MM/dd/yyyy" />
+		            	<f:convertDateTime pattern="dd/MM/yyyy" />
+		            </h:outputText> - 
+		            <h:outputText value="#{exa.eStartHour}">
+		            	<f:convertDateTime pattern="HH:mm" />
 		            </h:outputText>
-		            <h:outputText value=" #{exa.eStartHour}" />
 		        </p:column>
 		
 		        <p:column sortBy="eEndHour" headerText="End hour">
-		            <h:outputText value="#{exa.eEndHour}" />
+		            <h:outputText value="#{exa.eEndHour}">
+		            	<f:convertDateTime pattern="HH:mm" />
+		            </h:outputText>
 		        </p:column>
 		  
 			</p:dataTable>
+			
+			<br/>
+			<br/>
+			
+			<p:dataTable value="#{examListMB2.previousExams}" var="exa">
+				<f:facet name="header">
+					Previous exams
+				</f:facet>
+				
+				<p:column sortBy="eName" headerText="Name">
+<!-- 		             <h:commandLink action="exam" value="#{exa.idExam} or  value="#{managedBean.createCategoryModel(managedBean.selectedRecord.cellid)}""> -->
+		            	<h:outputText value="#{exa.eName}" />
+<!-- 		            </h:commandLink>  -->
+		        </p:column>
+				
+		        <p:column sortBy="eDate" headerText="Start date">
+		            <h:outputText value="#{exa.eDate}" >
+		            	<f:convertDateTime pattern="dd/MM/yyyy" />
+		            </h:outputText> - 
+		            <h:outputText value="#{exa.eStartHour}">
+		            	<f:convertDateTime pattern="HH:mm" />
+		            </h:outputText>
+		        </p:column>
+		
+		        <p:column sortBy="eEndHour" headerText="End hour">
+		            <h:outputText value="#{exa.eEndHour}">
+		            	<f:convertDateTime pattern="HH:mm" />
+		            </h:outputText>
+		        </p:column>
+		  
+			</p:dataTable>
+			
 		</h:form> 
 		
 		<br/>
