@@ -10,7 +10,7 @@
     xmlns:p="http://primefaces.org/ui">
 
 
-<head>
+<h:head>
 
 <!--META-->
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -22,9 +22,6 @@
 <!--STYLESHEETS-->
 
 <link type="text/css" rel="stylesheet" href="resources/css/stylesheet.css"/>
-<!--  <h:outputStylesheet library="css" name="resources/css/stylesheet.css" />-->
-<!--  <link href="Resources/css/style.css" rel="stylesheet" type="text/css" /> -->
-
 
 
 <!--SCRIPTS-->
@@ -48,9 +45,14 @@ $(document).ready(function() {
 });
 </script>
 
-</head>
-<body>
+	<!-- Notification bar with an error called in loginMB -->
+	<p:notificationBar position="top" effect="slide" widgetVar="bar" styleClass="top">  
+    <h:outputText value="Email/Username wrong! Try again" style="color:#FFCC00;font-size:36px;" />  
+	</p:notificationBar>
 
+</h:head>
+<h:body>
+<h:form>
 <!--WRAPPER-->
 <div id="wrapper">
 
@@ -60,56 +62,40 @@ $(document).ready(function() {
     <!--END SLIDE-IN ICONS-->
 
 <!--LOGIN FORM-->
-
-<form name="login-form" class="login-form" action="" method="post">
-
+<p:panel styleClass="login-form" id="panel" >
 	<!--HEADER-->
     <div class="header">
     <!--TITLE--><h1>Login Form</h1><!--END TITLE-->
-    <!--DESCRIPTION--><span>Login with your email and password.</span><!--END DESCRIPTION-->
+    <!--DESCRIPTION--><span>Fill out the form below to login with your email and password.</span><!--END DESCRIPTION-->
     </div>
     <!--END HEADER-->
 	
 	<!--CONTENT-->
     <div class="content">
-	<!--USERNAME--><h:inputText id="un" value="#{loginMB.username}" required="true" requiredMessage="Username is required."/><!--END USERNAME-->
-    <!--PASSWORD--><h:inputText id="pw" value="#{loginMB.password}" required="true" requiredMessage="Password is required." /><!--END PASSWORD-->
+    				<p:inputText value="#{loginMB.username}" placehoder="Username" styleClass="input username" required="true" placeholder="Email" />
+    				<p:inputText value="#{loginMB.password}" placehoder="Password" styleClass="input password" required="true" placeholder="Password" />
     </div>
     <!--END CONTENT-->
     
-    
-    <!--  ORIGINAL CODE 
-   <input name="username" type="text" class="input username" value="Username" onfocus="this.value=''" />
-   <input name="password" type="password" class="input password" value="Password" onfocus="this.value=''" />
-    -->
-    
-    
-    
-    
     <!--FOOTER-->
     <div class="footer">
-    <!--LOGIN BUTTON--><h:commandButton value="Login" actionListener="#{loginMB.login}" /><!--END LOGIN BUTTON-->
-    				   
-    
+    	<p:commandButton value="Login" actionListener="#{loginMB.login}" update="panel" styleClass="button" />
+    	<p:commandButton value="Reset" update="panel" process="@this" actionListener="#{loginMB.reset}" styleClass="register">
+				<p:resetInput target="panel"></p:resetInput>
+			</p:commandButton>		
+			 
     </div>
-    
-    <!-- ORIGINAL CODE
-    <div class="footer">
-    <input type="submit" name="submit" value="Login" class="button" />
-    <input type="submit" name="submit" value="Register" class="register" />
-     -->
-    
- 
     <!--END FOOTER-->
+   
 
-</form>
-
+</p:panel>
 <!--END LOGIN FORM-->
 
 </div>
 <!--END WRAPPER-->
 
-<!--GRADIENT--><div class="gradient"></div><!--END GRADIENT-->
 
-</body>
+<!--GRADIENT--><div class="gradient"></div><!--END GRADIENT-->
+</h:form>
+</h:body>
 </html>
