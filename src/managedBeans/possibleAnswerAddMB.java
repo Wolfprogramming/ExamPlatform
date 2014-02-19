@@ -14,6 +14,7 @@ import javax.faces.context.FacesContext;
 import model.PossibleAnswer;
 import model.Question;
 import beans.PossibleAnswerBean;
+import beans.QuestionBean;
 
 
 @Named
@@ -41,6 +42,8 @@ public class possibleAnswerAddMB implements Serializable {
 	
 	@EJB
 	private PossibleAnswerBean thePA;
+	@EJB
+	private QuestionBean theQuestion;
 
 	public List<Boolean> getPaIsCorrect() {
 		return paIsCorrect;
@@ -84,7 +87,8 @@ public class possibleAnswerAddMB implements Serializable {
 					tmp.setQuestion(question);
 					thePA.doInsert(tmp);
 					
-					question.getPossibleAnswers().add(tmp);
+					question.addPossibleAnswer(tmp);
+					theQuestion.doUpdate(question);
 					System.out.println("value saved: " + i + " - " + paName.get(i));
 					
 					//Clear variable after adding
@@ -117,6 +121,7 @@ public class possibleAnswerAddMB implements Serializable {
 					thePA.doInsert(tmp);
 					
 					editQuestion.getPossibleAnswers().add(tmp);
+					theQuestion.doUpdate(question);
 					System.out.println("value saved: " + i + " - " + paName.get(i));
 					
 					paName.set(i, "");

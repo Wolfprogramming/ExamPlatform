@@ -139,8 +139,7 @@ public class QuestionAddMB implements Serializable {
 		theQuestion.doInsert(tmp);
 		
 		ec.getSessionMap().put("question", tmp);
-		exam.getQuestions().add(tmp);
-		
+		exam.addQuestion(tmp);
 		System.out.println("question saved");
 		
 		setqHelp(null);

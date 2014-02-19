@@ -80,9 +80,9 @@ public class ExamListMB implements Serializable {
 		if(selectedExam!=null){
 			theExams.doUpdate(selectedExam);
 			setQuestions(selectedExam.getQuestions());
+			
 		}
 	}
-
 	
 	public List<Exam> getfilteredExams() {
 		return filteredExams;

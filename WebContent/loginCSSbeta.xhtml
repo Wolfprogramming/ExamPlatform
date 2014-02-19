@@ -45,14 +45,11 @@ $(document).ready(function() {
 });
 </script>
 
-	<!-- Notification bar with an error called in loginMB -->
-	<p:notificationBar position="top" effect="slide" widgetVar="bar" styleClass="top">  
-    <h:outputText value="Email/Username wrong! Try again" style="color:#FFCC00;font-size:36px;" />  
-	</p:notificationBar>
+	
 
 </h:head>
 <h:body>
-<h:form>
+<h:form id="form">
 <!--WRAPPER-->
 <div id="wrapper">
 
@@ -63,6 +60,13 @@ $(document).ready(function() {
 
 <!--LOGIN FORM-->
 <p:panel styleClass="login-form" id="panel" >
+
+	<!-- Notification bar with an error called in loginMB -->
+	<p:notificationBar position="top" effect="slide" widgetVar="bar" styleClass="top">  
+    	<h:outputText value="Email/Username wrong! Try again" style="color:#FFCC00;font-size:36px;" />  
+	</p:notificationBar>
+
+
 	<!--HEADER-->
     <div class="header">
     <!--TITLE--><h1>Login Form</h1><!--END TITLE-->
@@ -80,9 +84,9 @@ $(document).ready(function() {
     <!--FOOTER-->
     <div class="footer">
     	<p:commandButton value="Login" actionListener="#{loginMB.login}" update="panel" styleClass="button" />
-    	<p:commandButton value="Reset" update="panel" process="@this" actionListener="#{loginMB.reset}" styleClass="register">
+    	<p:commandButton value="Reset" update="panel" process="@this" actionListener="#{loginMB.reset}" styleClass="reset">
 				<p:resetInput target="panel"></p:resetInput>
-			</p:commandButton>		
+		</p:commandButton>
 			 
     </div>
     <!--END FOOTER-->

@@ -99,7 +99,7 @@ public class LoginMB implements Serializable{
     
     
     public void reset(){
-    	RequestContext.getCurrentInstance().reset("form:panel"); 
+    	RequestContext.getCurrentInstance().reset("form:panel");
     }
 
 	public String getUsername() {
