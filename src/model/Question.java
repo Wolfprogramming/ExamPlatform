@@ -27,8 +27,8 @@ public class Question implements Serializable {
 
 	private String qType;
 
-	private short qValue;
-
+	private int qValue;
+	
 	//bi-directional many-to-one association to PossibleAnswer
 	@OneToMany(mappedBy="question")
 	private List<PossibleAnswer> possibleAnswers;
@@ -37,6 +37,10 @@ public class Question implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="FK_idExam", nullable=false)
 	private Exam exam;
+
+	//bi-directional many-to-one association to Answer
+	@OneToMany(mappedBy="question")
+	private List<Answer> answers;
 
 	public Question() {
 	}
@@ -81,14 +85,14 @@ public class Question implements Serializable {
 		this.qType = qType;
 	}
 
-	public short getqValue() {
+	public int getqValue() {
 		return this.qValue;
 	}
 
-	public void setqValue(short qValue) {
+	public void setqValue(int qValue) {
 		this.qValue = qValue;
 	}
-
+	
 	public List<PossibleAnswer> getPossibleAnswers() {
 		return this.possibleAnswers;
 	}
@@ -117,6 +121,28 @@ public class Question implements Serializable {
 
 	public void setExam(Exam exam) {
 		this.exam = exam;
+	}
+
+	public List<Answer> getAnswers() {
+		return this.answers;
+	}
+
+	public void setAnswers(List<Answer> answers) {
+		this.answers = answers;
+	}
+
+	public Answer addAnswer(Answer answer) {
+		getAnswers().add(answer);
+		answer.setQuestion(this);
+
+		return answer;
+	}
+
+	public Answer removeAnswer(Answer answer) {
+		getAnswers().remove(answer);
+		answer.setQuestion(null);
+
+		return answer;
 	}
 
 }

@@ -8,5 +8,6 @@
 		<class>model.Question</class>
 		<class>model.LT_StudentExam</class>
 		<class>model.Student</class>
+		<class>model.Answer</class>
 	</persistence-unit>
 </persistence>

@@ -1,9 +1,7 @@
 package model;
 
 import java.io.Serializable;
-
 import javax.persistence.*;
-
 import java.util.Date;
 import java.util.List;
 
@@ -56,6 +54,10 @@ public class Exam implements Serializable {
 	@OneToMany(mappedBy="exam")
 	private List<LT_StudentExam> ltStudentExams;
 
+	//bi-directional many-to-one association to Answer
+	@OneToMany(mappedBy="exam")
+	private List<Answer> answers;
+
 	public Exam() {
 	}
 
@@ -97,6 +99,14 @@ public class Exam implements Serializable {
 
 	public void seteEndHour(Date eEndHour) {
 		this.eEndHour = eEndHour;
+	}
+
+	public boolean geteIsCorrected() {
+		return this.eIsCorrected;
+	}
+
+	public void seteIsCorrected(boolean eIsCorrected) {
+		this.eIsCorrected = eIsCorrected;
 	}
 
 	public Date geteModifyDate() {
@@ -152,7 +162,7 @@ public class Exam implements Serializable {
 
 		return question;
 	}
-
+	
 	public List<LT_StudentExam> getLtStudentExams() {
 		return this.ltStudentExams;
 	}
@@ -175,12 +185,26 @@ public class Exam implements Serializable {
 		return ltStudentExam;
 	}
 
-	public boolean iseIsCorrected() {
-		return eIsCorrected;
+	public List<Answer> getAnswers() {
+		return this.answers;
 	}
 
-	public void seteIsCorrected(boolean eIsCorrected) {
-		this.eIsCorrected = eIsCorrected;
+	public void setAnswers(List<Answer> answers) {
+		this.answers = answers;
+	}
+
+	public Answer addAnswer(Answer answer) {
+		getAnswers().add(answer);
+		answer.setExam(this);
+
+		return answer;
+	}
+
+	public Answer removeAnswer(Answer answer) {
+		getAnswers().remove(answer);
+		answer.setExam(null);
+
+		return answer;
 	}
 
 }

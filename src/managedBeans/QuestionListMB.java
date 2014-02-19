@@ -59,7 +59,7 @@ public class QuestionListMB implements Serializable {
 	public String gettypePrec() {
 		return typePrec;
 	}
-	
+
 	public void subjectSelectionChanged(){
 		if(!selectedQuestion.getqType().equals("text"))
 			isDisplay="true";
@@ -108,7 +108,7 @@ public class QuestionListMB implements Serializable {
 			}
 		}
 		
-		return "viewExam";
+		return null;
 	}
 	
 	public String deleteQuestion(){

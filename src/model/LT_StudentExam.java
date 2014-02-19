@@ -16,6 +16,12 @@ public class LT_StudentExam implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idLT_StudentExam;
+	
+	private String ltStudentStatus;
+	
+	private String ltTeacherStatus;
+	
+	private float ltFinalGrade;
 
 	//bi-directional many-to-one association to Exam
 	@ManyToOne
@@ -52,6 +58,30 @@ public class LT_StudentExam implements Serializable {
 
 	public void setStudent(Student student) {
 		this.student = student;
+	}
+
+	public String getltStudentStatus() {
+		return ltStudentStatus;
+	}
+
+	public void setltStudentStatus(String ltStudentStatus) {
+		this.ltStudentStatus = ltStudentStatus;
+	}
+
+	public String getltTeacherStatus() {
+		return ltTeacherStatus;
+	}
+
+	public void setltTeacherStatus(String ltTeacherStatus) {
+		this.ltTeacherStatus = ltTeacherStatus;
+	}
+
+	public float getltFinalGrade() {
+		return ltFinalGrade;
+	}
+
+	public void setltFinalGrade(float ltFinalGrade) {
+		this.ltFinalGrade = ltFinalGrade;
 	}
 
 }

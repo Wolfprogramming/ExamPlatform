@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Answer question #{questionListMB.selectedQuestion.qPosition}</title>
+    </h:head>
+    <h:body>
+    	<f:facet name="last">
+	    	<h:outputStylesheet library="css" name="style.css" />
+		</f:facet>
+		
+		<h:form>
+    		<p:toolbar>
+    			<p:toolbarGroup align="left">  
+            		<p:commandButton value="Go back to exam" action="answerExam" icon="ui-icon-triangle-1-w" />
+        		</p:toolbarGroup>
+   				
+        		<p:toolbarGroup align="right">
+            		<p:clock />
+        		</p:toolbarGroup>
+        	</p:toolbar>
+		</h:form>
+		<br/>
+        
+		<h:form prependId="false" id="form">		
+			<p:panel id="panel">
+        	<p:focus context="panel"/>
+				    <p:panelGrid style="width:100%">
+				    	<p:row>
+					    	<p:column style="width:20%">
+					    		<p:outputLabel value="Question #{answerAddMB.selectedQuestion.qPosition}" />
+					    	</p:column>
+					    	<p:column style="width:65%">
+					    		<b><p:outputLabel id="qName" value="#{answerAddMB.selectedQuestion.qName}"/></b>
+					    	</p:column>
+					    	<p:column style="width:15%">
+					    	</p:column>
+				    	</p:row>
+				    	
+				    	<p:row>
+					    	<p:column style="width:20%">
+					    	</p:column>
+					    	<p:column style="width:65%">
+								<p:fieldset rendered="#{answerAddMB.isQuestionAnswered(answerAddMB.selectedQuestion)}" >
+									<p:outputLabel value="Previous answer: #{answerAddMB.prevAnswer}" />
+								</p:fieldset><br/>
+								
+								<p:inputTextarea value="#{answerAddMB.selectedAnswer}" cols="66"
+									rendered="#{answerAddMB.selectedQuestion.qType=='text' ? true : false}" />
+					    							    		
+				    			<p:selectOneRadio value="#{answerAddMB.selectedAnswer}" layout="grid" columns="1"
+				    				rendered="#{answerAddMB.selectedQuestion.qType=='singleChoice' ? true : false}" >
+				    				<f:selectItems value="#{answerAddMB.possibleAnswers}" />
+					        	</p:selectOneRadio>
+						        
+						        <p:selectOneMenu value="#{answerAddMB.selectedAnswer}" 
+						        	rendered="#{answerAddMB.selectedQuestion.qType=='list' ? true : false}">  
+						            <f:selectItem itemLabel="Select One" itemValue="" />
+						            <f:selectItems value="#{answerAddMB.possibleAnswers}" />
+						        </p:selectOneMenu>
+						        
+						        <p:selectManyCheckbox value="#{answerAddMB.selectedAnswers}" layout="pageDirection"
+						        	rendered="#{answerAddMB.selectedQuestion.qType=='multipleChoice' ? true : false}">
+						            <f:selectItems value="#{answerAddMB.possibleAnswers}" />
+						        </p:selectManyCheckbox>
+					    	</p:column>
+				    	</p:row>
+				    	
+				    	<p:row>
+					    	<p:column style="width:20%"></p:column>
+					    	<p:column style="width:65%"></p:column>
+					    	
+					    	<p:column style="width:15%;  text-align:right;">
+					    		<p:outputLabel value="#{answerAddMB.selectedQuestion.qValue} point#{answerAddMB.selectedQuestion.qValue>1 ? 's':''}" />
+					    	</p:column>
+				    	</p:row>
+				    	
+				    </p:panelGrid>
+				    <br/>
+
+				
+				<f:facet name="footer">
+        			<p:commandButton value="Save answer" actionListener="#{answerAddMB.saveAnswer}" icon="ui-icon-disk" />
+        		</f:facet>
+				
+			</p:panel>
+
+		</h:form>
+    </h:body>
+</html>

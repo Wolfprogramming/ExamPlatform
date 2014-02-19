@@ -1,5 +1,6 @@
 package managedBeans;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
 import java.sql.Time;
@@ -9,13 +10,15 @@ import javax.inject.Named;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
 import beans.ExamBean;
+import beans.LT_StudentExamBean;
 import model.Exam;
+import model.LT_StudentExam;
 import model.Question;
 import model.Student;
 import model.Teacher;
@@ -34,11 +37,14 @@ public class ExamListMB implements Serializable {
 	private List<Exam> upcomingExams;
 	private List<Exam> previousExams;
 	private int nbPoint;
+	private int nbQuestion;
 	private List<Question> questions;
 
 	
 	@EJB
 	private ExamBean theExams;
+	@EJB
+	private LT_StudentExamBean theLink;
 
 		
 	@PostConstruct
@@ -96,6 +102,16 @@ public class ExamListMB implements Serializable {
 	}
 
 
+	public int getNbQuestion() {
+		return nbQuestion;
+	}
+
+
+	public void setNbQuestion(int nbQuestion) {
+		this.nbQuestion = nbQuestion;
+	}
+
+
 	public List<Exam> getUpcomingExams() {
 		return upcomingExams;
 	}
@@ -122,9 +138,13 @@ public class ExamListMB implements Serializable {
 	}
 
 	public List<Question> getQuestions() {
-		this.nbPoint=0;
-		for(int i=0; i<questions.size();i++){
-			this.nbPoint += questions.get(i).getqValue();
+		setNbPoint(0);
+		setNbQuestion(0);
+		if(questions!=null){
+			for(int i=0; i<questions.size();i++){
+				this.nbPoint += questions.get(i).getqValue();
+			}
+			nbQuestion=questions.size();
 		}
 		return questions;
 	}
@@ -138,9 +158,12 @@ public class ExamListMB implements Serializable {
         ExternalContext externalContext = context.getExternalContext();
         Date date = new Date();
         
-		theExams.doUpdate(selectedExam);
-		this.previousExams.clear();
-		this.upcomingExams.clear();
+        if(selectedExam!=null)
+        	theExams.doUpdate(selectedExam);
+        if(previousExams!=null)
+        	this.previousExams.clear();
+        if(upcomingExams!=null)
+        	this.upcomingExams.clear();
 		
 		if(externalContext.getSessionMap().get("teacher") != null){
         	System.out.println("Retrieve teacher's exams");
@@ -159,6 +182,36 @@ public class ExamListMB implements Serializable {
 		
 		setSelectedExam(null);
 		setNbPoint(0);
+		setNbQuestion(0);
+	}
+	
+	/* This function tell us if the exam is open to be done by students
+	 * It compares starting date and ending date of exams (converted in ms) with the current date
+	 */
+	public void isOpenExam(ActionEvent event) throws IOException{
+		FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = context.getExternalContext();
+        
+		Date date = new Date();
+		setSelectedExam( (Exam)event.getComponent().getAttributes().get("selectExam"));
+		Date start = new Date(selectedExam.geteDate().getTime()+selectedExam.geteStartHour().getTime()+3600000);
+		Date end = new Date(selectedExam.geteDate().getTime()+selectedExam.geteEndHour().getTime()+3600000);
+				
+		Student student = (Student) externalContext.getSessionMap().get("student");
+		LT_StudentExam link = theLink.findLT_StudentExam(selectedExam, student);
+		
+		if(date.compareTo(start)>=0 && date.compareTo(end)<0 && link.getltStudentStatus().equals("pending")){
+			externalContext.getSessionMap().put("exam", selectedExam);
+			externalContext.redirect(externalContext.getRequestContextPath() + "/answerExam.xhtml");
+		}
+		else if(link.getltStudentStatus().equals("submitted")){
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Access denied!",  "You cannot access this exam, you already submitted it.");  
+			context.addMessage(null, message);
+		}
+		else{
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Access denied!",  "This exam is not accessible yet! Please try again in due time.");  
+			context.addMessage(null, message);
+		}		
 	}
 	
 	public String editExam(){
@@ -194,8 +247,22 @@ public class ExamListMB implements Serializable {
 		
 		return "index";
 	}
-
-
-
+	
+	public String submitExam(){
+		System.out.println("Enter submit exam: " + selectedExam.geteName());
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+		
+		Student student = (Student) ec.getSessionMap().get("student");
+		
+		LT_StudentExam link = theLink.findLT_StudentExam(selectedExam, student);
+		
+		link.setltStudentStatus("submitted");
+		theLink.doUpdate(link);
+		
+		System.out.println("Exam submitted!");
+		
+		return "congrats";
+	}
+	
     
 }

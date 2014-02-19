@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Correct question #{answerAddMB.selectedQuestion.qPosition}</title>
+        <h:outputStylesheet library="css" name="style.css" />
+    </h:head>
+    <h:body>
+    
+		<h:form>
+    		<p:toolbar>
+    			<p:toolbarGroup align="left">  
+            		<p:commandButton value="Go back to exam" action="correctExam" icon="ui-icon-triangle-1-w" 
+            			actionListener="#{answerAddMB.clear}"/>
+        		</p:toolbarGroup>
+   				
+        		<p:toolbarGroup align="right">
+        		</p:toolbarGroup>
+        	</p:toolbar>
+		</h:form>
+		<br/>
+        
+		<h:form prependId="false" id="form">		
+			<p:panel id="panel">
+        	<p:focus context="panel"/>
+				    <p:panelGrid style="width:100%">
+				    	<p:row>
+					    	<p:column style="width:15%">
+					    		<p:outputLabel value="Question #{answerAddMB.selectedQuestion.qPosition}" />
+					    	</p:column>
+					    	<p:column style="width:65%">
+					    		<b><p:outputLabel id="qName" value="#{answerAddMB.selectedQuestion.qName}"/></b>
+					    	</p:column>
+					    	<p:column style="width:20%">
+					    	</p:column>
+				    	</p:row>
+				    	
+				    	<p:row>
+					    	<p:column style="width:15%">
+					    	</p:column>
+					    	<p:column style="width:65%">
+								<p:fieldset >
+									<p:outputLabel value="Answer(s): #{answerAddMB.getAnswerStudent(answerAddMB.selectedQuestion, answerAddMB.selectedStudent).aName}" /><br/>
+									<p:outputLabel value="Is correct?: 
+									#{answerAddMB.getAnswerStudent(answerAddMB.selectedQuestion, answerAddMB.selectedStudent).aIsCorrect=='true' ? 'Yes' : 'No/Check answer'}" />
+								</p:fieldset><br/>
+								Your comment:<br/>
+								<p:inputTextarea value="#{answerAddMB.aComment}" cols="66" 
+									placeholder="#{answerAddMB.getAnswerStudent(answerAddMB.selectedQuestion, answerAddMB.selectedStudent).aComment}"/>
+					    	</p:column>
+				    	</p:row>
+				    	
+				    	<p:row>
+					    	<p:column style="width:15%"></p:column>
+					    	<p:column style="width:65%"></p:column>
+					    	
+					    	<p:column style="width:20%;  text-align:right;">
+					    		<p:inputText value="#{answerAddMB.aPoint}" style="width:20%;" />
+					    		<p:outputLabel value=" / #{answerAddMB.selectedQuestion.qValue} point#{answerAddMB.selectedQuestion.qValue>1 ? 's':''}" /><br/>
+					    		<p:outputLabel value="Curr. value: #{answerAddMB.getAnswerStudent(answerAddMB.selectedQuestion, answerAddMB.selectedStudent).aPoint}" />
+					    	</p:column>
+				    	</p:row>
+				    	
+				    </p:panelGrid>
+				    <br/>
+				    
+				<f:facet name="footer">
+        			<p:commandButton value="Save" actionListener="#{answerAddMB.saveCorrection}" icon="ui-icon-disk" />
+        		</f:facet>
+				
+			</p:panel>
+			
+		</h:form>
+    </h:body>
+</html>

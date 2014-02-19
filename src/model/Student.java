@@ -1,13 +1,12 @@
 package model;
 
 import java.io.Serializable;
-import java.util.List;
-
 import javax.persistence.*;
+import java.util.List;
 
 
 /**
- * The persistent class for the student database table.
+ * The persistent class for the Student database table.
  * 
  */
 @Entity
@@ -18,14 +17,22 @@ public class Student implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idStudent;
-	private String sFirstName;
-	private String sEmail;
-	private String sLastName;
-	private String sPassword;
 
+	private String sEmail;
+
+	private String sFirstName;
+
+	private String sLastName;
+
+	private String sPassword;
+	
 	//bi-directional many-to-one association to LT_StudentExam
 	@OneToMany(mappedBy="student")
 	private List<LT_StudentExam> ltStudentExams;
+
+	//bi-directional many-to-one association to Answer
+	@OneToMany(mappedBy="student")
+	private List<Answer> answers;
 
 	public Student() {
 	}
@@ -69,7 +76,7 @@ public class Student implements Serializable {
 	public void setSPassword(String sPassword) {
 		this.sPassword = sPassword;
 	}
-
+	
 	public List<LT_StudentExam> getLtStudentExams() {
 		return this.ltStudentExams;
 	}
@@ -90,6 +97,28 @@ public class Student implements Serializable {
 		ltStudentExam.setStudent(null);
 
 		return ltStudentExam;
+	}
+
+	public List<Answer> getAnswers() {
+		return this.answers;
+	}
+
+	public void setAnswers(List<Answer> answers) {
+		this.answers = answers;
+	}
+
+	public Answer addAnswer(Answer answer) {
+		getAnswers().add(answer);
+		answer.setStudent(this);
+
+		return answer;
+	}
+
+	public Answer removeAnswer(Answer answer) {
+		getAnswers().remove(answer);
+		answer.setStudent(null);
+
+		return answer;
 	}
 
 }

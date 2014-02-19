@@ -14,42 +14,51 @@
 		<h:form>
     		<p:toolbar>
    				<p:toolbarGroup styleClass="toolbarGroupCenter">
-        			<p:outputLabel value="Hello #{loginMB.resultStudent.sFirstName}, welcome back!" />
+        			Hello <i><p:outputLabel value="#{loginMB.resultStudent.sFirstName}" /></i>, welcome back!
         		</p:toolbarGroup>
-        		<p:toolbarGroup align="right">          		
-            		<p:inputText style="margin-right:10px"/>                    		
-            		<p:commandButton value="Logout" action="#{loginMB.logout}" icon="ui-icon-extlink" />  
+        		<p:toolbarGroup align="right">             		
+            		<p:commandButton value="Logout" action="#{loginMB.logout}" icon="ui-icon-power" />  
         		</p:toolbarGroup>
         	</p:toolbar>
 		</h:form>
 		<br/>
 		
 		<h:form>
+		
+			<p:panelGrid style="width:100%;" styleClass="gridWithoutBorder">
+				<p:row>
+					<p:column style="width:30%;"><p:separator /></p:column>
+					<p:column style="width:40%; text-align:center;"><h2>Upcoming Exams</h2></p:column>
+					<p:column style="width:30%;"><p:separator /></p:column>
+				</p:row>
+			</p:panelGrid>
 			
-			<p:dataTable value="#{examListMB.upcomingExams}" var="exa">
+			<p:dataTable value="#{examListMB.upcomingExams}" var="UpExa"
+					sortMode="multiple" rows="10" paginator="true" widgetVar="upcomingExamTable" 
+					emptyMessage="No exams found with that criteria" filteredValue="#{examListMB.filteredExams}" >
 				<f:facet name="header">
-					Upcoming exams
+					<p:messages id="message" showDetail="true" autoUpdate="true" closable="true" />
 				</f:facet>
 				
-				<p:column sortBy="eName" headerText="Name">
-<!-- 		             <h:commandLink action="exam" value="#{exa.idExam} or  value="#{managedBean.createCategoryModel(managedBean.selectedRecord.cellid)}""> -->
-		            	<h:outputText value="#{exa.eName}" />
-<!-- 		            </h:commandLink>  -->
+				<p:column sortBy="eName" headerText="Name" filterBy="eName" filterMatchMode="contains">
+		        	<p:commandLink update="message" title="Go to exam" id="answerExam" actionListener="#{examListMB.isOpenExam}">
+		            	<p:outputLabel value="#{UpExa.eName}" />
+						<f:setPropertyActionListener value="#{UpExa}" target="#{examListMB.selectedExam}" />
+						<f:attribute name="selectExam" value="#{UpExa}" />
+		            </p:commandLink>
 		        </p:column>
+		        
 				
 		        <p:column sortBy="eDate" headerText="Start date">
-		            <h:outputText value="#{exa.eDate}" >
+		            <p:outputLabel value="#{UpExa.eDate}" >
 		            	<f:convertDateTime pattern="dd/MM/yyyy" />
-		            </h:outputText> - 
-		            <h:outputText value="#{exa.eStartHour}">
+		            </p:outputLabel><p:spacer width="15"/>
+		            <p:outputLabel value="#{UpExa.eStartHour}">
 		            	<f:convertDateTime pattern="HH:mm" />
-		            </h:outputText>
-		        </p:column>
-		
-		        <p:column sortBy="eEndHour" headerText="End hour">
-		            <h:outputText value="#{exa.eEndHour}">
+		            </p:outputLabel> - 
+		            <p:outputLabel value="#{UpExa.eEndHour}">
 		            	<f:convertDateTime pattern="HH:mm" />
-		            </h:outputText>
+		            </p:outputLabel>
 		        </p:column>
 		  
 			</p:dataTable>
@@ -57,28 +66,39 @@
 			<br/>
 			<br/>
 			
-			<p:dataTable value="#{examListMB.previousExams}" var="exa">
-				<f:facet name="header">
-					Previous exams
-				</f:facet>
+			<p:panelGrid style="width:100%;" styleClass="gridWithoutBorder">
+				<p:row>
+					<p:column style="width:30%;"><p:separator /></p:column>
+					<p:column style="width:40%; text-align:center;"><h2>Previous Exams</h2></p:column>
+					<p:column style="width:30%;"><p:separator /></p:column>
+				</p:row>
+			</p:panelGrid>
+			
+			<p:dataTable value="#{examListMB.previousExams}" var="prevExa">
 				
 				<p:column sortBy="eName" headerText="Name">
-		            	<h:outputText value="#{exa.eName}" />
+		            	<p:outputLabel value="#{prevExa.eName}" />
 		        </p:column>
 				
 		        <p:column sortBy="eDate" headerText="Start date">
-		            <h:outputText value="#{exa.eDate}" >
+		            <p:outputLabel value="#{prevExa.eDate}" >
 		            	<f:convertDateTime pattern="dd/MM/yyyy" />
-		            </h:outputText> - 
-		            <h:outputText value="#{exa.eStartHour}">
+		            </p:outputLabel><p:spacer width="15"/>
+		            <p:outputLabel value="#{prevExa.eStartHour}">
 		            	<f:convertDateTime pattern="HH:mm" />
-		            </h:outputText>
+		            </p:outputLabel> - 
+		            <p:outputLabel value="#{prevExa.eEndHour}">
+		            	<f:convertDateTime pattern="HH:mm" />
+		            </p:outputLabel>
 		        </p:column>
 		
-		        <p:column sortBy="eEndHour" headerText="End hour">
-		            <h:outputText value="#{exa.eEndHour}">
-		            	<f:convertDateTime pattern="HH:mm" />
-		            </h:outputText>
+		        <p:column headerText="Status">
+		            <p:outputLabel value="#{studentListMB.statusMarkExam(loginMB.resultStudent, prevExa).ltTeacherStatus}" />
+		        </p:column>
+		        
+		        <p:column headerText="Mark">
+		            <p:outputLabel value="#{studentListMB.statusMarkExam(loginMB.resultStudent, prevExa).ltFinalGrade} / 
+		            #{studentListMB.nbPointExam}" />
 		        </p:column>
 		  
 			</p:dataTable>

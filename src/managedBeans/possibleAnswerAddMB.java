@@ -99,7 +99,7 @@ public class possibleAnswerAddMB implements Serializable {
 	
 	public String savePA(Question editQuestion){ 
 		
-		System.out.println("enter savePA 2");
+		System.out.println("enter savePA with argument");
 
 		if(!(editQuestion.getqType().equals("text")) && !(paName.get(0).equals(""))){
 			

@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import model.PossibleAnswer;
+import model.Question;
 
 
 /**
@@ -27,10 +28,10 @@ public class PossibleAnswerBean {
     	return theQuery.getResultList();
     }
     
-    public List<PossibleAnswer> findAllPAOfQuestion(int idQuestion){
+    public List<PossibleAnswer> findAllPAOfQuestion(Question question){
     	@SuppressWarnings("unchecked")
-		TypedQuery<PossibleAnswer> theQuery = (TypedQuery<PossibleAnswer>)em.createQuery("SELECT pa FROM PossibleAnswer pa WHERE pa.FK_idQuestion=:qIdQuestion")
-    			.setParameter("qIdQuestion", idQuestion);
+		TypedQuery<PossibleAnswer> theQuery = (TypedQuery<PossibleAnswer>)em.createQuery("SELECT pa FROM PossibleAnswer pa WHERE pa.question=:qQuestion")
+    			.setParameter("qQuestion", question);
     	return theQuery.getResultList();
     }
     

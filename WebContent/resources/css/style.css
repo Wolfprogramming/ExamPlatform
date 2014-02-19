@@ -35,6 +35,9 @@ body{
 	background: transparent;
 	background-image: none;
 }
+.datalistWithoutBorder .ui-datalist-content{
+	border:0;
+}
 
 .datalist-nospace .ui-widget-content .ui-datalist-data{
 	margin:0;
@@ -70,8 +73,8 @@ body{
 
 
 .toolbarGroupCenter{
-	text-align:center;
-	width:50%;
+	text-align:right;
+	width:35%;
 	line-height:41px;
 }
 
@@ -83,11 +86,41 @@ body{
 }
 .ui-icon.ui-icon-pencil{
 	background-image: url("../resources/img/ui-icons_0077cc_256x240.png");
-}  
+}
+.ui-icon.ui-icon-copy{
+	background-image: url("../resources/img/ui-icons_7BBB39_256x240.png");
+}
+.ui-icon.ui-icon-person{
+	background-image: url("../resources/img/ui-icons_835DD7_256x240.png");
+}
 
-.gridWithoutBorder tr.ui-widget-content.ui-panelgrid-even{
+.gridWithoutBorder tr.ui-widget-content.ui-panelgrid-even, .gridWithoutBorder tr.ui-widget-content.ui-panelgrid-odd{
 	border:0;
 }
 .gridWithoutBorder h2{
 	margin:0;
+}
+
+.ui-clock{
+	background: white;
+}
+
+.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-icon-only.statButton span.ui-button-text.ui-c{
+	background: white url("../resources/img/statistics.png") no-repeat;
+	background-position:50% 25%;
+	background-size:12px;
+}
+
+div.blockStat{
+	/*background: #A9A9A9;*/
+	border-width:2px 0 0 2px;
+	border-style:solid;
+	border-color:#A9A9A9;
+	height:90px;
+	text-align:center;
+	padding-top:30px;
+	font-size:1.1em;
+}
+div.blockStat .ui-outputlabel{
+	font-size:1.8em;
 }

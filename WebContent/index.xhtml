@@ -16,13 +16,12 @@
     		<p:toolbar>
     			<p:toolbarGroup align="left">
             		<p:commandButton value="New Exam" action="addExam.xhtml" icon="ui-icon-document" />
-            		<p:commandButton value="Students" action="listStudent.xhtml" />
         		</p:toolbarGroup>
         		<p:toolbarGroup styleClass="toolbarGroupCenter">
-        			<p:outputLabel value="Hello #{loginMB.resultTeacher.tFirstName}, welcome back!" />
+        			Hello <i><p:outputLabel value="#{loginMB.resultTeacher.tFirstName}" /></i>, welcome back!
         		</p:toolbarGroup>
         		<p:toolbarGroup align="right">
-            		<p:commandButton value="Logout" action="#{loginMB.logout}" icon="ui-icon-extlink" />
+            		<p:commandButton value="Logout" action="#{loginMB.logout}" icon="ui-icon-power" />
         		</p:toolbarGroup>
         	</p:toolbar>
 		</h:form>
@@ -53,16 +52,16 @@
 		            	</h:commandLink>
 		            	<p:tooltip  for="seeExam" value="View exam details" showEffect="fade" hideEffect="fade" /> 
 		        </p:column>
-		        				
+		        
 		        <p:column sortBy="eDate" headerText="Start date" style="text-align:center; width:25%;">
 		            <h:outputText value="#{UpExa.eDate}" >
 		            	<f:convertDateTime pattern="dd/MM/yyyy" />
-		            </h:outputText><p:spacer width="15"></p:spacer>
+		            </h:outputText><p:spacer width="15"/>
 		            <h:outputText value="#{UpExa.eStartHour}">
 		            	<f:convertDateTime pattern="HH:mm" />
 		            </h:outputText>
 		        </p:column>
-		
+				
 		        <p:column sortBy="eEndHour" headerText="End hour" style="text-align:center; width:25%;">
 		            <h:outputText value="#{UpExa.eEndHour}">
 		            	<f:convertDateTime pattern="HH:mm" />
@@ -86,7 +85,7 @@
 	            	</p:commandButton>
 	            	
 	            	<p:commandButton styleClass="button-right" action="attributeStudent" icon="ui-icon-person" title="Attribute students to exam">
-	         			<f:setPropertyActionListener value="#{UpExa}" target="#{examListMB.selectedExam}" />
+	         			<f:setPropertyActionListener value="#{UpExa}" target="#{studentListMB.selectedExam}" />
 	            	</p:commandButton>
 		        </p:column>
 		  
@@ -105,12 +104,12 @@
 					<p:column style="width:30%"><p:separator /></p:column>
 				</p:row>
 			</p:panelGrid>
-
+			
 			<p:dataTable id="datatablePrevious" value="#{examListMB.previousExams}" var="prevExa" 
 					sortMode="multiple" rows="10" paginator="true" widgetVar="previousExamTable" 
 					emptyMessage="No exams found with that criteria" filteredValue="#{examListMB.filteredExams}">
 				
-				<p:column sortBy="eName" headerText="Name" filterBy="eName" filterMatchMode="contains">				
+				<p:column sortBy="eName" headerText="Name" filterBy="eName" filterMatchMode="contains" style="width:25%;">				
 		            	<h:commandLink action="viewExam" title="View Detail" id="seeExam">
 			            	<h:outputText value="#{prevExa.eName}" />
 			            	<f:setPropertyActionListener value="#{prevExa}" target="#{examListMB.selectedExam}" />
@@ -118,19 +117,30 @@
 		            	<p:tooltip  for="seeExam" value="View exam details" showEffect="fade" hideEffect="fade" /> 
 		        </p:column>
 		        				
-		        <p:column sortBy="eDate" headerText="Start date"  style="text-align:center">
+		        <p:column sortBy="eDate" headerText="Start date"  style="text-align:center; width:25%;">
 		            <h:outputText value="#{prevExa.eDate}" >
 		            	<f:convertDateTime pattern="dd/MM/yyyy" />
-		            </h:outputText><p:spacer width="15"></p:spacer>
+		            </h:outputText><p:spacer width="15"/>
 		            <h:outputText value="#{prevExa.eStartHour}">
 		            	<f:convertDateTime pattern="HH:mm" />
 		            </h:outputText>
 		        </p:column>
 		
-		        <p:column sortBy="eEndHour" headerText="End hour" style="text-align:center">
+		        <p:column sortBy="eEndHour" headerText="End hour" style="text-align:center; width:25%;">
 		            <h:outputText value="#{prevExa.eEndHour}">
 		            	<f:convertDateTime pattern="HH:mm" />
 		            </h:outputText>
+		        </p:column>
+		        
+		        <p:column style="width:25%;">
+				    
+				    <p:commandButton styleClass="button-right statButton" icon="" action="statistics" title="See exam statistics" >
+	         			<f:setPropertyActionListener value="#{prevExa}" target="#{studentListMB.selectedExam}" />
+	            	</p:commandButton>
+	            	
+	            	<p:commandButton styleClass="button-right" action="listExamsCorrection" icon="ui-icon-copy" title="Correct exam">
+	         			<f:setPropertyActionListener value="#{prevExa}" target="#{studentListMB.selectedExam}" />
+	            	</p:commandButton>
 		        </p:column>
 		  
 			</p:dataTable>

@@ -16,16 +16,16 @@
         		<p:toolbarGroup align="left">
             		<p:commandButton value="Home" action="index" icon="ui-icon-home" actionListener="#{examListMB.clear}"/>
         		</p:toolbarGroup>
+        		<p:toolbarGroup styleClass="toolbarGroupCenter">
+        			<p:outputLabel value="Attribute students to an exam" />
+        		</p:toolbarGroup>
         	</p:toolbar>
 		</h:form>
 		<br/>
 		
-		
 		<h:form id="form">
-		<p:panel header="Attribute students to exam">
-		<h2><p:outputLabel value="Exam: #{examListMB.selectedExam.eName}" /></h2>
 		
-		</p:panel>
+		<h2><p:outputLabel value="#{studentListMB.selectedExam.eName}" /></h2>
 		
 			<p:dataTable id="multiStudents" var="stu" value="#{studentListMB.studentsModel}" sortMode="multiple" 
 					rows="25" paginator="true" widgetVar="studentTable" emptyMessage="No students found with given criteria" 
@@ -40,7 +40,7 @@
 				
 				<p:column selectionMode="multiple" style="width:2%" />
 				
-				<p:column sortBy="sFirstName" headerText="Fisrt name" id="nameColumn" filterBy="sFirstName" filterMatchMode="contains">
+				<p:column sortBy="sFirstName" headerText="Fisrt Name" id="nameColumn" filterBy="sFirstName" filterMatchMode="contains">
 		            	<h:outputText value="#{stu.sFirstName}" />
 		        </p:column>
 				
@@ -52,26 +52,53 @@
 		            <h:outputText value="#{stu.sEmail}" />
 		        </p:column>
 		  
-		  <f:facet name="footer">
-            <p:commandButton id="multiViewButton" value="Add students to exam" icon="ui-icon-search"
-            	update=":form:displayMulti" oncomplete="PF('multiCarDialog').show()"/>
-        </f:facet>
-		  
-		  
+			<f:facet name="footer">
+            	<p:commandButton id="multiViewButton" value="Add students to exam" action="#{studentListMB.addStudentList}"
+            		update=":form:tableStudentRegistered" />
+			</f:facet>
 			</p:dataTable>
 			
-			<p:dialog id="multiDialog" header="Students chosen" widgetVar="multiCarDialog"
-		              height="300" showEffect="fade" hideEffect="explode">
-		  	
-		        <p:dataList id="displayMulti" value="#{studentListMB.selectedStudents}" var="selectedStudent">
-		            Fiestname: #{selectedStudent.sFirstName}, Lastname: #{selectedStudent.sLastName}
-		        </p:dataList>
-		  	
-		    </p:dialog>
+			<br/>
 			
-			
-		</h:form> 
+			<p:dataTable value="#{studentListMB.subscribedStudent}" var="student" sortMode="multiple" widgetVar="studentRegistered"
+					rows="25" paginator="true" emptyMessage="No students found with given criteria" 
+					filteredValue="#{studentListMB.filteredStudents}" id="tableStudentRegistered" >
+				<f:facet name="header">
+				List of registered students
+					<p:outputPanel>
+						<h:outputText value="Search in all fields: " />
+						<p:inputText id="globalFilter" onkeyup="studentRegistered.filter()" style="width:150px" />	
+					</p:outputPanel>
+				</f:facet>
+								
+				<p:column sortBy="sFirstName" headerText="Fisrt Name" id="nameColumn" filterBy="sFirstName" filterMatchMode="contains">
+		            	<h:outputText value="#{student.sFirstName}" />
+		        </p:column>
+				
+		        <p:column sortBy="sLastName" headerText="Last Name" id="lastNameColumns" filterBy="sLastName" filterMatchMode="contains">
+		            <h:outputText value="#{student.sLastName}" />
+		        </p:column>
+				
+		        <p:column sortBy="sEmail" headerText="Email" id="sEmail" filterBy="sEmail" filterMatchMode="contains">
+		            <h:outputText value="#{student.sEmail}" />
+		        </p:column>
+		        
+		        <p:column>
+		        	<p:commandButton icon="ui-icon-close" action="#{studentListMB.deleteStudentList}" 
+							styleClass="button-right" title="Delete student from the list" update="tableStudentRegistered" >
+						<p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+						<f:setPropertyActionListener value="#{student}" target="#{studentListMB.deleteStudent}" />
+					</p:commandButton>
+					
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+				        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+			    	</p:confirmDialog>
+		        </p:column>
+		        
+			</p:dataTable>
 		
+		</h:form>
 		
 	</h:body>
 </html>

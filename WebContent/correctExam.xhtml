@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    >
+    <h:head>
+		<title>Exam of #{studentListMB.selectedStudent.sLastName}, #{studentListMB.selectedStudent.sFirstName}</title>
+		<h:outputStylesheet library="css" name="style.css" />
+	</h:head>
+	<h:body>
+		
+		<h:form>
+    		<p:toolbar>
+        		<p:toolbarGroup align="left">
+            		<p:commandButton value="Go back" action="listExamsCorrection" icon="ui-icon-carat-1-w" actionListener="#{studentListMB.clear}"/>
+        		</p:toolbarGroup>
+        	</p:toolbar>
+		</h:form>
+		<br/>
+		
+		<h:form id="form">
+				<p:panelGrid style="width:100%" styleClass="gridWithoutBorder">
+					<p:row>
+						<p:column>
+							Student: <b><p:outputLabel value="#{studentListMB.selectedStudent.sFirstName} #{studentListMB.selectedStudent.sFirstName}" /></b>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							Exam: <b><p:outputLabel value="#{studentListMB.selectedExam.eName}" /></b>
+						</p:column>
+						<p:column style="text-align:right;">
+								<p:outputLabel value="#{studentListMB.selectedExam.eDate}" >
+									<f:convertDateTime pattern="yyyy-MM-dd" />
+								</p:outputLabel>
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+				
+				<p:separator />
+				
+				<p:dataList id="datalistQuestion" value="#{studentListMB.selectedExam.questions}" 
+				var="question" type="definition" sortMode="Single" sortBy="#{question.qPosition}" styleClass="datalistWithoutBorder">
+				    <p:fieldset>
+            		
+				    <p:panelGrid style="width:100%" styleClass="gridWithoutBorder">
+				    	<p:row>
+					    	<p:column style="width:20%">
+					    		<p:outputLabel value="Question  #{question.qPosition} / #{studentListMB.selectedExam.questions.size()}" />
+					    	</p:column>
+					    	<p:column style="width:65%">
+					    		<b><p:outputLabel value="#{question.qName}" /></b>
+					    	</p:column>
+					    	<p:column style="width:15%; text-align:right;">
+					    		
+					    	</p:column>
+				    	</p:row>
+				    	<p:row>
+					    	<p:column style="width:20%">
+					    	</p:column>
+					    	<p:column style="width:65%">
+					    		<p:outputLabel value="Answer(s): #{answerAddMB.getAnswerStudent(question, studentListMB.selectedStudent).aName}" /><br/>
+					    		<p:outputLabel value="Is correct?: 
+					    			#{answerAddMB.getAnswerStudent(question, studentListMB.selectedStudent).aIsCorrect=='true' ? 'Yes' : 'No/Check answer'}" /><br/>
+					    		<p:outputLabel value="Your comment: #{answerAddMB.getAnswerStudent(question, studentListMB.selectedStudent).aComment}" 
+					    			rendered="#{answerAddMB.getAnswerStudent(question, studentListMB.selectedStudent).aComment!=null}"/>
+					    	</p:column>
+				    	</p:row>
+				    	<p:row>
+					    	<p:column style="width:20%">
+					    		<p:commandButton action="correctQuestion" value="Mark" 
+					    				icon="ui-icon-arrowreturnthick-1-w" title="Mark/add comment">
+			         				<f:setPropertyActionListener value="#{question}" target="#{answerAddMB.selectedQuestion}" />
+			         				<f:setPropertyActionListener value="#{studentListMB.selectedStudent}" target="#{answerAddMB.selectedStudent}" />
+			            		</p:commandButton>
+					    	</p:column>
+					    	<p:column style="width:65%">
+					    	</p:column>
+					    	<p:column style="width:15%;  text-align:right;">
+					    		<p:outputLabel value="#{answerAddMB.getAnswerStudent(question, studentListMB.selectedStudent).aPoint} /
+					    			 #{question.qValue} point#{question.qValue>1 ? 's':''}" />
+					    	</p:column>
+				    	</p:row>
+				    </p:panelGrid>
+				    </p:fieldset>
+				    <br/>
+				</p:dataList>
+        		
+        		<p:commandButton value="Submit correction" 
+        			action="#{studentListMB.submitCorrection(answerAddMB.nbTotalPoint(studentListMB.selectedExam, studentListMB.selectedStudent))}">
+			        <p:confirm header="Confirmation" message="Are you sure?" 
+			        	icon="ui-icon-alert" />
+			    </p:commandButton>
+			  
+			    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+			        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+			        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+			    </p:confirmDialog>
+			  	
+				<p:separator /><br/>
+				
+				<p:fieldset id="aboutExam">
+					<h3><p:outputLabel value="About the exam" /></h3>
+					<p:panelGrid style="width:100%" styleClass="gridWithoutBorder">
+					<p:row>
+						<p:column style="width:20%">
+							<p:outputLabel value="Total points:" />
+						</p:column>
+						<p:column style="width:80%">
+							<b><p:outputLabel value="#{answerAddMB.nbTotalPoint(studentListMB.selectedExam, studentListMB.selectedStudent)}" /></b>
+							<p:outputLabel value=" / #{studentListMB.nbPointExam}" />
+						</p:column>
+					</p:row>
+					</p:panelGrid>
+				</p:fieldset>
+		</h:form>
+		
+		<br/>
+		
+	</h:body>
+</html>
