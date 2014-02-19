@@ -9,8 +9,6 @@ import javax.enterprise.context.SessionScoped;
 import beans.TeacherBean;
 import model.Teacher;
 
-
-
 @Named
 @SessionScoped
 public class TeacherAddMB implements Serializable {

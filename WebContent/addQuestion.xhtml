@@ -95,12 +95,13 @@
         			<p:commandButton value="Add another question" update="panel" action="#{possibleAnswerAddMB.savePA}" 
         					actionListener="#{questionAddMB.saveQuestion}" icon="ui-icon-circle-plus" style="float:right">
         				<f:param name="returnPage" value="addQuestion" />
-        				<f:setPropertyActionListener value="#{questionAddMB.selectedExam}" target="#{possibleAnswerAddMB.selectedExam}" />
         			</p:commandButton>
         		</f:facet>
         		
         	</p:panel>
 
 		</h:form>
+		<br/>
+		<p:outputLabel value="Web 2.0 Programming, Linnaeus University, 2013-2014 — Alejandro DE LUZ, Alexis YVIN" styleClass="credit" />
     </h:body>
 </html>

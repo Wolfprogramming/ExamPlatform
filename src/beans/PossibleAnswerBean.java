@@ -11,9 +11,6 @@ import model.PossibleAnswer;
 import model.Question;
 
 
-/**
- * Session Bean implementation class ExamBean
- */
 @Stateless
 public class PossibleAnswerBean {
 	@PersistenceContext(name="ExaminationPlatform")

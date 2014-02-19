@@ -1,6 +1,6 @@
 body{
 	width:80%;
-	margin:10px auto;
+	margin:10px auto 2px;
 }
 .ui-widget{
 	font-family: Optima, Arial, sans-serif;
@@ -74,8 +74,11 @@ body{
 
 
 .toolbarGroupCenter{
-	text-align:right;
-	width:35%;
+	width:440px;
+	position:absolute;
+	left:50%;
+	margin-left:-220px;
+	text-align:center;
 	line-height:41px;
 }
 
@@ -124,4 +127,15 @@ div.blockStat{
 }
 div.blockStat .ui-outputlabel{
 	font-size:1.8em;
+}
+
+.credit{
+	width:420px;
+	margin: 0 0 0 -210px;
+	position:relative;
+	left:50%;
+	
+	font-size:0.625em;
+	color: #c4c4c4';
+	text-align:center;
 }

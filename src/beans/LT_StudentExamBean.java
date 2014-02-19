@@ -7,15 +7,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import model.Answer;
 import model.Exam;
 import model.LT_StudentExam;
-import model.Question;
 import model.Student;
 
-/**
- * Session Bean implementation class ExamBean
- */
 @Stateless
 public class LT_StudentExamBean {
 	

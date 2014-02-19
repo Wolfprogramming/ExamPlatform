@@ -3,7 +3,6 @@ package managedBeans;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.inject.Named;
@@ -12,7 +11,6 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
 import org.primefaces.event.SelectEvent;
@@ -25,11 +23,8 @@ import model.LT_StudentExam;
 import model.Question;
 import model.Student;
 import model.StudentDataModel;
-import model.Teacher;
 
-/**
- * Session Bean implementation class TeacherListMB
- */
+
 @Named
 @SessionScoped
 public class StudentListMB implements Serializable {

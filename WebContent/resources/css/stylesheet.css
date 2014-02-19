@@ -305,3 +305,18 @@ FOOTER
 .ui-state-default.reset{
 	box-shadow: none;
 }
+
+/* Credit */
+.credit{
+	width:420px;
+	
+	position:absolute;
+	bottom:0;
+	left:50%;
+	margin-left:-200px;
+	margin-bottom:2px;
+	
+	font-size:0.625em;
+	color: white;
+	text-align:center;
+}

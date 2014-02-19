@@ -12,9 +12,6 @@ import model.Exam;
 import model.Question;
 import model.Student;
 
-/**
- * Session Bean implementation class ExamBean
- */
 @Stateless
 public class AnswerBean {
 	

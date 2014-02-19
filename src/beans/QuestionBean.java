@@ -11,9 +11,6 @@ import model.Exam;
 import model.Question;
 
 
-/**
- * Session Bean implementation class ExamBean
- */
 @Stateful
 public class QuestionBean {
 

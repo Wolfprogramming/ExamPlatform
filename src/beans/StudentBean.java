@@ -11,9 +11,7 @@ import javax.persistence.TypedQuery;
 
 import model.Student;
 
-/**
- * Session Bean implementation class TestListExams
- */
+
 @Stateless
 @LocalBean
 @Startup

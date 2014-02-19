@@ -71,19 +71,19 @@
 					</p:outputPanel>
 				</f:facet>
 								
-				<p:column sortBy="sFirstName" headerText="Fisrt Name" id="nameColumn" filterBy="sFirstName" filterMatchMode="contains">
+				<p:column sortBy="sFirstName" headerText="Fisrt Name" id="nameColumn" filterBy="sFirstName" filterMatchMode="contains" style="width:30%;">
 		            	<h:outputText value="#{student.sFirstName}" />
 		        </p:column>
 				
-		        <p:column sortBy="sLastName" headerText="Last Name" id="lastNameColumns" filterBy="sLastName" filterMatchMode="contains">
+		        <p:column sortBy="sLastName" headerText="Last Name" id="lastNameColumns" filterBy="sLastName" filterMatchMode="contains" style="width:30%;">
 		            <h:outputText value="#{student.sLastName}" />
 		        </p:column>
 				
-		        <p:column sortBy="sEmail" headerText="Email" id="sEmail" filterBy="sEmail" filterMatchMode="contains">
+		        <p:column sortBy="sEmail" headerText="Email" id="sEmail" filterBy="sEmail" filterMatchMode="contains" style="width:30%;">
 		            <h:outputText value="#{student.sEmail}" />
 		        </p:column>
 		        
-		        <p:column>
+		        <p:column style="width:10%;">
 		        	<p:commandButton icon="ui-icon-close" action="#{studentListMB.deleteStudentList}" 
 							styleClass="button-right" title="Delete student from the list" update="tableStudentRegistered" >
 						<p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
@@ -99,6 +99,7 @@
 			</p:dataTable>
 		
 		</h:form>
-		
+		<br/>
+		<p:outputLabel value="Web 2.0 Programming, Linnaeus University, 2013-2014 — Alejandro DE LUZ, Alexis YVIN" styleClass="credit" />
 	</h:body>
 </html>
