@@ -1,45 +1,75 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <html lang="fr"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <title>Login page</title>
-        <h:outputStylesheet library="css" name="style.css" />
-    </h:head>
-    <h:body>
-      
-        <h:form id="form">
-        	<h2><p:outputLabel value="Welcome on the Exam portal!" /></h2>
-        	
-        	<p:panel id="panel" header="Login">
-        	<p:focus context="panel"/>
-        		<h:outputLabel value="Enter your username and password:"/>
-				<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
-	        	<h:panelGrid columns="3" style="margin-bottom:10px">
-	        	
-		        	<p:outputLabel for="un" value="Username:" />
-		            <p:inputText id="un" value="#{loginMB.username}" 
-		            	required="true" requiredMessage="Username is required."/>
-		            <p:message for="un"></p:message>
-					
-					<p:outputLabel for="pw" value="Password:" />
-					<p:inputText id="pw" value="#{loginMB.password}" 
-						required="true" requiredMessage="Password is required."/>
-					<p:message for="pw"></p:message>
-				</h:panelGrid>
-			</p:panel>
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Login page</title>
+		
+		<link type="text/css" rel="stylesheet" href="resources/css/stylesheet.css"/>
+		
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+		<script type="text/javascript">
+		$(document).ready(function() {
+			$(".username").focus(function() {
+				$(".user-icon").css("left","-48px");
+			});
+			$(".username").blur(function() {
+				$(".user-icon").css("left","0px");
+			});
 			
-			<p:commandButton value="Login" actionListener="#{loginMB.login}" update="panel" />
-			<p:commandButton value="Reset" update="panel" process="@this" actionListener="#{loginMB.reset}">
-				<p:resetInput target="panel"></p:resetInput>
-			</p:commandButton>
-		
-		</h:form>
-		
-    </h:body>
+			$(".password").focus(function() {
+				$(".pass-icon").css("left","-48px");
+			});
+			$(".password").blur(function() {
+				$(".pass-icon").css("left","0px");
+			});
+		});
+		</script>
+	</h:head>
+	
+	<h:body>
+		<div id="wrapper">
+			<h:form id="form">
+
+			    <div class="user-icon"></div>
+			    <div class="pass-icon"></div>
+
+				<p:panel styleClass="login-form" id="panel" >
+					
+					<p:focus context="panel"/>
+					
+				    <div class="header">
+					    <h1>Exam platform</h1>
+					    <span>Fill out the form below with your email and password to enter in the exam platform.</span>
+					    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+				    </div>
+					
+				    <div class="content">
+				    	<p:inputText value="#{loginMB.username}" styleClass="input username" required="true" 
+				    		placeholder="Username" requiredMessage="Username is required." />
+				    	<p:password value="#{loginMB.password}" styleClass="input password" required="true" 
+				    		placeholder="Password" requiredMessage="Password is required." />
+				    </div>
+				    
+				    <div class="footer">
+				    	<p:commandButton value="Login" actionListener="#{loginMB.login}" update="panel" styleClass="button" />
+				    	<p:commandButton value="Reset" update="panel" process="@this" actionListener="#{loginMB.reset}" styleClass="reset">
+							<p:resetInput target="panel"></p:resetInput>
+						</p:commandButton>
+				    </div>
+				    
+				</p:panel>
+				
+				<div class="gradient"></div>
+				
+			</h:form>
+		</div>
+	</h:body>
 </html>

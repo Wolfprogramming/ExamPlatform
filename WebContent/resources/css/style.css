@@ -68,7 +68,8 @@ body{
 }
 
 .ui-datatable.datatableHidden div.ui-datatable-header{
-	visibility: hidden;
+	background-color:white;
+	border:0;
 }
 
 
