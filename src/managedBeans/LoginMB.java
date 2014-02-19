@@ -42,13 +42,25 @@ public class LoginMB implements Serializable{
     	FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext externalContext = context.getExternalContext();
         
+        RequestContext context2 = RequestContext.getCurrentInstance();
+        
         resultTeacher = theTeacher.findTeacher(username);
         resultStudent = theStudent.findStudent(username);
         
         if (resultTeacher.gettPassword().equals("error") && resultStudent.getSPassword().equals("error" )){
         	
+        	//Trying to show an error message with a notification bar
+        	context2.execute("bar.show()");
+        	RequestContext.getCurrentInstance().execute("bar.show();");
+        	
+        	
+        	
+        	
+        	
+        	
         	context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Identification failed", "Wrong username or password"));
     		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"HINT", "Your username is your e-mail"));
+    		
     		
         }//Login teacher
         else if(password.equals(resultTeacher.gettPassword())){
@@ -78,12 +90,13 @@ public class LoginMB implements Serializable{
     public void logout() throws IOException {
     	setUsername("");
     	setPassword("");
-    	setResultTeacher(null);
-    	setResultStudent(null);
+    	setresultTeacher(null);
+    	setresultStudent(null);
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         externalContext.invalidateSession();
         externalContext.redirect(externalContext.getRequestContextPath() + "/loginPage.xhtml");
     }
+    
     
     public void reset(){
     	RequestContext.getCurrentInstance().reset("form:panel"); 
@@ -105,19 +118,19 @@ public class LoginMB implements Serializable{
 		this.password = password;
 	}
 
-	public Teacher getResultTeacher() {
+	public Teacher getresultTeacher() {
 		return resultTeacher;
 	}
 
-	public void setResultTeacher(Teacher resultTeacher) {
+	public void setresultTeacher(Teacher resultTeacher) {
 		this.resultTeacher = resultTeacher;
 	}
 
-	public Student getResultStudent() {
+	public Student getresultStudent() {
 		return resultStudent;
 	}
 
-	public void setResultStudent(Student resultStudent) {
+	public void setresultStudent(Student resultStudent) {
 		this.resultStudent = resultStudent;
 	}
 	
