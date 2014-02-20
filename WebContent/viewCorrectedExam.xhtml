@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>View exam</title>
+    </h:head>
+    <h:body>
+    <f:facet name="last">
+    	<h:outputStylesheet library="css" name="style.css" />
+	</f:facet>
+		<h:form>
+    		<p:toolbar>
+    			<p:toolbarGroup align="left">  
+            		<p:commandButton value="Home" action="indexStudent" icon="ui-icon-home" 
+            			actionListener="#{examListMB.clear}" />
+        		</p:toolbarGroup>
+   				
+        		<p:toolbarGroup align="right">
+            	
+        		</p:toolbarGroup>
+        	</p:toolbar>
+		</h:form>
+		<br/>
+		
+        <h:form prependId="false" id="form">
+        	<p:panelGrid style="width:100%" styleClass="gridWithoutBorder">
+				<p:row>
+					<p:column>
+						Exam: <b><p:outputLabel value="#{studentListMB.selectedExam.eName}" /></b>
+					</p:column>
+					<p:column style="text-align:right;">
+							<p:outputLabel value="#{studentListMB.selectedExam.eDate}" >
+								<f:convertDateTime pattern="yyyy-MM-dd" />
+							</p:outputLabel>
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+			
+			<p:separator />
+			
+			<p:dataList id="datalistQuestion" value="#{studentListMB.selectedExam.questions}" 
+			var="question" type="definition" sortMode="Single" sortBy="#{question.qPosition}" styleClass="datalistWithoutBorder">
+			    <p:fieldset>
+           		
+			    <p:panelGrid style="width:100%" styleClass="gridWithoutBorder">
+			    	<p:row>
+				    	<p:column style="width:20%">
+				    		<p:outputLabel value="Question  #{question.qPosition} / #{studentListMB.selectedExam.questions.size()}" />
+				    	</p:column>
+				    	<p:column style="width:65%">
+				    		<b><p:outputLabel value="#{question.qName}" /></b>
+				    	</p:column>
+				    	<p:column style="width:15%; text-align:right;">
+				    		
+				    	</p:column>
+			    	</p:row>
+			    	
+			    	<p:row>
+				    	<p:column style="width:20%">
+				    		<p:outputLabel value="Help text" rendered="#{question.qHelp!=''}" />
+				    	</p:column>
+				    	<p:column style="width:65%">
+				    		<p:outputLabel value="#{question.qHelp}" rendered="#{question.qHelp!=''}" />
+				    	</p:column>
+				    	<p:column style="width:15%">
+				    	</p:column>
+			    	</p:row>
+			    	
+			    	<p:row>
+				    	<p:column style="width:20%">
+				    	</p:column>
+				    	<p:column style="width:65%">
+				    		<p:outputLabel value="Your answer(s): #{answerAddMB.questionAnswer(question).aName}" /><br/><br/>
+				    		<p:outputLabel value="Teacher\'s comment: #{answerAddMB.questionAnswer(question).aComment!='' ? 
+				    		answerAddMB.questionAnswer(question).aComment : 'No comment.'}"/>
+				    	</p:column>
+			    	</p:row>
+			    	<p:row>
+				    	<p:column style="width:20%">
+				    	</p:column>
+				    	<p:column style="width:65%">
+				    	</p:column>
+				    	<p:column style="width:15%;  text-align:right;">
+				    		<p:outputLabel value="#{answerAddMB.questionAnswer(question).aPoint} /
+				    			 #{question.qValue} point#{question.qValue>1 ? 's':''}" />
+				    	</p:column>
+			    	</p:row>
+			    </p:panelGrid>
+			    </p:fieldset>
+			    <br/>
+			</p:dataList>
+		  	
+			<p:separator /><br/>
+			
+			<p:fieldset id="aboutExam">
+				<h3><p:outputLabel value="About the exam" /></h3>
+				<p:panelGrid style="width:100%" styleClass="gridWithoutBorder">
+				<p:row>
+					<p:column style="width:20%">
+						<p:outputLabel value="Total points:" />
+					</p:column>
+					<p:column style="width:80%">
+						<b><p:outputLabel value="#{answerAddMB.nbTotalPoint(studentListMB.selectedExam)}" /></b>
+						<p:outputLabel value=" / #{studentListMB.nbPointExam}" />
+					</p:column>
+				</p:row>
+				</p:panelGrid>
+			</p:fieldset>
+		</h:form>
+		<p:outputLabel value="Web 2.0 Programming, Linnaeus University, 2013-2014 — Alejandro DE LUZ, Alexis YVIN" styleClass="credit" />
+    </h:body>
+</html>

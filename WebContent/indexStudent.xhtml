@@ -4,7 +4,8 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:p="http://primefaces.org/ui">
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions">
     <h:head>
 		<title>Student Start page</title>
 		<h:outputStylesheet library="css" name="style.css" />
@@ -37,11 +38,11 @@
 					sortMode="multiple" rows="10" paginator="true" widgetVar="upcomingExamTable" 
 					emptyMessage="No exams found with that criteria" filteredValue="#{examListMB.filteredExams}" >
 				<f:facet name="header">
-					<p:messages id="message" showDetail="true" autoUpdate="true" closable="true" />
+					<p:messages id="messageUpcoming" showDetail="true" autoUpdate="true" closable="true" />
 				</f:facet>
 				
 				<p:column sortBy="eName" headerText="Name" filterBy="eName" filterMatchMode="contains" style="width:50%;">
-		        	<p:commandLink update="message" title="Go to exam" id="answerExam" actionListener="#{examListMB.isOpenExam}">
+		        	<p:commandLink update="messageUpcoming" title="Go to exam" id="answerExam" actionListener="#{examListMB.isOpenExam}">
 		            	<p:outputLabel value="#{UpExa.eName}" />
 						<f:setPropertyActionListener value="#{UpExa}" target="#{examListMB.selectedExam}" />
 						<f:attribute name="selectExam" value="#{UpExa}" />
@@ -74,10 +75,19 @@
 				</p:row>
 			</p:panelGrid>
 			
-			<p:dataTable value="#{examListMB.previousExams}" var="prevExa">
+			<p:dataTable value="#{examListMB.previousExams}" var="prevExa" styleClass="datatableHidden"
+					sortMode="multiple" rows="10" paginator="true"
+					emptyMessage="No exams found with that criteria" filteredValue="#{examListMB.filteredExams}">
+				<f:facet name="header">
+					<p:messages id="messagePrevious" showDetail="true" autoUpdate="true" closable="true" />
+				</f:facet>
 				
 				<p:column sortBy="eName" headerText="Name" style="width:30%;">
+		            <p:commandLink update="messagePrevious" title="Go to exam" actionListener="#{examListMB.isCorrectedExam}">
 		            	<p:outputLabel value="#{prevExa.eName}" />
+						<f:setPropertyActionListener value="#{prevExa}" target="#{studentListMB.selectedExam}" />
+						<f:attribute name="selectPrevExam" value="#{prevExa}" />
+		            </p:commandLink>
 		        </p:column>
 				
 		        <p:column sortBy="eDate" headerText="Start date" style="width:30%;text-align:center;">
@@ -92,11 +102,12 @@
 		            </p:outputLabel>
 		        </p:column>
 				
-		        <p:column headerText="Status" style="width:20%;">
-		            <p:outputLabel value="#{studentListMB.statusMarkExam(loginMB.resultStudent, prevExa).ltTeacherStatus}" />
+		        <p:column headerText="Status" style="width:20%;text-align:center;">
+		            <p:outputLabel value="#{fn:toUpperCase(fn:substring(studentListMB.statusMarkExam(loginMB.resultStudent, prevExa).ltTeacherStatus, 0, 1))}" />
+		            <p:outputLabel value="#{fn:substring(studentListMB.statusMarkExam(loginMB.resultStudent, prevExa).ltTeacherStatus, 1, 10)}" />
 		        </p:column>
 		        
-		        <p:column headerText="Mark" style="width:20%;">
+		        <p:column headerText="Mark" style="width:20%;text-align:center;">
 		            <p:outputLabel value="#{studentListMB.statusMarkExam(loginMB.resultStudent, prevExa).ltFinalGrade} / 
 		            #{studentListMB.nbPointExam}" />
 		        </p:column>

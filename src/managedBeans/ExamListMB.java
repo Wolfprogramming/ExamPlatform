@@ -193,10 +193,10 @@ public class ExamListMB implements Serializable {
         ExternalContext externalContext = context.getExternalContext();
         
 		Date date = new Date();
-		setSelectedExam( (Exam)event.getComponent().getAttributes().get("selectExam"));
+		setSelectedExam((Exam)event.getComponent().getAttributes().get("selectExam"));
 		Date start = new Date(selectedExam.geteDate().getTime()+selectedExam.geteStartHour().getTime()+3600000);
 		Date end = new Date(selectedExam.geteDate().getTime()+selectedExam.geteEndHour().getTime()+3600000);
-				
+		
 		Student student = (Student) externalContext.getSessionMap().get("student");
 		LT_StudentExam link = theLink.findLT_StudentExam(selectedExam, student);
 		
@@ -205,13 +205,35 @@ public class ExamListMB implements Serializable {
 			externalContext.redirect(externalContext.getRequestContextPath() + "/answerExam.xhtml");
 		}
 		else if(link.getltStudentStatus().equals("submitted")){
-			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Access denied!",  "You cannot access this exam, you already submitted it.");  
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Access denied!",  "You cannot access this exam, you already submitted it.");
 			context.addMessage(null, message);
 		}
 		else{
-			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Access denied!",  "This exam is not accessible yet! Please try again in due time.");  
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Access denied!",  "This exam is not accessible yet! Please try again in due time.");
 			context.addMessage(null, message);
-		}		
+		}
+	}
+	
+	/*
+	 * This function tells if a student can access a previous exam depending if it has been corrected or not
+	 */
+	public void isCorrectedExam(ActionEvent event) throws IOException{
+		FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = context.getExternalContext();
+        
+		setSelectedExam((Exam)event.getComponent().getAttributes().get("selectPrevExam"));
+		
+		Student student = (Student) externalContext.getSessionMap().get("student");
+		LT_StudentExam link = theLink.findLT_StudentExam(selectedExam, student);
+		
+		if(link.getltTeacherStatus().equals("corrected")){
+			externalContext.getSessionMap().put("exam", selectedExam);
+			externalContext.redirect(externalContext.getRequestContextPath() + "/viewCorrectedExam.xhtml");
+		}
+		else{
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Access denied!",  "This exam has not been corrected yet.");
+			context.addMessage(null, message);
+		}
 	}
 	
 	public String editExam(){

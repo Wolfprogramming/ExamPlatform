@@ -236,7 +236,7 @@ public class AnswerAddMB implements Serializable{
 		Date current = new Date();
 		Date endExam = new Date(selectedExam.geteDate().getTime()+selectedExam.geteEndHour().getTime()+3600000);
 		
-		//control that time is not up to answer question
+		//control that exam time is not over
 		if(current.compareTo(endExam)<0){
 
 			if(selectedQuestion.getqType().equals("multipleChoice")){
@@ -358,6 +358,10 @@ public class AnswerAddMB implements Serializable{
 	}
 	
 	public float nbTotalPoint(Exam exam, Student student){
+		return theAnswer.findNbPointOfExam(exam, student);
+	}
+	
+	public float nbTotalPoint(Exam exam){
 		return theAnswer.findNbPointOfExam(exam, student);
 	}
 
