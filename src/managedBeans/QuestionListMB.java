@@ -73,6 +73,7 @@ public class QuestionListMB implements Serializable {
 		selectedQuestion.setqHelp(selectedQuestion.getqHelp());
 		selectedQuestion.setqName(selectedQuestion.getqName());
 		selectedQuestion.setqPosition(selectedQuestion.getqPosition());
+		selectedQuestion.setqHelp(selectedQuestion.getqHelp());
 		selectedQuestion.setqType(selectedQuestion.getqType());
 		selectedQuestion.setqValue(selectedQuestion.getqValue());
 		theQuestions.doUpdate(selectedQuestion);

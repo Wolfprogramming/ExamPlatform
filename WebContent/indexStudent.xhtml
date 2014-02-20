@@ -40,7 +40,7 @@
 					<p:messages id="message" showDetail="true" autoUpdate="true" closable="true" />
 				</f:facet>
 				
-				<p:column sortBy="eName" headerText="Name" filterBy="eName" filterMatchMode="contains">
+				<p:column sortBy="eName" headerText="Name" filterBy="eName" filterMatchMode="contains" style="width:50%;">
 		        	<p:commandLink update="message" title="Go to exam" id="answerExam" actionListener="#{examListMB.isOpenExam}">
 		            	<p:outputLabel value="#{UpExa.eName}" />
 						<f:setPropertyActionListener value="#{UpExa}" target="#{examListMB.selectedExam}" />
@@ -49,7 +49,7 @@
 		        </p:column>
 		        
 				
-		        <p:column sortBy="eDate" headerText="Start date">
+		        <p:column sortBy="eDate" headerText="Start date" style="width:50%;text-align:center;">
 		            <p:outputLabel value="#{UpExa.eDate}" >
 		            	<f:convertDateTime pattern="dd/MM/yyyy" />
 		            </p:outputLabel><p:spacer width="15"/>
@@ -76,11 +76,11 @@
 			
 			<p:dataTable value="#{examListMB.previousExams}" var="prevExa">
 				
-				<p:column sortBy="eName" headerText="Name">
+				<p:column sortBy="eName" headerText="Name" style="width:30%;">
 		            	<p:outputLabel value="#{prevExa.eName}" />
 		        </p:column>
 				
-		        <p:column sortBy="eDate" headerText="Start date">
+		        <p:column sortBy="eDate" headerText="Start date" style="width:30%;text-align:center;">
 		            <p:outputLabel value="#{prevExa.eDate}" >
 		            	<f:convertDateTime pattern="dd/MM/yyyy" />
 		            </p:outputLabel><p:spacer width="15"/>
@@ -91,12 +91,12 @@
 		            	<f:convertDateTime pattern="HH:mm" />
 		            </p:outputLabel>
 		        </p:column>
-		
-		        <p:column headerText="Status">
+				
+		        <p:column headerText="Status" style="width:20%;">
 		            <p:outputLabel value="#{studentListMB.statusMarkExam(loginMB.resultStudent, prevExa).ltTeacherStatus}" />
 		        </p:column>
 		        
-		        <p:column headerText="Mark">
+		        <p:column headerText="Mark" style="width:20%;">
 		            <p:outputLabel value="#{studentListMB.statusMarkExam(loginMB.resultStudent, prevExa).ltFinalGrade} / 
 		            #{studentListMB.nbPointExam}" />
 		        </p:column>

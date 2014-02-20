@@ -41,6 +41,17 @@
 				    	
 				    	<p:row>
 					    	<p:column style="width:15%">
+					    		<p:outputLabel value="Help text" rendered="#{answerAddMB.selectedQuestion.qHelp!=''}" />
+					    	</p:column>
+					    	<p:column style="width:65%">
+					    		<p:outputLabel value="#{answerAddMB.selectedQuestion.qHelp}" rendered="#{answerAddMB.selectedQuestion.qHelp!=''}" />
+					    	</p:column>
+					    	<p:column style="width:20%">
+					    	</p:column>
+				    	</p:row>
+				    	
+				    	<p:row>
+					    	<p:column style="width:15%">
 					    	</p:column>
 					    	<p:column style="width:65%">
 								<p:fieldset >

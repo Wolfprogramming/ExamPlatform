@@ -42,26 +42,12 @@ public class LoginMB implements Serializable{
     	FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext externalContext = context.getExternalContext();
         
-        RequestContext context2 = RequestContext.getCurrentInstance();
-        
         resultTeacher = theTeacher.findTeacher(username);
         resultStudent = theStudent.findStudent(username);
         
         if (resultTeacher.gettPassword().equals("error") && resultStudent.getSPassword().equals("error" )){
-        	
-        	//Trying to show an error message with a notification bar
-        	context2.execute("bar.show()");
-        	RequestContext.getCurrentInstance().execute("bar.show();");
-        	
-        	
-        	
-        	
-        	
-        	
         	context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Identification failed", "Wrong username or password"));
     		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"HINT", "Your username is your e-mail"));
-    		
-    		
         }//Login teacher
         else if(password.equals(resultTeacher.gettPassword())){
         	System.out.println("Identification TEACHER succeed");
@@ -99,6 +85,8 @@ public class LoginMB implements Serializable{
     
     
     public void reset(){
+    	setUsername("");
+    	setPassword("");
     	RequestContext.getCurrentInstance().reset("form:panel");
     }
 

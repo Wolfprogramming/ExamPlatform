@@ -97,6 +97,18 @@
 					    		<p:outputLabel value="Answered" rendered="#{answerAddMB.isQuestionAnswered(question)}" />
 					    	</p:column>
 				    	</p:row>
+				    	
+				    	<p:row>
+					    	<p:column style="width:20%">
+					    		<p:outputLabel value="Help text" rendered="#{question.qHelp!=''}" />
+					    	</p:column>
+					    	<p:column style="width:65%">
+					    		<p:outputLabel value="#{question.qHelp}" rendered="#{question.qHelp!=''}" />
+					    	</p:column>
+					    	<p:column style="width:15%">
+					    	</p:column>
+				    	</p:row>
+				    	
 				    	<p:row>
 					    	<p:column style="width:20%">
 					    	</p:column>
