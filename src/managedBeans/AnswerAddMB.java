@@ -254,16 +254,19 @@ public class AnswerAddMB implements Serializable{
 				for(int i=0; i<selectedQuestion.getPossibleAnswers().size(); i++){
 					for(int j=0; j<selectedAnswers.size(); j++){
 						if(selectedQuestion.getPossibleAnswers().get(i).getPaName().equals(selectedAnswers.get(j))){
+							//number of possible and students' answers equals
 							cpt1++;
 							if(selectedQuestion.getPossibleAnswers().get(i).getPaIsCorrect()){
+								//number of correct answers when Possible answer and student's answer are equals
 								cpt2++;
 							}
 						}
 					}
+					//number of correct answers of the question
 					if(selectedQuestion.getPossibleAnswers().get(i).getPaIsCorrect())
 						cpt3++;
 				}
-				//If count are equal and different from 0, then answers are correct
+				//If counts are equal and different from 0, then answers are correct
 				System.out.println("cpt1: " +cpt1);
 				System.out.println("cpt2: " +cpt2);
 				if(cpt3!=0 && cpt1==cpt3 && cpt1==cpt2)
