@@ -334,6 +334,7 @@ public class AnswerAddMB implements Serializable{
 		else{
 			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Time elapsed!", "Exam is over, you have to submit it now.");  
 			FacesContext.getCurrentInstance().addMessage(null, message);
+			System.out.println("time elapsed");
 		}
 		
 		externalContext.redirect(externalContext.getRequestContextPath() + "/answerExam.xhtml");

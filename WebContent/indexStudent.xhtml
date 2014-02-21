@@ -86,6 +86,7 @@
 		            <p:commandLink update="messagePrevious" title="Go to exam" actionListener="#{examListMB.isCorrectedExam}">
 		            	<p:outputLabel value="#{prevExa.eName}" />
 						<f:setPropertyActionListener value="#{prevExa}" target="#{studentListMB.selectedExam}" />
+						<f:setPropertyActionListener value="#{prevExa}" target="#{answerAddMB.selectedExam}" />
 						<f:attribute name="selectPrevExam" value="#{prevExa}" />
 		            </p:commandLink>
 		        </p:column>

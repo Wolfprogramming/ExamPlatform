@@ -34,6 +34,7 @@ public class StudentListMB implements Serializable {
 	private List<Student> subscribedStudent;
 	private List<Student> allStudents;
 	private List<Student> filteredStudents;
+	private List<Student> filteredRegisteredStudents;
 	private Student[] selectedStudents;
 	private StudentDataModel studentsModel;
 	private Exam selectedExam;
@@ -79,6 +80,17 @@ public class StudentListMB implements Serializable {
 	public void setfilteredStudents(List<Student> filteredStudents) {
 		this.filteredStudents = filteredStudents;
 	}
+
+	public List<Student> getFilteredRegisteredStudents() {
+		return filteredRegisteredStudents;
+	}
+
+
+	public void setFilteredRegisteredStudents(
+			List<Student> filteredRegisteredStudents) {
+		this.filteredRegisteredStudents = filteredRegisteredStudents;
+	}
+
 
 	public Student[] getSelectedStudents() {
 		return selectedStudents;
@@ -311,6 +323,8 @@ public class StudentListMB implements Serializable {
 				}
 			}
 			setSelectedStudents(null);
+			setfilteredStudents(null);
+			setFilteredRegisteredStudents(null);
 		}
 		
 		return "attributeStudent";
