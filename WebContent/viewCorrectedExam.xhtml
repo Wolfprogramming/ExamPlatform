@@ -27,6 +27,7 @@
 		<br/>
 		
         <h:form prependId="false" id="form">
+        
         	<p:panelGrid style="width:100%" styleClass="gridWithoutBorder">
 				<p:row>
 					<p:column>
@@ -75,8 +76,8 @@
 				    	</p:column>
 				    	<p:column style="width:65%">
 				    		<p:outputLabel value="Your answer(s): #{answerAddMB.questionAnswer(question).aName}" /><br/><br/>
-				    		<p:outputLabel value="Teacher\'s comment: #{answerAddMB.questionAnswer(question).aComment!='' ? 
-				    		answerAddMB.questionAnswer(question).aComment : 'No comment.'}"/>
+				    		<p:outputLabel value="Teacher\'s comment: #{answerAddMB.questionAnswer(question).aComment}" 
+				    			rendered="#{answerAddMB.questionAnswer(question).aComment!='' and answerAddMB.questionAnswer(question).aComment!=null}"/>
 				    	</p:column>
 			    	</p:row>
 			    	<p:row>

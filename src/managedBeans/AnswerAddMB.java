@@ -262,7 +262,7 @@ public class AnswerAddMB implements Serializable{
 							}
 						}
 					}
-					//number of correct answers of the question
+					//number of correct answers of the question 
 					if(selectedQuestion.getPossibleAnswers().get(i).getPaIsCorrect())
 						cpt3++;
 				}

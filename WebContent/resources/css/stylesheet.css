@@ -192,7 +192,7 @@ CONTENT
 }
 
 .user-icon {
-	top:158px; /* Positioning fix for slide-in, got lazy to think up of simpler method. */
+	top:158px;
 	background: rgba(65,72,72,0.75) url(../img/user-icon.png) no-repeat center;	
 }
 
